@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Find a Ride - RideMitra</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-independence find-ride-page">
+
+    <!-- =====================================================
+         MOBILE / SIDEBAR TOGGLE
+         IMPORTANT:
+         Sidebar is controlled by global script.js.
+         Do NOT add another toggle script here.
+         ===================================================== -->
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation"
+        aria-controls="sideNav"
+        aria-expanded="true">
+
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+
+    <!-- =====================================================
+         LEFT SIDEBAR
+         ===================================================== -->
+    <nav class="side-nav" id="sideNav">
+
+        <!-- Logo -->
+        <div class="side-logo">
+            <i class="fa-solid fa-car-side logo-icon"></i>
+
+            <strong>
+                Ride<span>Mitra</span>
+            </strong>
+        </div>
+
+
+        <!-- Navigation -->
+        <div class="side-nav-links">
+
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="find-ride.html" class="active">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Find Ride</span>
+            </a>
+
+            <a href="offer-ride.html">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span>Offer Ride</span>
+            </a>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+    <div class="main-layout">
+
+
+        <!-- =================================================
+             TOP BAR
+             ================================================= -->
+        <header class="top-bar">
+
+            <div class="top-bar-left">
+                <h2>Find a Ride</h2>
+            </div>
+
+
+            <!-- User Area is handled by script.js -->
+            <div class="top-bar-right" id="userArea">
+
+                <!-- Fallback login -->
+                <a href="login.html" class="btn secondary">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             HERO / SEARCH
+             ================================================= -->
+        <main>
+
+            <section class="hero">
+
+                <h1>
+                    Find Your Perfect Ride
+                </h1>
+
+                <p>
+                    Search for verified drivers travelling on your route.
+                </p>
+
+
+                <!-- Search Box -->
+                <div class="search-box">
+
+
+                    <!-- FROM -->
+                    <div class="input-group">
+
+                        <label for="fromLocation">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>From</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fromLocation"
+                            name="fromLocation"
+                            placeholder="Enter starting location"
+                            autocomplete="off">
+
+                    </div>
+
+
+
+                    <!-- TO -->
+                    <div class="input-group">
+
+                        <label for="toLocation">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                            <span>To</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="toLocation"
+                            name="toLocation"
+                            placeholder="Enter destination"
+                            autocomplete="off">
+
+                    </div>
+
+
+
+                    <!-- DATE -->
+                    <div class="input-group">
+
+                        <label for="travelDate">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>Date</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            id="travelDate"
+                            name="travelDate">
+
+                    </div>
+
+
+
+                    <!-- SEARCH BUTTON -->
+                    <button
+                        type="button"
+                        class="btn primary"
+                        id="searchButton">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <span>Search Ride</span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 AVAILABLE RIDES
+                 ================================================= -->
+            <section class="rides-section">
+
+                <h2>
+                    Available Rides
+                </h2>
+
+                <!-- Rides are loaded by script.js -->
+                <div id="publishedRide"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RIDE DETAILS MODAL
+         ===================================================== -->
+    <div
+        id="rideModal"
+        class="ride-modal"
+        style="display: none;">
+
+        <div class="ride-modal-content">
+
+            <!-- Close -->
+            <button
+                type="button"
+                id="closeRideModal"
+                class="ride-modal-close"
+                aria-label="Close ride details">
+
+                &times;
+
+            </button>
+
+
+            <h2>
+                <i class="fa-solid fa-car"></i>
+                Ride Details
+            </h2>
+
+
+            <!-- Dynamic ride details -->
+            <div id="rideModalDetails"></div>
+
+
+            <!-- Join -->
+            <button
+                type="button"
+                id="joinRideModalButton"
+                class="btn primary">
+
+                <i class="fa-solid fa-user-plus"></i>
+                Join Ride
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         GLOBAL JAVASCRIPT
+         
+         IMPORTANT:
+         No separate sidebar script here.
+         script.js already handles:
+         - desktop sidebar
+         - mobile sidebar
+         - hamburger / X icon
+         - full-width layout
+         - resize
+         ===================================================== -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

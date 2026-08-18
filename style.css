@@ -1,0 +1,6520 @@
+/* =========================================================
+   RIDEMITRA - ULTRA PREMIUM RAPIDO / UBER STYLE SYSTEM
+   Color Palette: Vibrant Rapido Yellow (#FFC000), Dark Slate (#0F172A), Modern Gray (#F8FAFC)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* --- Root Variables --- */
+:root {
+    --primary-yellow: #FFC000;
+    --primary-hover: #E0A800;
+    --dark-bg: #0F172A;
+    --dark-card: #1E293B;
+    --light-bg: #F8FAFC;
+    --light-card: #FFFFFF;
+    --text-main: #0F172A;
+    --text-muted: #64748B;
+    --border-color: #E2E8F0;
+    --accent-green: #10B981;
+    --accent-blue: #2563EB;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+}
+
+/* --- Dark Mode Variables Override --- */
+body.dark-mode {
+    --light-bg: #0B0F19;
+    --light-card: #151D2A;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border-color: #1E293B;
+}
+
+/* --- Global Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-main);
+    line-height: 1.5;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* --- Top Navigation Bar --- */
+.ridemitra-topbar {
+    position: sticky;
+    top: 0;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px 0 80px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+body.dark-mode .ridemitra-topbar {
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.ridemitra-welcome-title {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.ridemitra-welcome-title span {
+    color: var(--primary-yellow);
+    background: linear-gradient(135deg, #FFC000, #FF8C00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ridemitra-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Dynamic Buttons */
+.topbar-login, .topbar-dashboard {
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.topbar-login {
+    background: var(--primary-yellow);
+    color: #000;
+}
+
+.topbar-login:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.topbar-dashboard {
+    background: var(--dark-bg);
+    color: #fff;
+}
+
+.topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: var(--light-card);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--primary-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #000;
+}
+
+/* --- Modern Sidebar --- */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--light-card);
+    border-right: 1px solid var(--border-color);
+    padding: 25px 18px;
+    z-index: 10500;
+    transition: transform 0.3s ease;
+}
+
+.side-nav.hidden {
+    transform: translateX(-100%);
+}
+
+.side-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 35px;
+}
+
+.side-logo i {
+    color: var(--primary-yellow);
+    background: var(--dark-bg);
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.side-nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+}
+
+.side-nav-links a.active, .side-nav-links a:hover {
+    background: var(--primary-yellow);
+    color: #000;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 45px;
+    border-radius: 12px;
+    background: var(--dark-bg);
+    color: var(--primary-yellow);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 11000;
+    box-shadow: var(--shadow-lg);
+}
+
+/* --- Hero Section (Rapido Style Search Engine) --- */
+.home-hero {
+    padding: 60px 20px;
+    background: linear-gradient(180deg, rgba(255,192,0,0.15) 0%, rgba(248,250,252,0) 100%);
+    text-align: center;
+}
+
+.home-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--dark-bg);
+    color: var(--primary-yellow);
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.home-hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.home-hero h1 .highlight {
+    color: var(--accent-blue);
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 16px;
+}
+
+/* Search Box Container */
+.hero-search-box {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--light-card);
+    padding: 15px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 180px 180px;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--light-bg);
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.input-group input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    color: var(--text-main);
+}
+
+.start-icon { color: var(--accent-green); }
+.end-icon { color: #EF4444; }
+
+.btn-search {
+    background: var(--primary-yellow);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-search:hover {
+    background: var(--primary-hover);
+}
+
+.hero-trust {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.hero-trust i { color: var(--accent-green); }
+
+/* --- Features & Why Sections --- */
+.features, .why-ridemitra {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background: var(--light-card);
+    padding: 30px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(255,192,0,0.2);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Why Grid */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.why-card {
+    display: flex;
+    gap: 15px;
+    background: var(--light-card);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.why-icon {
+    font-size: 24px;
+    color: var(--accent-blue);
+}
+
+/* --- Verification & Documents Card (Driver vs Passenger) --- */
+.verification-section {
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--dark-bg);
+    color: #fff;
+    padding: 35px;
+    border-radius: var(--radius-lg);
+}
+
+.doc-upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.doc-card {
+    background: var(--dark-card);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px dashed rgba(255,255,255,0.2);
+    text-align: center;
+}
+
+/* --- Creator Section --- */
+.creator-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.creator-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: var(--light-card);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.creator-image img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-yellow);
+}
+
+.creator-skills {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.creator-skills span {
+    background: var(--light-bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* --- Footer --- */
+.site-footer {
+    background: var(--dark-bg);
+    color: #fff;
+    padding: 40px 20px 20px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.footer-links a {
+    color: #94A3B8;
+    text-decoration: none;
+}
+
+.footer-links a:hover { color: var(--primary-yellow); }
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    font-size: 13px;
+    color: #64748B;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 850px) {
+    .search-form { grid-template-columns: 1fr; }
+    .features, .why-grid, .doc-upload-grid { grid-template-columns: 1fr; }
+    .creator-card { flex-direction: column; text-align: center; }
+    .ridemitra-topbar { padding: 0 15px 0 70px; }
+}    
+
+/* Header container ko sahi space dene ke liye */
+header, .navbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+}
+
+.menu-btn {
+    position: relative;
+    z-index: 10;
+    margin-right: 10px;
+}
+
+header h1, .nav-title {
+    margin: 0;
+    display: inline-block;
+}
+
+.heading-container {
+    padding-left: 50px;
+}
+
+
+/* =========================================================
+   RIDEMITRA - 20.14-D
+   PROFESSIONAL HOMEPAGE LAYOUT
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN WRAPPER
+   ========================================================= */
+
+.main-wrapper {
+    min-height: 100vh;
+    margin-left: 0;
+}
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
+.ridemitra-topbar {
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px 35px 14px 82px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+    backdrop-filter: blur(18px);
+
+    position: relative;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   WELCOME AREA
+   ========================================================= */
+
+.ridemitra-welcome {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.ridemitra-welcome-title {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.ridemitra-welcome-title span {
+    font-weight: 800;
+
+    color: #ff5a1f;
+}
+
+.ridemitra-welcome-subtitle {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   TOPBAR ACTIONS
+   ========================================================= */
+
+.ridemitra-topbar-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   TOPBAR DASHBOARD
+   ========================================================= */
+
+.topbar-dashboard,
+.topbar-login {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+.topbar-dashboard {
+    background: #111827;
+
+    color: #ffffff;
+}
+
+.topbar-dashboard:hover {
+    background: #000000;
+
+    transform: translateY(-1px);
+}
+
+
+.topbar-login {
+    background: #ffffff;
+
+    color: #111827;
+
+    border: 1px solid #d1d5db;
+}
+
+.topbar-login:hover {
+    border-color: #111827;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TOPBAR PROFILE
+   ========================================================= */
+
+.topbar-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+.profile-info {
+    display: flex;
+
+    flex-direction: column;
+
+    line-height: 1.2;
+}
+
+.profile-info strong {
+    font-size: 14px;
+
+    color: #111827;
+}
+
+.profile-info span {
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.home-hero {
+    min-height: 570px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 70px 25px 80px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255, 90, 31, 0.14),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f8fafc 100%
+        );
+
+    border-radius: 0;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.home-hero-content {
+    width: min(1050px, 100%);
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   HERO BADGE
+   ========================================================= */
+
+.home-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 30px;
+
+    background: #fff7ed;
+
+    color: #c2410c;
+
+    border: 1px solid #fed7aa;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   HERO HEADING
+   ========================================================= */
+
+.home-hero h1 {
+    margin: 0;
+
+    font-size: clamp(42px, 6vw, 70px);
+
+    line-height: 1.04;
+
+    letter-spacing: -2px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.home-hero h1 .highlight {
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+   ========================================================= */
+
+.hero-desc {
+    max-width: 650px;
+
+    margin: 20px auto 30px;
+
+    color: #6b7280;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RAPIDO STYLE SEARCH BOX
+   ========================================================= */
+
+.hero-search-box {
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   SEARCH FORM
+   ========================================================= */
+
+.search-form {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        190px
+        160px;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   SEARCH INPUT
+   ========================================================= */
+
+.hero-search-box .input-group {
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 15px;
+
+    background: #f9fafb;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 11px;
+}
+
+.hero-search-box .input-group i {
+    flex-shrink: 0;
+
+    color: #6b7280;
+}
+
+.hero-search-box .start-icon {
+    color: #16a34a !important;
+}
+
+.hero-search-box .end-icon {
+    color: #ef4444 !important;
+}
+
+.hero-search-box input {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 14px;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+   ========================================================= */
+
+.btn-search {
+    min-height: 58px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.btn-search:hover {
+    background: #ff5a1f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(255, 90, 31, 0.25);
+}
+
+
+/* =========================================================
+   TRUST INDICATORS
+   ========================================================= */
+
+.hero-trust {
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+}
+
+.hero-trust span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+    font-weight: 600;
+}
+
+.hero-trust i {
+    color: #16a34a;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.features {
+    max-width: 1100px;
+
+    margin: -35px auto 70px;
+
+    padding: 0 20px;
+
+    position: relative;
+
+    z-index: 10;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.feature-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 28px 24px;
+
+    text-align: left;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.07);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.10);
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 13px;
+
+    background: #fff7ed;
+
+    color: #ff5a1f;
+
+    font-size: 20px;
+}
+
+.feature-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+
+    color: #111827;
+}
+
+.feature-card p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   WHY RIDEMITRA
+   ========================================================= */
+
+.why-ridemitra {
+    max-width: 1100px;
+
+    margin: 0 auto 80px;
+
+    padding: 0 20px;
+}
+
+.section-heading {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.sub-title {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #ff5a1f;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 32px;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   WHY GRID
+   ========================================================= */
+
+.why-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.why-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 16px;
+
+    padding: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+}
+
+.why-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #f3f4f6;
+
+    color: #111827;
+
+    font-size: 18px;
+}
+
+.why-card h3 {
+    margin: 0 0 5px;
+
+    font-size: 17px;
+}
+
+.why-card p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CREATOR SECTION
+   ========================================================= */
+
+.creator-section {
+    max-width: 1100px;
+
+    margin: 0 auto 70px;
+
+    padding: 0 20px;
+}
+
+.creator-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 40px;
+
+    padding: 40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   CREATOR IMAGE
+   ========================================================= */
+
+.creator-image {
+    width: 150px;
+    height: 150px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    border: 4px solid rgba(255, 255, 255, 0.18);
+
+    background: #ffffff;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   CREATOR INFO
+   ========================================================= */
+
+.creator-label {
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #fb923c;
+}
+
+.creator-info h2 {
+    margin: 7px 0;
+
+    font-size: 30px;
+}
+
+.creator-role {
+    margin: 0 0 10px;
+
+    color: #fb923c;
+
+    font-weight: 700;
+}
+
+.creator-info > p {
+    max-width: 650px;
+
+    color: #d1d5db;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CREATOR SKILLS
+   ========================================================= */
+
+.creator-skills {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+.creator-skills span {
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #e5e7eb;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CREATOR ACTIONS
+   ========================================================= */
+
+.creator-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.creator-actions a {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+.creator-actions a:hover {
+    background: #ff5a1f;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.site-footer {
+    margin-top: 30px;
+
+    padding: 40px 35px 25px;
+
+    background: #111827;
+
+    color: #ffffff;
+}
+
+.footer-brand strong {
+    font-size: 22px;
+}
+
+.footer-brand p {
+    margin: 5px 0 20px;
+
+    color: #9ca3af;
+
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+}
+
+.footer-links a {
+    text-decoration: none;
+
+    color: #d1d5db;
+
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: #fb923c;
+}
+
+.footer-bottom {
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .ridemitra-topbar {
+        padding-left: 75px;
+        padding-right: 18px;
+    }
+
+    .ridemitra-topbar-actions {
+        gap: 6px;
+    }
+
+    .profile-info {
+        display: none;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-form .short {
+        grid-column: span 1;
+    }
+
+    .btn-search {
+        grid-column: span 1;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-card {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .creator-info > p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .creator-skills,
+    .creator-actions {
+        justify-content: center;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .ridemitra-topbar {
+        min-height: 70px;
+
+        padding:
+            12px
+            15px
+            12px
+            70px;
+    }
+
+    .ridemitra-welcome-title {
+        font-size: 16px;
+    }
+
+    .ridemitra-welcome-subtitle {
+        font-size: 11px;
+    }
+
+    .topbar-dashboard {
+        display: none !important;
+    }
+
+    .home-hero {
+        padding:
+            55px
+            15px
+            70px;
+    }
+
+    .home-hero h1 {
+        font-size: 40px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .hero-desc {
+        font-size: 14px;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr;
+    }
+
+    .search-form .short,
+    .btn-search {
+        grid-column: auto;
+    }
+
+    .hero-search-box {
+        padding: 8px;
+    }
+
+    .features {
+        margin-top: -25px;
+
+        padding: 0 15px;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .creator-section {
+        padding: 0 15px;
+    }
+
+    .creator-card {
+        padding: 30px 20px;
+    }
+
+    .creator-info h2 {
+        font-size: 24px;
+    }
+
+    .site-footer {
+        padding: 35px 20px 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+}
+
+
+
+/* =========================================================
+   RIDEMITRA - OFFER RIDE PAGE
+   PREMIUM RAPIDO / UBER STYLE
+   ---------------------------------------------------------
+   Dedicated styling for offer-ride.html
+   Future changes can be made from this section.
+========================================================= */
+
+
+/* =========================================================
+   OFFER PAGE BASE
+========================================================= */
+
+body.offer-page {
+    background:
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(255, 90, 31, 0.08),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #f8fafc 0%,
+            #eef2f7 100%
+        );
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR - DESKTOP
+========================================================= */
+
+.offer-page .side-nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    padding: 28px 18px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-right: 1px solid #e5e7eb;
+
+    box-shadow:
+        10px 0 30px rgba(15, 23, 42, 0.04);
+
+    z-index: 10500;
+
+    transform: translateX(0);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   SIDEBAR LOGO
+========================================================= */
+
+.offer-page .side-logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 5px 8px;
+
+    margin-bottom: 42px;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.offer-page .side-logo i {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #111827;
+
+    color: #ff5a1f;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+}
+
+.offer-page .side-logo span {
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   SIDEBAR LINKS
+========================================================= */
+
+.offer-page .side-nav-links {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.offer-page .side-nav-links a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-height: 52px;
+
+    padding: 0 16px;
+
+    border-radius: 12px;
+
+    color: #64748b;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.offer-page .side-nav-links a i {
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 16px;
+}
+
+.offer-page .side-nav-links a:hover {
+    background: #fff7ed;
+
+    color: #ff5a1f;
+
+    transform: translateX(3px);
+}
+
+.offer-page .side-nav-links a.active {
+    background: #111827;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px rgba(17, 24, 39, 0.12);
+}
+
+.offer-page .side-nav-links a.active i {
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ---------------------------------------------------------
+   Keeps page content away from sidebar.
+========================================================= */
+
+.offer-page .main-layout {
+    min-height: 100vh;
+
+    margin-left: 260px;
+
+    width: calc(100% - 260px);
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.offer-page .top-bar {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px 42px;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+}
+
+.offer-page .top-bar-left h2 {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.offer-page .top-bar-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.offer-page .top-bar .btn.secondary {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 17px;
+
+    border-radius: 10px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    border: none;
+
+    transition: all 0.2s ease;
+}
+
+.offer-page .top-bar .btn.secondary:hover {
+    background: #ff5a1f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(255, 90, 31, 0.22);
+}
+
+
+/* =========================================================
+   FORM AREA
+========================================================= */
+
+.offer-page .form-card {
+    width: min(1000px, calc(100% - 60px));
+
+    margin: 55px auto 80px;
+
+    padding: 42px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(15, 23, 42, 0.09);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   FORM CARD TOP ACCENT
+========================================================= */
+
+.offer-page .form-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff5a1f,
+            #ff8a3d,
+            #ffc107
+        );
+}
+
+
+/* =========================================================
+   FORM HEADING
+========================================================= */
+
+.offer-page .form-card h1 {
+    margin: 0;
+
+    font-size: clamp(30px, 4vw, 42px);
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #111827;
+}
+
+.offer-page .form-card > p {
+    margin-top: 10px;
+
+    margin-bottom: 32px !important;
+
+    color: #64748b !important;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.offer-page #rideForm .search-form {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   INPUT FIELD CARD
+========================================================= */
+
+.offer-page #rideForm .input-group {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.offer-page #rideForm .input-group label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #1f2937;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.offer-page #rideForm .input-group label i {
+    width: 18px;
+
+    color: #ff5a1f;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.offer-page #rideForm .input-group input {
+    width: 100%;
+
+    min-height: 56px;
+
+    padding: 0 16px;
+
+    border: 1px solid #dbe1e8;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    color: #111827;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.offer-page #rideForm .input-group input::placeholder {
+    color: #94a3b8;
+
+    font-weight: 500;
+}
+
+.offer-page #rideForm .input-group input:hover {
+    background: #ffffff;
+
+    border-color: #cbd5e1;
+}
+
+.offer-page #rideForm .input-group input:focus {
+    background: #ffffff;
+
+    border-color: #ff5a1f;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 90, 31, 0.10);
+}
+
+
+/* =========================================================
+   DATE / TIME INPUT
+========================================================= */
+
+.offer-page #rideForm input[type="date"],
+.offer-page #rideForm input[type="time"] {
+    color-scheme: light;
+}
+
+
+/* =========================================================
+   PUBLISH BUTTON AREA
+========================================================= */
+
+.offer-page #rideForm > div:last-child {
+    margin-top: 32px !important;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eef2f6;
+}
+
+
+/* =========================================================
+   PUBLISH BUTTON
+========================================================= */
+
+.offer-page #rideForm .btn.primary {
+    min-height: 52px;
+
+    padding: 0 28px !important;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+
+    font-size: 14px !important;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.14);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.offer-page #rideForm .btn.primary:hover {
+    background: #ff5a1f;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(255, 90, 31, 0.25);
+}
+
+.offer-page #rideForm .btn.primary:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
+
+.offer-page .menu-toggle {
+    position: fixed;
+
+    top: 16px;
+
+    left: 16px;
+
+    width: 46px;
+    height: 46px;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #111827;
+
+    color: #ff5a1f;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    z-index: 11000;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.18);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .offer-page .main-layout {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .offer-page .side-nav {
+        transform: translateX(-100%);
+    }
+
+    .offer-page .side-nav:not(.hidden) {
+        transform: translateX(0);
+
+        box-shadow:
+            15px 0 40px rgba(15, 23, 42, 0.15);
+    }
+
+    .offer-page .menu-toggle {
+        display: flex;
+    }
+
+    .offer-page .top-bar {
+        padding-left: 78px;
+    }
+
+    .offer-page .form-card {
+        width: min(900px, calc(100% - 40px));
+
+        margin-top: 40px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .offer-page .top-bar {
+        min-height: 70px;
+
+        padding:
+            12px
+            15px
+            12px
+            76px;
+    }
+
+    .offer-page .top-bar-left h2 {
+        font-size: 17px;
+    }
+
+    .offer-page .form-card {
+        width: calc(100% - 24px);
+
+        margin:
+            24px auto
+            50px;
+
+        padding: 28px 18px;
+
+        border-radius: 18px;
+    }
+
+    .offer-page .form-card h1 {
+        font-size: 30px;
+    }
+
+    .offer-page #rideForm .search-form {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .offer-page #rideForm .input-group input {
+        min-height: 54px;
+    }
+
+    .offer-page #rideForm > div:last-child {
+        text-align: center !important;
+    }
+
+    .offer-page #rideForm .btn.primary {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .offer-page .menu-toggle {
+        width: 42px;
+        height: 42px;
+
+        top: 13px;
+        left: 13px;
+    }
+
+    .offer-page .top-bar {
+        padding-left: 65px;
+    }
+
+    .offer-page .top-bar-left h2 {
+        font-size: 15px;
+    }
+
+    .offer-page .form-card {
+        padding: 25px 15px;
+    }
+}     
+
+
+
+
+/* ==========================================
+   Global Variables & Base Styling
+   ========================================== */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Page Titles
+   ========================================== */
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+/* ==========================================
+   Form Styling (Offer Ride & Find Ride)
+   ========================================== */
+.form-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary-color);
+}
+
+.btn-submit {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   Ride Cards (Find Ride Results)
+   ========================================== */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ride-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid var(--primary-color);
+}
+
+.ride-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+}
+
+.ride-details {
+  display: flex;
+  gap: 15px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.ride-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.btn-book {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-book:hover {
+  background-color: #059669;
+}
+
+/* Responsive View */
+@media (max-width: 600px) {
+  .ride-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}  
+
+
+/* =========================================================
+   FIND RIDE PAGE ONLY
+   ========================================================= */
+
+.find-ride-page {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 85% 8%,
+            rgba(255, 90, 31, 0.08),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f8fafc 100%
+        );
+    color: #111827;
+}
+
+.find-ride-page .side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    padding: 28px 18px;
+    background: rgba(255, 255, 255, 0.97);
+    border-right: 1px solid #e5e7eb;
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.04);
+    z-index: 10500;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+.find-ride-page .side-logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 5px 8px;
+    margin-bottom: 42px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.find-ride-page .side-logo i {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111827;
+    color: #ff5a1f;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.find-ride-page .side-logo span {
+    color: #ff5a1f;
+}
+
+.find-ride-page .side-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.find-ride-page .side-nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 52px;
+    padding: 0 16px;
+    border-radius: 12px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.find-ride-page .side-nav-links a i {
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.find-ride-page .side-nav-links a:hover {
+    background: #fff7ed;
+    color: #ff5a1f;
+    transform: translateX(3px);
+}
+
+.find-ride-page .side-nav-links a.active {
+    background: #111827;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.12);
+}
+
+.find-ride-page .side-nav-links a.active i {
+    color: #ff5a1f;
+}
+
+.find-ride-page .main-layout {
+    min-height: 100vh;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    box-sizing: border-box;
+}
+
+.find-ride-page .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 42px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+    box-sizing: border-box;
+}
+
+.find-ride-page .top-bar-left h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.find-ride-page .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.find-ride-page .top-bar .btn.secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 17px;
+    border-radius: 10px;
+    background: #111827;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+}
+
+.find-ride-page .top-bar .btn.secondary:hover {
+    background: #ff5a1f;
+}
+
+.find-ride-page .hero {
+    width: min(1050px, calc(100% - 60px));
+    margin: 0 auto;
+    padding: 72px 0 48px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.find-ride-page .hero h1 {
+    margin: 0;
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -1.8px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.find-ride-page .hero > p {
+    margin: 16px auto 32px;
+    max-width: 650px;
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.find-ride-page .search-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        190px
+        160px;
+    gap: 8px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.find-ride-page .search-box .input-group {
+    min-width: 0;
+    min-height: 58px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 15px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 11px;
+    box-sizing: border-box;
+}
+
+.find-ride-page .search-box .input-group label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.find-ride-page .search-box .input-group label i {
+    color: #ff5a1f;
+}
+
+.find-ride-page .search-box .input-group input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111827;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+.find-ride-page .search-box .input-group input::placeholder {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.find-ride-page #searchButton {
+    min-height: 58px;
+    border: none;
+    border-radius: 11px;
+    background: #111827;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.find-ride-page #searchButton:hover {
+    background: #ff5a1f;
+    transform: translateY(-1px);
+}
+
+.find-ride-page .rides-section {
+    width: min(1050px, calc(100% - 60px));
+    margin: 0 auto 70px;
+    box-sizing: border-box;
+}
+
+.find-ride-page .rides-section > h2 {
+    margin: 0 0 20px;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.find-ride-page #publishedRide {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.find-ride-page .ride-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 22px 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 5px solid #ff5a1f;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+    box-sizing: border-box;
+}
+
+.find-ride-page .ride-info {
+    min-width: 0;
+}
+
+.find-ride-page .ride-info h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.find-ride-page .ride-info p {
+    margin: 4px 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.find-ride-page .ride-info strong {
+    color: #334155;
+}
+
+.find-ride-page .ride-price {
+    min-width: 140px;
+    text-align: right;
+}
+
+.find-ride-page .ride-price h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.find-ride-page .ride-price p {
+    margin: 2px 0 10px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.find-ride-page .ride-price .btn.primary {
+    min-height: 42px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #111827;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.find-ride-page .ride-price .btn.primary:hover {
+    background: #ff5a1f;
+}
+
+.find-ride-page .no-rides {
+    width: 100%;
+    padding: 35px 20px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    color: #64748b;
+    box-sizing: border-box;
+}
+
+.find-ride-page .menu-toggle {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+
+    .find-ride-page .search-box {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .find-ride-page #searchButton {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .find-ride-page .main-layout {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .find-ride-page .side-nav {
+        transform: translateX(-100%);
+    }
+
+    .find-ride-page .side-nav.active {
+        transform: translateX(0);
+        box-shadow: 15px 0 40px rgba(15, 23, 42, 0.15);
+    }
+
+    .find-ride-page .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        width: 46px;
+        height: 46px;
+        border: none;
+        border-radius: 12px;
+        background: #111827;
+        color: #ff5a1f;
+        font-size: 19px;
+        cursor: pointer;
+        z-index: 11000;
+    }
+
+    .find-ride-page .top-bar {
+        padding-left: 78px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .find-ride-page .hero,
+    .find-ride-page .rides-section {
+        width: calc(100% - 30px);
+    }
+
+    .find-ride-page .hero {
+        padding: 50px 0 35px;
+    }
+
+    .find-ride-page .hero h1 {
+        font-size: 38px;
+    }
+
+    .find-ride-page .search-box {
+        grid-template-columns: 1fr;
+    }
+
+    .find-ride-page #searchButton {
+        grid-column: auto;
+    }
+
+    .find-ride-page .ride-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .find-ride-page .ride-price {
+        min-width: 0;
+        text-align: left;
+    }
+
+    .find-ride-page .ride-price .btn.primary {
+        width: 100%;
+    }
+
+    .find-ride-page .top-bar {
+        min-height: 70px;
+        padding: 12px 15px 12px 76px;
+    }
+}
+
+
+/* =========================================================
+   RIDEMITRA - GLOBAL SIDEBAR FIX
+   ========================================================= */
+
+.side-nav {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    z-index: 10500 !important;
+}
+
+/* Desktop sidebar closed */
+.side-nav.closed {
+    transform: translateX(-100%) !important;
+}
+
+/* When sidebar is closed, content uses full width */
+.main-layout.full-width {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* =========================================================
+   SIDEBAR MENU BUTTON
+   ========================================================= */
+
+.menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+
+    width: 46px;
+    height: 46px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #111827;
+    color: #ff5a1f;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    z-index: 11000;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.18);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background: #ff5a1f;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.menu-toggle i {
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   FIND RIDE - SEARCH FIELDS
+   ========================================================= */
+
+.find-ride-page .search-box {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        190px
+        160px !important;
+
+    align-items: stretch;
+
+    gap: 10px !important;
+
+    padding: 10px !important;
+
+    box-sizing: border-box;
+}
+
+
+/* Important: override old global .input-group */
+.find-ride-page .search-box .input-group {
+    position: relative;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    min-width: 0;
+
+    min-height: 64px;
+
+    padding: 9px 14px !important;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Field hover */
+.find-ride-page .search-box .input-group:hover {
+    background: #ffffff;
+
+    border-color: #cbd5e1;
+}
+
+
+/* Field focus */
+.find-ride-page .search-box .input-group:focus-within {
+    background: #ffffff;
+
+    border-color: #ff5a1f;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 90, 31, 0.08);
+}
+
+
+/* =========================================================
+   FROM / TO / DATE ICONS
+   ========================================================= */
+
+.find-ride-page .search-box .input-group label {
+    width: 100%;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 7px;
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* Icon itself */
+.find-ride-page .search-box .input-group label i {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 17px;
+    height: 17px;
+
+    flex: 0 0 17px;
+
+    color: #ff5a1f;
+
+    font-size: 13px;
+
+    line-height: 1;
+}
+
+
+/* From icon */
+.find-ride-page #fromLocation {
+    padding-left: 0 !important;
+}
+
+
+/* To icon */
+.find-ride-page #toLocation {
+    padding-left: 0 !important;
+}
+
+
+/* Date icon */
+.find-ride-page #travelDate {
+    padding-left: 0 !important;
+}
+
+
+/* =========================================================
+   SEARCH INPUTS
+   ========================================================= */
+
+.find-ride-page .search-box .input-group input {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    min-height: 24px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: #111827;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    box-shadow: none !important;
+
+    box-sizing: border-box;
+}
+
+
+.find-ride-page .search-box .input-group input::placeholder {
+    color: #94a3b8;
+
+    opacity: 1;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   DATE INPUT - NATIVE CALENDAR ICON
+   ========================================================= */
+
+.find-ride-page #travelDate {
+    color: #111827;
+
+    color-scheme: light;
+}
+
+
+/* Chrome / Edge date calendar icon */
+.find-ride-page #travelDate::-webkit-calendar-picker-indicator {
+    display: block;
+
+    width: 18px;
+    height: 18px;
+
+    margin-left: auto;
+
+    cursor: pointer;
+
+    opacity: 0.75;
+
+    filter: none;
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+   ========================================================= */
+
+.find-ride-page #searchButton {
+    min-height: 64px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.find-ride-page #searchButton i {
+    font-size: 13px;
+}
+
+
+.find-ride-page #searchButton:hover {
+    background: #ff5a1f;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(255, 90, 31, 0.22);
+}
+
+
+/* =========================================================
+   SIDEBAR ICONS
+   ========================================================= */
+
+.side-nav-links a i {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 22px !important;
+    min-width: 22px !important;
+
+    height: 22px;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    flex-shrink: 0;
+}
+
+
+/* Active icon */
+.side-nav-links a.active i {
+    color: #ff5a1f;
+}
+
+
+/* Hover icon */
+.side-nav-links a:hover i {
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .side-nav {
+        transform: translateX(-100%) !important;
+    }
+
+    .side-nav.active {
+        transform: translateX(0) !important;
+
+        box-shadow:
+            15px 0 40px rgba(15, 23, 42, 0.18);
+    }
+
+    .main-layout {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .main-layout.full-width {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .top-bar {
+        padding-left: 78px !important;
+    }
+}
+
+
+/* =========================================================
+   FIND RIDE TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .find-ride-page .search-box {
+        grid-template-columns:
+            1fr
+            1fr !important;
+    }
+
+    .find-ride-page #searchButton {
+        grid-column: span 2;
+    }
+}
+
+
+/* =========================================================
+   FIND RIDE MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .find-ride-page .search-box {
+        grid-template-columns: 1fr !important;
+
+        gap: 9px !important;
+    }
+
+    .find-ride-page #searchButton {
+        grid-column: auto !important;
+
+        width: 100%;
+    }
+
+    .find-ride-page .hero {
+        width: calc(100% - 30px);
+
+        padding-top: 45px;
+    }
+
+    .find-ride-page .rides-section {
+        width: calc(100% - 30px);
+    }
+
+    .find-ride-page .hero h1 {
+        font-size: 36px;
+    }
+}
+
+
+/* =========================================================
+   RIDEMITRA - FIND RIDE FINAL FIX
+   DO NOT REMOVE EXISTING CSS
+   ADD THIS AT THE VERY END OF style.css
+   ========================================================= */
+
+
+/* =========================================================
+   1. FIND RIDE PAGE BASE
+   ========================================================= */
+
+.find-ride-page {
+    overflow-x: hidden;
+}
+
+.find-ride-page .main-layout {
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   2. TOP BAR - NEVER HIDE TITLE BEHIND MENU BUTTON
+   ========================================================= */
+
+.find-ride-page .top-bar {
+    position: relative;
+    z-index: 1000;
+}
+
+.find-ride-page .top-bar-left {
+    min-width: 0;
+    flex: 1;
+}
+
+.find-ride-page .top-bar-left h2 {
+    margin: 0;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   3. DESKTOP SIDEBAR CLOSED
+   ========================================================= */
+
+@media (min-width: 993px) {
+
+    .find-ride-page .main-layout.full-width .top-bar {
+        padding-left: 90px !important;
+    }
+
+    .find-ride-page .main-layout.full-width .hero,
+    .find-ride-page .main-layout.full-width .rides-section {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+}
+
+
+/* =========================================================
+   4. MENU BUTTON
+   ========================================================= */
+
+.find-ride-page .menu-toggle {
+    z-index: 11000 !important;
+}
+
+
+/* =========================================================
+   5. FROM / TO / DATE ICON FIX
+   ========================================================= */
+
+.find-ride-page .input-group {
+    position: relative;
+}
+
+.find-ride-page .input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.find-ride-page .input-group label i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    min-width: 18px;
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+
+/* Input alignment */
+
+.find-ride-page .input-group input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Date icon */
+
+.find-ride-page input[type="date"] {
+    position: relative;
+    cursor: pointer;
+}
+
+.find-ride-page input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+
+/* =========================================================
+   6. SEARCH BUTTON ALIGNMENT
+   ========================================================= */
+
+.find-ride-page #searchButton {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   7. TABLET
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .find-ride-page .main-layout {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .find-ride-page .top-bar {
+        padding-left: 78px !important;
+    }
+
+    .find-ride-page .menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        position: fixed;
+
+        top: 15px;
+        left: 15px;
+
+        width: 46px;
+        height: 46px;
+
+        border: none;
+        border-radius: 12px;
+
+        background: #111827;
+        color: #ff5a1f;
+
+        font-size: 19px;
+
+        cursor: pointer;
+
+        z-index: 11000 !important;
+
+        box-shadow:
+            0 8px 25px rgba(15, 23, 42, 0.18);
+    }
+
+    .find-ride-page .side-nav {
+        z-index: 10500 !important;
+    }
+
+}
+
+
+/* =========================================================
+   8. MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .find-ride-page .top-bar {
+        min-height: 70px;
+
+        padding:
+            12px
+            15px
+            12px
+            76px !important;
+    }
+
+    .find-ride-page .top-bar-left h2 {
+        font-size: 17px;
+    }
+
+    .find-ride-page .hero,
+    .find-ride-page .rides-section {
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .find-ride-page .hero {
+        padding: 45px 0 30px;
+    }
+
+    .find-ride-page .hero h1 {
+        font-size: 38px;
+        line-height: 1.1;
+    }
+
+    .find-ride-page .search-box {
+        grid-template-columns: 1fr !important;
+    }
+
+    .find-ride-page #searchButton {
+        grid-column: auto !important;
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   9. VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .find-ride-page .menu-toggle {
+        width: 42px !important;
+        height: 42px !important;
+
+        top: 13px !important;
+        left: 13px !important;
+    }
+
+    .find-ride-page .top-bar {
+        padding-left: 65px !important;
+    }
+
+    .find-ride-page .hero h1 {
+        font-size: 31px;
+    }
+
+} 
+
+
+
+/* =========================================================
+   RIDEMITRA - PREMIUM DASHBOARD
+   ADD AT THE VERY END OF style.css
+   ========================================================= */
+
+.dashboard-page {
+    background:
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(255, 90, 31, 0.07),
+            transparent 28%
+        ),
+        #f8fafc;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.dashboard-page .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 38px;
+
+    background: rgba(255,255,255,0.90);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid rgba(15,23,42,0.07);
+}
+
+.dashboard-page .top-bar-left h2 {
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.dashboard-page .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* =========================================================
+   DASHBOARD CONTENT
+   ========================================================= */
+
+.dashboard-page .dashboard-content {
+    width: min(
+        1240px,
+        calc(100% - 70px)
+    );
+
+    margin: 0 auto;
+
+    padding:
+        38px
+        0
+        70px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.dashboard-hero {
+
+    min-height: 330px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 55px 60px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(255,90,31,0.28),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #111827 0%,
+            #1f2937 60%,
+            #0f172a 100%
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 25px 60px
+        rgba(15,23,42,0.16);
+}
+
+.dashboard-hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: 90px;
+    top: -170px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+}
+
+.dashboard-hero-content {
+
+    position: relative;
+    z-index: 2;
+
+    max-width: 690px;
+}
+
+.dashboard-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    margin-bottom: 18px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,0.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    color: #ff8a5b;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+.dashboard-hero h1 {
+
+    margin: 0 0 12px;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(32px, 4vw, 52px);
+
+    line-height: 1.08;
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+}
+
+.dashboard-hero p {
+
+    margin: 0;
+
+    max-width: 620px;
+
+    color: #cbd5e1;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.dashboard-hero-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 27px;
+}
+
+.dashboard-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 46px;
+
+    padding: 0 18px;
+
+    border-radius: 11px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.dashboard-btn:hover {
+
+    transform: translateY(-2px);
+}
+
+.dashboard-btn-light {
+
+    background: #ffffff;
+
+    color: #111827;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,0.12);
+}
+
+.dashboard-btn-dark {
+
+    background: #ff5a1f;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 22px
+        rgba(255,90,31,0.25);
+}
+
+.dashboard-btn-dark:hover {
+
+    background: #e94b13;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+   ========================================================= */
+
+.dashboard-hero-visual {
+
+    position: relative;
+
+    width: 300px;
+    height: 250px;
+
+    flex-shrink: 0;
+}
+
+.dashboard-car-circle {
+
+    position: absolute;
+
+    right: 35px;
+    top: 40px;
+
+    width: 180px;
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    color: #ff5a1f;
+
+    font-size: 72px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,0.18);
+}
+
+
+/* =========================================================
+   FLOATING STATS
+   ========================================================= */
+
+.floating-stat {
+
+    position: absolute;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 14px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.96);
+
+    color: #111827;
+
+    box-shadow:
+        0 14px 30px
+        rgba(0,0,0,0.20);
+}
+
+.floating-stat i {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #fff7ed;
+
+    color: #ff5a1f;
+}
+
+.floating-stat div {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-stat strong {
+
+    font-size: 12px;
+}
+
+.floating-stat span {
+
+    font-size: 10px;
+
+    color: #64748b;
+}
+
+.stat-one {
+
+    left: 0;
+    top: 25px;
+}
+
+.stat-two {
+
+    right: 0;
+    bottom: 15px;
+}
+
+
+/* =========================================================
+   QUICK STATS
+   ========================================================= */
+
+.dashboard-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-top: 20px;
+}
+
+.dashboard-stat-card {
+
+    min-height: 88px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    position: relative;
+
+    padding: 16px 17px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(15,23,42,0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-stat-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(15,23,42,0.09);
+}
+
+.stat-icon {
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 18px;
+}
+
+.stat-icon.orange,
+.dashboard-feature-icon.orange {
+
+    background: #fff1eb;
+    color: #ff5a1f;
+}
+
+.stat-icon.blue,
+.dashboard-feature-icon.blue {
+
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.stat-icon.green,
+.dashboard-feature-icon.green {
+
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.stat-icon.purple,
+.dashboard-feature-icon.purple {
+
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.dashboard-stat-card > div:nth-child(2) {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.dashboard-stat-card span {
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.dashboard-stat-card strong {
+
+    margin-top: 2px;
+
+    color: #111827;
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+.stat-arrow {
+
+    position: absolute;
+
+    top: 16px;
+    right: 16px;
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.dashboard-section {
+
+    margin-top: 55px;
+}
+
+.dashboard-section-heading {
+
+    margin-bottom: 25px;
+}
+
+.section-kicker {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #ff5a1f;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+.dashboard-section-heading h2 {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 29px;
+
+    font-weight: 800;
+}
+
+.dashboard-section-heading p {
+
+    margin: 5px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+   ========================================================= */
+
+.dashboard-card-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.dashboard-feature-card {
+
+    min-height: 260px;
+
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 19px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(15,23,42,0.04);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.dashboard-feature-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 40px
+        rgba(15,23,42,0.10);
+}
+
+.dashboard-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.dashboard-feature-icon {
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    font-size: 20px;
+}
+
+.dashboard-card-label {
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.dashboard-feature-card h3 {
+
+    margin: 22px 0 8px;
+
+    color: #111827;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+.dashboard-feature-card p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+.dashboard-card-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: auto;
+    padding-top: 22px;
+
+    color: #111827;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+.dashboard-card-link i {
+
+    color: #ff5a1f;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.dashboard-card-link:hover i {
+
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+
+.dashboard-trust-strip {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 45px;
+
+    padding: 22px 28px;
+
+    background: #111827;
+
+    border-radius: 18px;
+
+    color: #ffffff;
+}
+
+.trust-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.trust-icon {
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,90,31,0.14);
+
+    color: #ff5a1f;
+}
+
+.trust-item div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.trust-item strong {
+
+    font-size: 12px;
+}
+
+.trust-item span {
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.trust-divider {
+
+    width: 1px;
+
+    height: 35px;
+
+    background:
+        rgba(255,255,255,0.10);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .dashboard-card-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-hero-visual {
+
+        width: 250px;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .dashboard-page .dashboard-content {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 25px;
+    }
+
+    .dashboard-hero {
+
+        padding:
+            42px 30px;
+
+        min-height: auto;
+    }
+
+    .dashboard-hero-visual {
+
+        display: none;
+    }
+
+    .dashboard-trust-strip {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .trust-divider {
+
+        width: 100%;
+        height: 1px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-page .top-bar {
+
+        min-height: 70px;
+
+        padding:
+            12px
+            15px
+            12px
+            76px !important;
+    }
+
+    .dashboard-page .top-bar-left h2 {
+
+        font-size: 17px;
+    }
+
+    .dashboard-page .dashboard-content {
+
+        width:
+            calc(100% - 24px);
+
+        padding-top: 18px;
+    }
+
+    .dashboard-hero {
+
+        padding: 32px 22px;
+
+        border-radius: 21px;
+    }
+
+    .dashboard-hero h1 {
+
+        font-size: 32px;
+    }
+
+    .dashboard-hero p {
+
+        font-size: 13px;
+    }
+
+    .dashboard-hero-actions {
+
+        flex-direction: column;
+    }
+
+    .dashboard-btn {
+
+        width: 100%;
+    }
+
+    .dashboard-stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-section {
+
+        margin-top: 40px;
+    }
+
+    .dashboard-section-heading h2 {
+
+        font-size: 24px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .dashboard-page .top-bar {
+
+        padding-left: 65px !important;
+    }
+
+    .dashboard-hero h1 {
+
+        font-size: 28px;
+    }
+
+}
+
+
+/* =========================================================
+   RIDEMITRA - PREMIUM LOGIN PAGE
+   ADD THIS AT THE VERY END OF style.css
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.login-page {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(255, 90, 31, 0.10),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(37, 99, 235, 0.07),
+            transparent 25%
+        ),
+        #f8fafc;
+
+    color: #111827;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.login-header {
+
+    width: 100%;
+
+    min-height: 78px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        16px
+        45px;
+
+    background:
+        rgba(255,255,255,0.92);
+
+    border-bottom:
+        1px solid
+        rgba(15,23,42,0.07);
+
+    backdrop-filter:
+        blur(18px);
+
+    position: relative;
+
+    z-index: 20;
+}
+
+
+.login-brand {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+    color: #111827;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+}
+
+
+.login-brand > span:last-child span {
+
+    color: #ff5a1f;
+}
+
+
+.login-brand-mark {
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #273449
+        );
+
+    color: #ff5a1f;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 20px
+        rgba(15,23,42,0.15);
+}
+
+
+.login-header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+
+.login-create-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #111827;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.login-create-link i {
+
+    color: #ff5a1f;
+
+    font-size: 11px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.login-create-link:hover {
+
+    color: #ff5a1f;
+}
+
+
+.login-create-link:hover i {
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.login-main {
+
+    min-height:
+        calc(100vh - 78px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    padding:
+        55px
+        25px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+   ========================================================= */
+
+.login-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+}
+
+
+.login-glow-one {
+
+    width: 380px;
+    height: 380px;
+
+    top: -180px;
+    left: -170px;
+
+    background:
+        rgba(255,90,31,0.08);
+}
+
+
+.login-glow-two {
+
+    width: 420px;
+    height: 420px;
+
+    right: -210px;
+    bottom: -220px;
+
+    background:
+        rgba(37,99,235,0.07);
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.login-card {
+
+    width:
+        min(100%, 1040px);
+
+    min-height: 620px;
+
+    display: grid;
+
+    grid-template-columns:
+        0.92fr
+        1.08fr;
+
+    position: relative;
+
+    z-index: 2;
+
+    background: #ffffff;
+
+    border:
+        1px solid
+        rgba(15,23,42,0.08);
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px
+        rgba(15,23,42,0.12);
+}
+
+
+/* =========================================================
+   INTRO PANEL
+   ========================================================= */
+
+.login-intro {
+
+    position: relative;
+
+    padding:
+        55px
+        50px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255,90,31,0.25),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #111827,
+            #1f2937
+        );
+}
+
+
+.login-intro::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -150px;
+    bottom: -160px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+}
+
+
+.login-intro::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    right: 45px;
+    top: -90px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,90,31,0.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+}
+
+
+.login-intro-icon {
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,0.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    color: #ff6b32;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,0.12);
+}
+
+
+.login-small-label {
+
+    margin-bottom: 12px;
+
+    color: #ff7d4c;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+
+.login-intro h1 {
+
+    margin: 0 0 15px;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(32px, 4vw, 48px);
+
+    line-height: 1.05;
+
+    letter-spacing: -1.5px;
+
+    font-weight: 800;
+}
+
+
+.login-intro h1 span {
+
+    font-size: 30px;
+}
+
+
+.login-intro > p {
+
+    max-width: 430px;
+
+    margin: 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   TRUST LIST
+   ========================================================= */
+
+.login-trust-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+
+.login-trust-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.login-trust-icon {
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color: #ff7040;
+
+    font-size: 14px;
+}
+
+
+.login-trust-item div {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.login-trust-item strong {
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.login-trust-item small {
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FORM AREA
+   ========================================================= */
+
+.login-form-area {
+
+    padding:
+        55px
+        60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    background: #ffffff;
+}
+
+
+.login-form-heading > span {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #ff5a1f;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.login-form-heading h2 {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+}
+
+
+.login-form-heading p {
+
+    margin: 7px 0 28px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   INPUT GROUP
+   ========================================================= */
+
+.login-input-group {
+
+    margin-bottom: 19px;
+}
+
+
+.login-input-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.login-input-wrap {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.login-input-wrap > i {
+
+    position: absolute;
+
+    left: 16px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+.login-input-wrap input {
+
+    width: 100%;
+
+    height: 54px;
+
+    padding:
+        0
+        48px;
+
+    border:
+        1px solid
+        #e2e8f0;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #f8fafc;
+
+    color: #111827;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.login-input-wrap input::placeholder {
+
+    color: #94a3b8;
+
+    font-weight: 500;
+}
+
+
+.login-input-wrap input:hover {
+
+    border-color: #cbd5e1;
+
+    background: #ffffff;
+}
+
+
+.login-input-wrap input:focus {
+
+    border-color: #ff5a1f;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,90,31,0.08);
+}
+
+
+.login-input-wrap:focus-within > i {
+
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   LABEL ROW
+   ========================================================= */
+
+.login-label-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.login-label-row label {
+
+    margin-bottom: 8px;
+}
+
+
+.forgot-password {
+
+    margin-bottom: 8px;
+
+    color: #ff5a1f;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.forgot-password:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   PASSWORD BUTTON
+   ========================================================= */
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 10px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #94a3b8;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.password-toggle:hover {
+
+    background: #f1f5f9;
+
+    color: #ff5a1f;
+}
+
+
+/* =========================================================
+   REMEMBER ME
+   ========================================================= */
+
+.remember-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin:
+        2px
+        0
+        20px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.remember-row input {
+
+    width: 15px;
+    height: 15px;
+
+    accent-color: #ff5a1f;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.login-message {
+
+    display: none;
+
+    margin-bottom: 15px;
+
+    padding:
+        10px
+        12px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.login-message.show {
+
+    display: block;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-submit {
+
+    width: 100%;
+
+    min-height: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a1f,
+            #f0440d
+        );
+
+    color: #ffffff;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 25px
+        rgba(255,90,31,0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.login-submit:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 16px 30px
+        rgba(255,90,31,0.28);
+}
+
+
+.login-submit:active {
+
+    transform:
+        translateY(0);
+}
+
+
+.login-submit i {
+
+    font-size: 11px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.login-submit:hover i {
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+.login-security {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 11px;
+
+    margin-top: 22px;
+
+    padding:
+        14px;
+
+    border-radius: 13px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid
+        #edf2f7;
+}
+
+
+.login-security-icon {
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #ecfdf5;
+
+    color: #059669;
+
+    font-size: 12px;
+}
+
+
+.login-security div {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.login-security strong {
+
+    color: #334155;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.login-security p {
+
+    margin: 3px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTTOM REGISTER
+   ========================================================= */
+
+.login-register-bottom {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+.login-register-bottom a {
+
+    color: #ff5a1f;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.login-register-bottom a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .login-card {
+
+        grid-template-columns: 1fr;
+
+        max-width: 580px;
+
+        min-height: auto;
+    }
+
+
+    .login-intro {
+
+        padding:
+            40px
+            40px;
+    }
+
+
+    .login-trust-list {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 12px;
+    }
+
+
+    .login-trust-item {
+
+        align-items: flex-start;
+    }
+
+
+    .login-trust-item small {
+
+        display: none;
+    }
+
+
+    .login-form-area {
+
+        padding:
+            42px
+            40px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .login-header {
+
+        min-height: 70px;
+
+        padding:
+            12px
+            18px;
+    }
+
+
+    .login-brand {
+
+        font-size: 17px;
+    }
+
+
+    .login-brand-mark {
+
+        width: 36px;
+        height: 36px;
+
+        border-radius: 10px;
+    }
+
+
+    .login-header-right > span {
+
+        display: none;
+    }
+
+
+    .login-create-link {
+
+        font-size: 11px;
+    }
+
+
+    .login-main {
+
+        min-height:
+            calc(100vh - 70px);
+
+        padding:
+            22px
+            12px
+            35px;
+    }
+
+
+    .login-card {
+
+        border-radius: 21px;
+
+        box-shadow:
+            0 20px 50px
+            rgba(15,23,42,0.10);
+    }
+
+
+    .login-intro {
+
+        padding:
+            32px
+            25px;
+    }
+
+
+    .login-intro-icon {
+
+        width: 50px;
+        height: 50px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .login-intro h1 {
+
+        font-size: 32px;
+    }
+
+
+    .login-intro > p {
+
+        font-size: 12px;
+    }
+
+
+    .login-trust-list {
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-top: 25px;
+    }
+
+
+    .login-form-area {
+
+        padding:
+            32px
+            22px;
+    }
+
+
+    .login-form-heading h2 {
+
+        font-size: 23px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .login-header {
+
+        padding:
+            10px
+            13px;
+    }
+
+
+    .login-brand {
+
+        font-size: 15px;
+    }
+
+
+    .login-brand-mark {
+
+        width: 33px;
+        height: 33px;
+    }
+
+
+    .login-create-link {
+
+        font-size: 10px;
+    }
+
+
+    .login-main {
+
+        padding:
+            15px
+            9px
+            25px;
+    }
+
+
+    .login-intro {
+
+        padding:
+            27px
+            20px;
+    }
+
+
+    .login-form-area {
+
+        padding:
+            28px
+            18px;
+    }
+
+
+    .login-intro h1 {
+
+        font-size: 28px;
+    }
+
+
+    .login-input-wrap input {
+
+        height: 52px;
+    }
+
+}  
+
+
+
+/* =========================================================
+   RIDEMITRA - PREMIUM SIGNUP PAGE
+   ========================================================= */
+
+.signup-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 15%, rgba(255, 90, 31, 0.10), transparent 25%),
+        radial-gradient(circle at 90% 85%, rgba(37, 99, 235, 0.07), transparent 25%),
+        #f8fafc;
+    color: #111827;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   SIGNUP MAIN
+   ========================================================= */
+
+.signup-page.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
+}
+
+
+/* =========================================================
+   SIGNUP CARD
+   ========================================================= */
+
+.signup-page .login-card {
+
+    width: min(100%, 520px);
+
+    padding: 42px 45px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    border-radius: 26px;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.12);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.signup-page .login-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    top: -100px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 90, 31, 0.07);
+
+    pointer-events: none;
+}
+
+
+.signup-page .login-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    bottom: -70px;
+    left: -60px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.05);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.signup-page .login-logo {
+
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #273449
+        );
+
+    color: #ff5a1f;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 12px 25px rgba(15, 23, 42, 0.16);
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.signup-page .login-badge {
+
+    display: flex;
+
+    width: fit-content;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin: 0 auto 10px;
+
+    padding: 7px 12px;
+
+    border-radius: 50px;
+
+    background: #fff4ef;
+
+    color: #ff5a1f;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.signup-page .login-badge i {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.signup-page .login-card h1 {
+
+    margin: 0;
+
+    text-align: center;
+
+    color: #111827;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.signup-page .login-subtitle {
+
+    margin: 8px 0 28px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   INPUT GROUP
+   ========================================================= */
+
+.signup-page .login-input-group {
+
+    margin-bottom: 17px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.signup-page .login-input-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.signup-page .login-input-group input {
+
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #f8fafc;
+
+    color: #111827;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.signup-page .login-input-group input::placeholder {
+
+    color: #94a3b8;
+
+    font-weight: 500;
+}
+
+
+.signup-page .login-input-group input:hover {
+
+    border-color: #cbd5e1;
+
+    background: #ffffff;
+}
+
+
+.signup-page .login-input-group input:focus {
+
+    border-color: #ff5a1f;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255, 90, 31, 0.08);
+}
+
+
+/* =========================================================
+   PHONE INPUT
+   ========================================================= */
+
+.signup-page #signupPhone {
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT BUTTON
+   ========================================================= */
+
+.signup-page .login-button {
+
+    width: 100%;
+
+    min-height: 53px;
+
+    margin-top: 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a1f,
+            #f0440d
+        );
+
+    color: #ffffff;
+
+    font-family:
+        'Plus Jakarta Sans',
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 25px
+        rgba(255, 90, 31, 0.22);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.signup-page .login-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 30px
+        rgba(255, 90, 31, 0.28);
+}
+
+
+.signup-page .login-button:active {
+
+    transform: translateY(0);
+}
+
+
+.signup-page .login-button i {
+
+    font-size: 11px;
+
+    transition:
+        transform .2s ease;
+}
+
+
+.signup-page .login-button:hover i {
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.signup-page #signupMessage {
+
+    min-height: 18px;
+
+    margin:
+        12px
+        0
+        0;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+   ========================================================= */
+
+.signup-page .login-security {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+
+    padding: 12px 14px;
+
+    border-radius: 11px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid #edf2f7;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.signup-page .login-security i {
+
+    color: #059669;
+
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LOGIN LINK
+   ========================================================= */
+
+.signup-page .login-card > p:last-child {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: #94a3b8;
+
+    font-size: 10px !important;
+
+    line-height: 1.5;
+}
+
+
+.signup-page .login-card > p:last-child a {
+
+    color: #ff5a1f;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition: color .2s ease;
+}
+
+
+.signup-page .login-card > p:last-child a:hover {
+
+    color: #e9470c;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .signup-page.login-page {
+
+        padding:
+            25px
+            12px;
+    }
+
+
+    .signup-page .login-card {
+
+        width: 100%;
+
+        padding:
+            32px
+            22px;
+
+        border-radius: 21px;
+    }
+
+
+    .signup-page .login-logo {
+
+        width: 52px;
+        height: 52px;
+
+        border-radius: 15px;
+
+        font-size: 21px;
+    }
+
+
+    .signup-page .login-card h1 {
+
+        font-size: 26px;
+    }
+
+
+    .signup-page .login-subtitle {
+
+        margin-bottom: 24px;
+
+        font-size: 11px;
+    }
+
+
+    .signup-page .login-input-group {
+
+        margin-bottom: 15px;
+    }
+
+
+    .signup-page .login-input-group input {
+
+        height: 50px;
+    }
+
+
+    .signup-page .login-button {
+
+        min-height: 51px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .signup-page.login-page {
+
+        padding:
+            15px
+            9px;
+    }
+
+
+    .signup-page .login-card {
+
+        padding:
+            28px
+            18px;
+    }
+
+
+    .signup-page .login-card h1 {
+
+        font-size: 24px;
+    }
+
+
+    .signup-page .login-input-group input {
+
+        height: 48px;
+
+        font-size: 11px;
+    }
+}

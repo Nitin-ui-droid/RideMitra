@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="RideMitra - Share rides, save money, and travel together across India."
+    >
+
+    <title>RideMitra - Smart & Affordable Ride Sharing</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MENU BUTTON
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+
+
+    <!-- =====================================================
+         LEFT SIDEBAR
+    ====================================================== -->
+
+    <nav
+        class="side-nav"
+        id="sideNav"
+        aria-label="Main navigation"
+    >
+
+        <div class="side-logo">
+
+            <i class="fa-solid fa-car-side logo-icon"></i>
+
+            <strong>
+                Ride<span>Mitra</span>
+            </strong>
+
+        </div>
+
+
+        <div class="side-nav-links">
+
+            <a
+                href="find-ride.html"
+                class="active"
+            >
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>
+                    Find Ride
+                </span>
+            </a>
+
+
+            <a href="offer-ride.html">
+
+                <i class="fa-solid fa-circle-plus"></i>
+
+                <span>
+                    Offer Ride
+                </span>
+
+            </a>
+
+
+            <a
+                href="dashboard.html"
+                id="dashboardNav"
+            >
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="login.html"
+                id="loginNav"
+            >
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                <span>
+                    Login / Register
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                id="logoutNav"
+                style="display: none;"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="security-mini">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    100% Verified Rides
+                </span>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN WRAPPER
+    ====================================================== -->
+
+    <div class="main-wrapper">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="ridemitra-topbar">
+
+
+            <div class="ridemitra-welcome">
+
+                <h2 class="ridemitra-welcome-title">
+
+                    Welcome,
+                    <span id="welcomeUserName">
+                        Guest
+                    </span>
+
+                    👋
+
+                </h2>
+
+
+                <p class="ridemitra-welcome-subtitle">
+
+                    Where are you heading today?
+
+                </p>
+
+            </div>
+
+
+
+            <div class="ridemitra-topbar-actions">
+
+
+                <!-- Dashboard -->
+
+                <a
+                    href="dashboard.html"
+                    class="topbar-dashboard"
+                    id="topbarDashboard"
+                >
+
+                    <i class="fa-solid fa-gauge"></i>
+
+                    Dashboard
+
+                </a>
+
+
+
+                <!-- Login -->
+
+                <a
+                    href="login.html"
+                    class="topbar-login"
+                    id="topbarLogin"
+                >
+
+                    <i class="fa-solid fa-user"></i>
+
+                    Login
+
+                </a>
+
+
+
+                <!-- Logged In Profile -->
+
+                <div
+                    class="topbar-profile"
+                    id="topbarProfile"
+                    style="display: none;"
+                >
+
+                    <div class="profile-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong id="topbarUserName">
+                            User
+                        </strong>
+
+                        <span>
+                            RideMitra Member
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             HOME PAGE
+        ================================================== -->
+
+        <main class="home-page">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="home-hero">
+
+
+                <div class="home-hero-content">
+
+
+                    <div class="home-badge">
+
+                        <i class="fa-solid fa-bolt"></i>
+
+                        India's Smartest Carpooling Community
+
+                    </div>
+
+
+
+                    <h1>
+
+                        Share the Ride.
+                        <br>
+
+                        <span class="highlight">
+                            Share the Cost.
+                        </span>
+
+                    </h1>
+
+
+
+                    <p class="hero-desc">
+
+                        Connect with verified drivers and
+                        co-passengers heading on your exact route.
+                        Save money and travel together.
+
+                    </p>
+
+
+
+                    <!-- SEARCH BOX -->
+
+                    <div class="hero-search-box">
+
+
+                        <form
+                            action="find-ride.html"
+                            method="GET"
+                            class="search-form"
+                        >
+
+
+                            <!-- FROM -->
+
+                            <div class="input-group">
+
+                                <i
+                                    class="fa-solid fa-circle-dot start-icon"
+                                ></i>
+
+                                <input
+                                    type="text"
+                                    name="from"
+                                    placeholder="Leaving from"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- TO -->
+
+                            <div class="input-group">
+
+                                <i
+                                    class="fa-solid fa-location-dot end-icon"
+                                ></i>
+
+                                <input
+                                    type="text"
+                                    name="to"
+                                    placeholder="Going to"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- DATE -->
+
+                            <div class="input-group short">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <input
+                                    type="date"
+                                    name="date"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- SEARCH -->
+
+                            <button
+                                type="submit"
+                                class="btn-search"
+                            >
+
+                                <i
+                                    class="fa-solid fa-magnifying-glass"
+                                ></i>
+
+                                Search Ride
+
+                            </button>
+
+
+                        </form>
+
+                    </div>
+
+
+
+                    <!-- TRUST -->
+
+                    <div class="hero-trust">
+
+                        <span>
+
+                            <i
+                                class="fa-solid fa-circle-check"
+                            ></i>
+
+                            Aadhaar Verified
+
+                        </span>
+
+
+                        <span>
+
+                            <i
+                                class="fa-solid fa-circle-check"
+                            ></i>
+
+                            Instant Booking
+
+                        </span>
+
+
+                        <span>
+
+                            <i
+                                class="fa-solid fa-circle-check"
+                            ></i>
+
+                            Secure Travel
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 FEATURES
+            ================================================== -->
+
+            <section class="features">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="fa-solid fa-car-side"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Offer a Ride
+                    </h3>
+
+
+                    <p>
+
+                        Got empty seats in your car?
+                        Post your route and share your
+                        journey with co-passengers.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="fa-solid fa-route"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Find a Ride
+                    </h3>
+
+
+                    <p>
+
+                        Find travellers going on your route
+                        and choose a suitable ride for
+                        your journey.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Save Money
+                    </h3>
+
+
+                    <p>
+
+                        Share travel expenses and reduce
+                        your overall journey cost.
+
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 WHY RIDEMITRA
+            ================================================== -->
+
+            <section class="why-ridemitra">
+
+
+                <div class="section-heading">
+
+                    <span class="sub-title">
+                        WHY RIDEMITRA
+                    </span>
+
+
+                    <h2>
+                        A Smarter Way to Travel Together
+                    </h2>
+
+                </div>
+
+
+
+                <div class="why-grid">
+
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i
+                                class="fa-solid fa-user-shield"
+                            ></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Safety First
+                            </h3>
+
+                            <p>
+
+                                Travel with verified
+                                RideMitra members.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i
+                                class="fa-solid fa-microchip"
+                            ></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Smart Route Matching
+                            </h3>
+
+                            <p>
+
+                                Find people travelling
+                                on similar routes.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i
+                                class="fa-solid fa-piggy-bank"
+                            ></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Lower Travel Cost
+                            </h3>
+
+                            <p>
+
+                                Share fuel and travel
+                                expenses with others.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i
+                                class="fa-solid fa-bolt"
+                            ></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Easy Booking
+                            </h3>
+
+                            <p>
+
+                                Find and request rides
+                                quickly and easily.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CREATOR
+            ================================================== -->
+
+            <section class="creator-section">
+
+
+                <div class="creator-card">
+
+
+                    <div class="creator-image">
+
+                        <img
+                            src="your-photo.jpg"
+                            alt="RideMitra Creator"
+                            class="profile-pic"
+                        >
+
+                    </div>
+
+
+
+                    <div class="creator-info">
+
+
+                        <span class="creator-label">
+                            Nitin Pandey
+                        </span>
+
+
+                        <h2>
+                            Meet the Mind Behind RideMitra
+                        </h2>
+
+
+                        <p class="creator-role">
+                            RideMitra Founder & Lead Developer
+                        </p>
+
+
+                        <p>
+
+                            RideMitra is built with the idea of
+                            making shared travel simple,
+                            affordable and convenient.
+
+                        </p>
+
+
+
+                        <div class="creator-skills">
+
+
+                            <span>
+
+                                <i class="fa-solid fa-code"></i>
+
+                                Web Development
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="fa-brands fa-python"></i>
+
+                                Python
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="fa-solid fa-brain"></i>
+
+                                AI / ML
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="creator-actions">
+
+
+                            <a
+                                href="https://github.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <i
+                                    class="fa-brands fa-github"
+                                ></i>
+
+                                GitHub
+
+                            </a>
+
+
+                            <a
+                                href="https://www.linkedin.com/in/nitin-pandey-a2958a30a/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <i
+                                    class="fa-brands fa-linkedin"
+                                ></i>
+
+                                LinkedIn
+
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CALL TO ACTION
+            ================================================== -->
+
+            <section class="creator-section">
+
+
+                <div class="creator-card">
+
+
+                    <div class="creator-info">
+
+                        <span class="creator-label">
+                            READY TO GO?
+                        </span>
+
+
+                        <h2>
+                            Your next journey starts here.
+                        </h2>
+
+
+                        <p>
+
+                            Find a ride or offer your empty
+                            seats and travel smarter.
+
+                        </p>
+
+
+                        <div class="creator-actions">
+
+                            <a href="find-ride.html">
+
+                                <i
+                                    class="fa-solid fa-magnifying-glass"
+                                ></i>
+
+                                Find a Ride
+
+                            </a>
+
+
+                            <a href="offer-ride.html">
+
+                                <i
+                                    class="fa-solid fa-car"
+                                ></i>
+
+                                Offer a Ride
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+        </main>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="site-footer">
+
+
+            <div class="footer-brand">
+
+                <strong>
+
+                    <i
+                        class="fa-solid fa-car-side"
+                    ></i>
+
+                    RideMitra
+
+                </strong>
+
+
+                <p>
+                    Share the ride. Share the cost.
+                </p>
+
+            </div>
+
+
+
+            <div class="footer-links">
+
+                <a href="find-ride.html">
+                    Find Ride
+                </a>
+
+                <a href="offer-ride.html">
+                    Offer Ride
+                </a>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 RideMitra. All Rights Reserved.
+                </span>
+
+
+                <span>
+                    Built for smarter journeys 🚗
+                </span>
+
+            </div>
+
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* ================================================
+           SIDEBAR
+        ================================================= */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sideNav =
+            document.getElementById("sideNav");
+
+
+        menuToggle.addEventListener(
+            "click",
+            function () {
+
+                const isHidden =
+                    sideNav.classList.toggle("hidden");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    String(!isHidden)
+                );
+
+            }
+        );
+
+
+
+        /* ================================================
+           LOGIN ELEMENTS
+        ================================================= */
+
+        const loginNav =
+            document.getElementById("loginNav");
+
+        const logoutNav =
+            document.getElementById("logoutNav");
+
+        const dashboardNav =
+            document.getElementById("dashboardNav");
+
+        const welcomeUserName =
+            document.getElementById("welcomeUserName");
+
+        const topbarLogin =
+            document.getElementById("topbarLogin");
+
+        const topbarDashboard =
+            document.getElementById("topbarDashboard");
+
+        const topbarProfile =
+            document.getElementById("topbarProfile");
+
+        const topbarUserName =
+            document.getElementById("topbarUserName");
+
+
+
+        /* ================================================
+           CHECK LOGIN
+        ================================================= */
+
+        const isLoggedIn =
+            localStorage.getItem(
+                "rideMitraLoggedIn"
+            ) === "true";
+
+
+        const storedUser =
+            localStorage.getItem(
+                "rideMitraUser"
+            );
+
+
+
+        /* ================================================
+           LOGGED-IN USER
+        ================================================= */
+
+        if (isLoggedIn && storedUser) {
+
+            try {
+
+                const user =
+                    JSON.parse(storedUser);
+
+
+                if (
+                    user &&
+                    user.name
+                ) {
+
+                    welcomeUserName.textContent =
+                        user.name;
+
+                    topbarUserName.textContent =
+                        user.name;
+
+                }
+
+
+                topbarLogin.style.display =
+                    "none";
+
+                topbarProfile.style.display =
+                    "flex";
+
+                topbarDashboard.style.display =
+                    "inline-flex";
+
+                loginNav.style.display =
+                    "none";
+
+                dashboardNav.style.display =
+                    "flex";
+
+                logoutNav.style.display =
+                    "flex";
+
+
+            } catch (error) {
+
+                console.error(
+                    "User data error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* ================================================
+           LOGGED-OUT USER
+        ================================================= */
+
+        else {
+
+            welcomeUserName.textContent =
+                "Guest";
+
+            topbarProfile.style.display =
+                "none";
+
+            topbarLogin.style.display =
+                "inline-flex";
+
+            topbarDashboard.style.display =
+                "none";
+
+            loginNav.style.display =
+                "flex";
+
+            dashboardNav.style.display =
+                "none";
+
+            logoutNav.style.display =
+                "none";
+
+        }
+
+
+
+        /* ================================================
+           LOGOUT
+        ================================================= */
+
+        logoutNav.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const confirmLogout =
+                    confirm(
+                        "Do you want to logout?"
+                    );
+
+
+                if (!confirmLogout) {
+                    return;
+                }
+
+
+                localStorage.removeItem(
+                    "rideMitraLoggedIn"
+                );
+
+
+                localStorage.removeItem(
+                    "rideMitraUser"
+                );
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+
+        /* ================================================
+           MOBILE NAVIGATION
+        ================================================= */
+
+        const navigationLinks =
+            sideNav.querySelectorAll("a");
+
+
+        navigationLinks.forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        if (
+                            window.innerWidth <= 700
+                        ) {
+
+                            sideNav.classList.add(
+                                "hidden"
+                            );
+
+                            menuToggle.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* ================================================
+           DATE - PREVENT OLD DATES
+        ================================================= */
+
+        const dateInput =
+            document.querySelector(
+                'input[name="date"]'
+            );
+
+
+        if (dateInput) {
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+
+            dateInput.min =
+                today;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - RideMitra</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="login-page">
+
+
+    <!-- =====================================================
+         TOP HEADER
+         ===================================================== -->
+
+    <header class="login-header">
+
+        <a href="index.html" class="login-brand">
+
+            <span class="login-brand-mark">
+                RM
+            </span>
+
+            <span>
+                Ride<span>Mitra</span>
+            </span>
+
+        </a>
+
+
+        <div class="login-header-right">
+
+            <span>
+                Don't have an account?
+            </span>
+
+            <a href="signup.html" class="login-create-link">
+
+                Create Account
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN LOGIN AREA
+         ===================================================== -->
+
+    <main class="login-main">
+
+        <div class="login-glow login-glow-one"></div>
+
+        <div class="login-glow login-glow-two"></div>
+
+
+        <!-- =================================================
+             LOGIN CARD
+             ================================================= -->
+
+        <section class="login-card">
+
+
+            <!-- LEFT INTRO -->
+
+            <div class="login-intro">
+
+                <div class="login-intro-icon">
+                    <i class="fa-solid fa-car-side"></i>
+                </div>
+
+                <span class="login-small-label">
+                    WELCOME TO RIDEMITRA
+                </span>
+
+                <h1>
+                    Welcome Back
+                    <span>👋</span>
+                </h1>
+
+                <p>
+                    Login to continue your RideMitra
+                    journey and connect with verified
+                    travellers.
+                </p>
+
+
+                <div class="login-trust-list">
+
+
+                    <div class="login-trust-item">
+
+                        <span class="login-trust-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Safe & Verified
+                            </strong>
+
+                            <small>
+                                Trusted RideMitra community
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="login-trust-item">
+
+                        <span class="login-trust-icon">
+                            <i class="fa-solid fa-route"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Easy Travel
+                            </strong>
+
+                            <small>
+                                Find rides on your route
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="login-trust-item">
+
+                        <span class="login-trust-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Travel Together
+                            </strong>
+
+                            <small>
+                                Connect with fellow travellers
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RIGHT LOGIN FORM
+                 ================================================= -->
+
+            <div class="login-form-area">
+
+
+                <div class="login-form-heading">
+
+                    <span>
+                        ACCOUNT LOGIN
+                    </span>
+
+                    <h2>
+                        Sign in to your account
+                    </h2>
+
+                    <p>
+                        Enter your details below to continue.
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOGIN FORM -->
+
+                <form id="loginForm" novalidate>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="login-input-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <div class="login-input-wrap">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="login-input-group">
+
+                        <div class="login-label-row">
+
+                            <label for="loginPassword">
+                                Password
+                            </label>
+
+                            <a
+                                href="#"
+                                class="forgot-password"
+                                id="forgotPassword">
+
+                                Forgot password?
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="login-input-wrap">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password">
+
+                                <i class="fa-regular fa-eye"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- REMEMBER ME -->
+
+                    <label class="remember-row">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe">
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+
+                    <!-- LOGIN MESSAGE -->
+
+                    <div
+                        id="loginMessage"
+                        class="login-message"
+                        role="alert"
+                        aria-live="polite">
+                    </div>
+
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-submit"
+                        id="loginButton">
+
+                        <span class="login-button-text">
+                            Login
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- SECURITY -->
+
+                <div class="login-security">
+
+                    <span class="login-security-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Secure Login
+                        </strong>
+
+                        <p>
+                            Your account information is protected
+                            with security verification.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CREATE ACCOUNT -->
+
+                <div class="login-register-bottom">
+
+                    Don't have a RideMitra account?
+
+                    <a href="signup.html">
+                        Create Account
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         LOGIN PAGE JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+        /* =====================================================
+           PASSWORD SHOW / HIDE
+           ===================================================== */
+
+        const passwordInput =
+            document.getElementById("loginPassword");
+
+        const passwordToggle =
+            document.getElementById("passwordToggle");
+
+
+        if (passwordInput && passwordToggle) {
+
+            passwordToggle.addEventListener(
+                "click",
+                function () {
+
+                    const icon =
+                        passwordToggle.querySelector("i");
+
+
+                    if (passwordInput.type === "password") {
+
+                        passwordInput.type = "text";
+
+                        icon.className =
+                            "fa-regular fa-eye-slash";
+
+                        passwordToggle.setAttribute(
+                            "aria-label",
+                            "Hide password"
+                        );
+
+                    } else {
+
+                        passwordInput.type = "password";
+
+                        icon.className =
+                            "fa-regular fa-eye";
+
+                        passwordToggle.setAttribute(
+                            "aria-label",
+                            "Show password"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================================
+           FORGOT PASSWORD
+           ===================================================== */
+
+        const forgotPassword =
+            document.getElementById("forgotPassword");
+
+
+        if (forgotPassword) {
+
+            forgotPassword.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Password reset feature will be available soon."
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================================
+           LOGIN ELEMENTS
+           ===================================================== */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const emailInput =
+            document.getElementById("loginEmail");
+
+        const loginPassword =
+            document.getElementById("loginPassword");
+
+        const message =
+            document.getElementById("loginMessage");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const buttonText =
+            loginButton
+                ? loginButton.querySelector(
+                    ".login-button-text"
+                )
+                : null;
+
+
+
+        /* =====================================================
+           MESSAGE
+           ===================================================== */
+
+        function showMessage(text, type) {
+
+            if (!message) return;
+
+            message.textContent = text;
+
+            message.classList.add("show");
+
+
+            if (type === "success") {
+
+                message.style.color =
+                    "#16a34a";
+
+            } else if (type === "error") {
+
+                message.style.color =
+                    "#dc2626";
+
+            } else {
+
+                message.style.color =
+                    "#2563eb";
+
+            }
+
+        }
+
+
+
+        function clearMessage() {
+
+            if (!message) return;
+
+            message.textContent = "";
+
+            message.classList.remove("show");
+
+        }
+
+
+
+        /* =====================================================
+           CLEAR MESSAGE WHEN USER TYPES
+           ===================================================== */
+
+        if (emailInput) {
+
+            emailInput.addEventListener(
+                "input",
+                clearMessage
+            );
+
+        }
+
+
+        if (loginPassword) {
+
+            loginPassword.addEventListener(
+                "input",
+                clearMessage
+            );
+
+        }
+
+
+
+        /* =====================================================
+           LOGIN FORM
+           ===================================================== */
+
+        if (loginForm) {
+
+            loginForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    clearMessage();
+
+
+                    const email =
+                        emailInput.value.trim();
+
+                    const password =
+                        loginPassword.value;
+
+
+
+                    /* -----------------------------------------
+                       VALIDATION
+                       ----------------------------------------- */
+
+                    if (!email) {
+
+                        showMessage(
+                            "Please enter your email address.",
+                            "error"
+                        );
+
+                        emailInput.focus();
+
+                        return;
+
+                    }
+
+
+                    if (!password) {
+
+                        showMessage(
+                            "Please enter your password.",
+                            "error"
+                        );
+
+                        loginPassword.focus();
+
+                        return;
+
+                    }
+
+
+
+                    /* -----------------------------------------
+                       BUTTON LOADING
+                       ----------------------------------------- */
+
+                    loginButton.disabled = true;
+
+                    if (buttonText) {
+
+                        buttonText.textContent =
+                            "Signing in...";
+
+                    }
+
+
+                    showMessage(
+                        "Checking your account...",
+                        "info"
+                    );
+
+
+
+                    /* -----------------------------------------
+                       BACKEND LOGIN
+                       ----------------------------------------- */
+
+                    try {
+
+                        const apiUrl =
+                            (
+                                typeof RIDEMITRA_CONFIG !== "undefined" &&
+                                RIDEMITRA_CONFIG.API_BASE_URL
+                            )
+                            ? RIDEMITRA_CONFIG.API_BASE_URL
+                            : "http://127.0.0.1:5000";
+
+
+                        const loginEndpoint =
+                            (
+                                typeof RIDEMITRA_CONFIG !== "undefined" &&
+                                RIDEMITRA_CONFIG.ENDPOINTS &&
+                                RIDEMITRA_CONFIG.ENDPOINTS.LOGIN
+                            )
+                            ? RIDEMITRA_CONFIG.ENDPOINTS.LOGIN
+                            : "/api/login";
+
+
+                        const response =
+                            await fetch(
+                                apiUrl + loginEndpoint,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body: JSON.stringify({
+
+                                        email: email,
+
+                                        password: password
+
+                                    })
+                                }
+                            );
+
+
+                        let data = {};
+
+                        try {
+
+                            data =
+                                await response.json();
+
+                        } catch (jsonError) {
+
+                            data = {};
+
+                        }
+
+
+
+                        /* -----------------------------------------
+                           LOGIN FAILED
+                           ----------------------------------------- */
+
+                        if (
+                            !response.ok ||
+                            !data.success
+                        ) {
+
+                            showMessage(
+                                data.message ||
+                                "Invalid email or password.",
+                                "error"
+                            );
+
+
+                            loginButton.disabled =
+                                false;
+
+
+                            if (buttonText) {
+
+                                buttonText.textContent =
+                                    "Login";
+
+                            }
+
+                            return;
+
+                        }
+
+
+
+                        /* -----------------------------------------
+                           LOGIN SUCCESS
+                           ----------------------------------------- */
+
+                        const user =
+                            data.user;
+
+
+                        localStorage.setItem(
+                            "rideMitraLoggedIn",
+                            "true"
+                        );
+
+
+                        localStorage.setItem(
+                            "rideMitraUser",
+                            JSON.stringify(user)
+                        );
+
+
+                        localStorage.setItem(
+                            "rm_current_user",
+                            JSON.stringify(user)
+                        );
+
+
+                        localStorage.setItem(
+                            "rideMitraRegisteredEmail",
+                            user.email
+                        );
+
+
+
+                        /* REMEMBER ME */
+
+                        const rememberMe =
+                            document.getElementById(
+                                "rememberMe"
+                            );
+
+
+                        if (
+                            rememberMe &&
+                            rememberMe.checked
+                        ) {
+
+                            localStorage.setItem(
+                                "rideMitraRememberMe",
+                                "true"
+                            );
+
+                        } else {
+
+                            localStorage.removeItem(
+                                "rideMitraRememberMe"
+                            );
+
+                        }
+
+
+
+                        /* SUCCESS */
+
+                        showMessage(
+                            "Login successful! Redirecting...",
+                            "success"
+                        );
+
+
+                        if (buttonText) {
+
+                            buttonText.textContent =
+                                "Login Successful ✓";
+
+                        }
+
+
+
+                        /* -----------------------------------------
+                           GO TO DASHBOARD
+                           ----------------------------------------- */
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "dashboard.html";
+
+                            },
+                            800
+                        );
+
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "RideMitra login error:",
+                            error
+                        );
+
+
+                        showMessage(
+                            "Unable to connect to RideMitra server. Please make sure app.py is running.",
+                            "error"
+                        );
+
+
+                        loginButton.disabled =
+                            false;
+
+
+                        if (buttonText) {
+
+                            buttonText.textContent =
+                                "Login";
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+
+    });
+
+    </script>
+
+
+
+    <!-- =====================================================
+         GLOBAL JAVASCRIPT
+         ===================================================== -->
+
+    <script src="config.js"></script>
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

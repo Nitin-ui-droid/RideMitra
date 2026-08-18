@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - RideMitra</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body class="theme-independence dashboard-page">
+
+
+    <!-- =====================================================
+         SIDEBAR TOGGLE
+         Controlled ONLY by script.js
+         ===================================================== -->
+
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation"
+        aria-controls="sideNav">
+
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <nav class="side-nav" id="sideNav">
+
+        <div class="side-logo">
+
+            <i class="fa-solid fa-car-side logo-icon"></i>
+
+            <strong>
+                Ride<span>Mitra</span>
+            </strong>
+
+        </div>
+
+
+        <div class="side-nav-links">
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Home</span>
+
+            </a>
+
+
+            <a href="find-ride.html">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>Find Ride</span>
+
+            </a>
+
+
+            <a href="offer-ride.html">
+
+                <i class="fa-solid fa-circle-plus"></i>
+
+                <span>Offer Ride</span>
+
+            </a>
+
+
+            <a href="dashboard.html" class="active">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN LAYOUT
+         ===================================================== -->
+
+    <div class="main-layout">
+
+
+        <!-- =================================================
+             TOP BAR
+             ================================================= -->
+
+        <header class="top-bar dashboard-top-bar">
+
+            <div class="top-bar-left">
+
+                <h2>Dashboard</h2>
+
+            </div>
+
+
+            <div
+                class="top-bar-right dashboard-user-area"
+                id="userArea">
+
+                <!-- JS fills this -->
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                    class="btn secondary">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD CONTENT
+             ================================================= -->
+
+        <main class="dashboard-content">
+
+
+            <!-- =================================================
+                 PREMIUM WELCOME HERO
+                 ================================================= -->
+
+            <section class="dashboard-hero">
+
+
+                <div class="dashboard-hero-content">
+
+
+                    <div class="dashboard-badge">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <span>RideMitra User Area</span>
+
+                    </div>
+
+
+                    <h1 id="dashboardWelcome">
+
+                        Welcome to your Dashboard
+
+                    </h1>
+
+
+                    <p id="dashboardUserEmail">
+
+                        Manage your rides, bookings and travel
+                        activity from one place.
+
+                    </p>
+
+
+                    <div class="dashboard-hero-actions">
+
+                        <a
+                            href="find-ride.html"
+                            class="dashboard-btn dashboard-btn-light">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            Find a Ride
+
+                        </a>
+
+
+                        <a
+                            href="offer-ride.html"
+                            class="dashboard-btn dashboard-btn-dark">
+
+                            <i class="fa-solid fa-circle-plus"></i>
+
+                            Offer a Ride
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Decorative Ride Icon -->
+
+                <div class="dashboard-hero-visual">
+
+                    <div class="dashboard-car-circle">
+
+                        <i class="fa-solid fa-car-side"></i>
+
+                    </div>
+
+
+                    <div class="floating-stat stat-one">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <div>
+                            <strong>Verified</strong>
+                            <span>Community</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-stat stat-two">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <div>
+                            <strong>Easy</strong>
+                            <span>Travel</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 QUICK STATS
+                 ================================================= -->
+
+            <section class="dashboard-stats">
+
+
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon orange">
+
+                        <i class="fa-solid fa-car"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>My Rides</span>
+
+                        <strong>Manage</strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square stat-arrow"></i>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon blue">
+
+                        <i class="fa-solid fa-ticket"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>My Bookings</span>
+
+                        <strong>View</strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square stat-arrow"></i>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon green">
+
+                        <i class="fa-solid fa-route"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Travel</span>
+
+                        <strong>Explore</strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square stat-arrow"></i>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon purple">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Profile</span>
+
+                        <strong>Account</strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square stat-arrow"></i>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAIN DASHBOARD CARDS
+                 ================================================= -->
+
+            <section class="dashboard-section">
+
+
+                <div class="dashboard-section-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            QUICK ACCESS
+                        </span>
+
+                        <h2>
+                            Everything in one place
+                        </h2>
+
+                        <p>
+                            Choose what you want to do with RideMitra.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="dashboard-card-grid">
+
+
+                    <!-- MY RIDES -->
+
+                    <article class="dashboard-feature-card">
+
+                        <div class="dashboard-card-top">
+
+                            <div class="dashboard-feature-icon orange">
+
+                                <i class="fa-solid fa-car"></i>
+
+                            </div>
+
+                            <span class="dashboard-card-label">
+                                DRIVER
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            My Rides
+                        </h3>
+
+
+                        <p>
+                            View and manage rides you have
+                            offered to the RideMitra community.
+                        </p>
+
+
+                        <a
+                            href="offer-ride.html"
+                            class="dashboard-card-link">
+
+                            Manage Rides
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </article>
+
+
+
+                    <!-- MY BOOKINGS -->
+
+                    <article class="dashboard-feature-card">
+
+                        <div class="dashboard-card-top">
+
+                            <div class="dashboard-feature-icon blue">
+
+                                <i class="fa-solid fa-ticket"></i>
+
+                            </div>
+
+                            <span class="dashboard-card-label">
+                                PASSENGER
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            My Bookings
+                        </h3>
+
+
+                        <p>
+                            Check rides you have joined and
+                            keep track of your travel plans.
+                        </p>
+
+
+                        <a
+                            href="find-ride.html"
+                            class="dashboard-card-link">
+
+                            Find Rides
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </article>
+
+
+
+                    <!-- OFFER RIDE -->
+
+                    <article class="dashboard-feature-card">
+
+                        <div class="dashboard-card-top">
+
+                            <div class="dashboard-feature-icon green">
+
+                                <i class="fa-solid fa-circle-plus"></i>
+
+                            </div>
+
+                            <span class="dashboard-card-label">
+                                SHARE
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Offer a Ride
+                        </h3>
+
+
+                        <p>
+                            Share your journey and help other
+                            travellers reach their destination.
+                        </p>
+
+
+                        <a
+                            href="offer-ride.html"
+                            class="dashboard-card-link">
+
+                            Offer Ride
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </article>
+
+
+
+                    <!-- PROFILE -->
+
+                    <article class="dashboard-feature-card">
+
+                        <div class="dashboard-card-top">
+
+                            <div class="dashboard-feature-icon purple">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                            <span class="dashboard-card-label">
+                                ACCOUNT
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Profile
+                        </h3>
+
+
+                        <p>
+                            Keep your RideMitra account information
+                            organized and up to date.
+                        </p>
+
+
+                        <a
+                            href="#"
+                            class="dashboard-card-link">
+
+                            Account
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PREMIUM TRUST STRIP
+                 ================================================= -->
+
+            <section class="dashboard-trust-strip">
+
+
+                <div class="trust-item">
+
+                    <div class="trust-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Verified Community
+                        </strong>
+
+                        <span>
+                            Travel with confidence
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="trust-divider"></div>
+
+
+                <div class="trust-item">
+
+                    <div class="trust-icon">
+
+                        <i class="fa-solid fa-route"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Simple Travel
+                        </strong>
+
+                        <span>
+                            Find rides on your route
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="trust-divider"></div>
+
+
+                <div class="trust-item">
+
+                    <div class="trust-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Ride Together
+                        </strong>
+
+                        <span>
+                            Connect with travellers
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         DASHBOARD AUTH SCRIPT
+         ===================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const logoutButton =
+                document.getElementById("logoutButton");
+
+            const storedUser =
+                localStorage.getItem("rideMitraUser") ||
+                localStorage.getItem("rm_current_user");
+
+            const isLoggedIn =
+                localStorage.getItem("rideMitraLoggedIn");
+
+
+            /*
+             * Protect dashboard
+             */
+
+            if (!isLoggedIn || !storedUser) {
+
+                window.location.href = "login.html";
+
+                return;
+            }
+
+
+            /*
+             * Load user
+             */
+
+            let user = null;
+
+            try {
+
+                user = JSON.parse(storedUser);
+
+            } catch (error) {
+
+                console.error(
+                    "Invalid stored user:",
+                    error
+                );
+
+                localStorage.removeItem("rideMitraUser");
+                localStorage.removeItem("rm_current_user");
+                localStorage.removeItem("rideMitraLoggedIn");
+
+                window.location.href = "login.html";
+
+                return;
+            }
+
+
+            /*
+             * Welcome text
+             */
+
+            const welcome =
+                document.getElementById("dashboardWelcome");
+
+            const email =
+                document.getElementById("dashboardUserEmail");
+
+
+            if (welcome) {
+
+                welcome.textContent =
+                    "Welcome, " +
+                    (user.name || "User") +
+                    "! 👋";
+
+            }
+
+
+            if (email) {
+
+                email.textContent =
+                    "Logged in as " +
+                    (user.email || "your RideMitra account");
+
+            }
+
+
+            /*
+             * Logout
+             */
+
+            if (logoutButton) {
+
+                logoutButton.addEventListener(
+                    "click",
+                    function () {
+
+                        localStorage.removeItem(
+                            "rideMitraLoggedIn"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraUser"
+                        );
+
+                        localStorage.removeItem(
+                            "rm_current_user"
+                        );
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+                );
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- Global JS -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

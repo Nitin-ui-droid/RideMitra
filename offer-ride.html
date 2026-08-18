@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         RIDEMITRA - OFFER RIDE PAGE
+         -----------------------------------------------------
+         Premium Rapido / Uber inspired layout
+         Sidebar + Header + Offer Ride Form
+    ====================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Offer a Ride - RideMitra</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <!-- =====================================================
+         OFFER RIDE PAGE CSS
+         -----------------------------------------------------
+         Page-specific styling.
+         Global style.css ko disturb nahi karega.
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           PAGE BACKGROUND
+        ===================================================== */
+
+        body.offer-page {
+            background:
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(255, 90, 31, 0.08),
+                    transparent 30%
+                ),
+                #f8fafc;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           MAIN LAYOUT
+           -----------------------------------------------------
+           Desktop:
+           Sidebar ke liye 260px space.
+
+           Mobile:
+           Full width.
+        ===================================================== */
+
+        .offer-page .main-layout {
+            min-height: 100vh;
+
+            margin-left: 260px;
+
+            width: calc(100% - 260px);
+
+            transition:
+                margin-left 0.3s ease,
+                width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           TOP HEADER
+        ===================================================== */
+
+        .offer-page .top-bar {
+
+            height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            border-bottom: 1px solid #e5e7eb;
+
+            backdrop-filter: blur(18px);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        /* =====================================================
+           HEADER TITLE
+        ===================================================== */
+
+        .offer-page .top-bar-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .offer-page .top-bar-left h2 {
+
+            margin: 0;
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+
+        /* Small orange line before heading */
+
+        .offer-page .top-bar-left h2::before {
+
+            content: "";
+
+            display: inline-block;
+
+            width: 4px;
+
+            height: 20px;
+
+            margin-right: 10px;
+
+            vertical-align: -3px;
+
+            border-radius: 5px;
+
+            background: #ff5a1f;
+        }
+
+
+        /* =====================================================
+           LOGIN AREA
+        ===================================================== */
+
+        .offer-page .top-bar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .offer-page .top-bar-right .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-height: 42px;
+
+            padding: 0 18px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            background: #ffffff;
+
+            border: 1px solid #dfe3e8;
+
+            transition: all 0.2s ease;
+        }
+
+
+        .offer-page .top-bar-right .btn:hover {
+
+            border-color: #ff5a1f;
+
+            color: #ff5a1f;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           MAIN OFFER RIDE AREA
+        ===================================================== */
+
+        .offer-content {
+
+            width: 100%;
+
+            padding: 55px 30px 80px;
+        }
+
+
+        /* =====================================================
+           PAGE INTRO
+        ===================================================== */
+
+        .offer-intro {
+
+            width: min(900px, 100%);
+
+            margin: 0 auto 25px;
+
+            text-align: center;
+        }
+
+
+        .offer-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 14px;
+
+            margin-bottom: 14px;
+
+            border-radius: 30px;
+
+            background: #fff7ed;
+
+            border: 1px solid #fed7aa;
+
+            color: #c2410c;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        .offer-intro h1 {
+
+            margin: 0;
+
+            font-size: clamp(32px, 4vw, 48px);
+
+            line-height: 1.1;
+
+            letter-spacing: -1.5px;
+
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+
+        .offer-intro h1 span {
+
+            color: #ff5a1f;
+        }
+
+
+        .offer-intro p {
+
+            max-width: 620px;
+
+            margin: 14px auto 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           FORM CARD
+           -----------------------------------------------------
+           Premium floating card
+        ===================================================== */
+
+        .offer-form-card {
+
+            width: min(980px, 100%);
+
+            margin: 0 auto;
+
+            padding: 30px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 60px rgba(15, 23, 42, 0.10);
+        }
+
+
+        /* =====================================================
+           FORM CARD HEADER
+        ===================================================== */
+
+        .form-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding-bottom: 22px;
+
+            margin-bottom: 24px;
+
+            border-bottom: 1px solid #eef0f3;
+        }
+
+
+        .form-card-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .form-card-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #fff7ed;
+
+            color: #ff5a1f;
+
+            font-size: 18px;
+        }
+
+
+        .form-card-title h2 {
+
+            margin: 0;
+
+            font-size: 18px;
+
+            color: #111827;
+        }
+
+
+        .form-card-title p {
+
+            margin: 3px 0 0;
+
+            font-size: 11px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =====================================================
+           FORM GRID
+        ===================================================== */
+
+        .offer-form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 22px;
+        }
+
+
+        /* =====================================================
+           FORM FIELD
+        ===================================================== */
+
+        .offer-field {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        /* =====================================================
+           LABEL
+        ===================================================== */
+
+        .offer-field label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            color: #334155;
+        }
+
+
+        .offer-field label i {
+
+            width: 17px;
+
+            text-align: center;
+
+            color: #ff5a1f;
+        }
+
+
+        /* =====================================================
+           INPUT WRAPPER
+        ===================================================== */
+
+        .offer-input {
+
+            position: relative;
+        }
+
+
+        /* =====================================================
+           INPUT
+        ===================================================== */
+
+        .offer-field input {
+
+            width: 100%;
+
+            height: 54px;
+
+            padding: 0 15px;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            background: #f8fafc;
+
+            color: #0f172a;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .offer-field input::placeholder {
+
+            color: #94a3b8;
+
+            font-weight: 500;
+        }
+
+
+        /* =====================================================
+           INPUT FOCUS
+        ===================================================== */
+
+        .offer-field input:focus {
+
+            background: #ffffff;
+
+            border-color: #ff5a1f;
+
+            box-shadow:
+                0 0 0 4px rgba(255, 90, 31, 0.09);
+        }
+
+
+        /* =====================================================
+           BOTTOM FORM ACTION
+        ===================================================== */
+
+        .offer-form-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-top: 28px;
+
+            padding-top: 22px;
+
+            border-top: 1px solid #eef0f3;
+        }
+
+
+        /* =====================================================
+           SECURITY / INFO TEXT
+        ===================================================== */
+
+        .form-security {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .form-security i {
+
+            color: #16a34a;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           PUBLISH BUTTON
+        ===================================================== */
+
+        .publish-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-width: 170px;
+
+            height: 50px;
+
+            padding: 0 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #111827;
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(15, 23, 42, 0.15);
+
+            transition: all 0.2s ease;
+        }
+
+
+        .publish-btn:hover {
+
+            background: #ff5a1f;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(255, 90, 31, 0.25);
+        }
+
+
+        /* =====================================================
+           SIDEBAR OVERLAY
+           -----------------------------------------------------
+           Mobile par sidebar ke bahar click karne par close.
+        ===================================================== */
+
+        .sidebar-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(15, 23, 42, 0.40);
+
+            backdrop-filter: blur(2px);
+
+            z-index: 10400;
+        }
+
+
+        /* =====================================================
+           MENU BUTTON
+        ===================================================== */
+
+        .offer-page .menu-toggle {
+
+            position: fixed;
+
+            top: 15px;
+
+            left: 15px;
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #111827;
+
+            color: #ff5a1f;
+
+            font-size: 19px;
+
+            cursor: pointer;
+
+            z-index: 11000;
+
+            box-shadow:
+                0 8px 20px rgba(15, 23, 42, 0.18);
+
+            transition: all 0.2s ease;
+        }
+
+
+        .offer-page .menu-toggle:hover {
+
+            transform: scale(1.04);
+
+            background: #ff5a1f;
+
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           IMPORTANT SIDEBAR FIX
+           -----------------------------------------------------
+           Desktop:
+           Sidebar always visible.
+
+           Mobile:
+           Sidebar closed by default.
+        ===================================================== */
+
+        .offer-page .side-nav {
+
+            transform: translateX(0);
+
+            transition: transform 0.3s ease;
+
+            z-index: 10500;
+        }
+
+
+        /* =====================================================
+           DESKTOP SIDEBAR CLOSED STATE
+           -----------------------------------------------------
+           Agar hamburger se desktop par bhi sidebar close ho
+           to content automatically full width ho jayega.
+        ===================================================== */
+
+        body.sidebar-closed .side-nav {
+
+            transform: translateX(-100%);
+        }
+
+
+        body.sidebar-closed .main-layout {
+
+            margin-left: 0;
+
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - TABLET
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .offer-form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .offer-form-card {
+
+                width: min(700px, 100%);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            /* Full-width content */
+
+            .offer-page .main-layout {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+
+            /* Sidebar hidden initially */
+
+            .offer-page .side-nav {
+
+                transform: translateX(-100%);
+            }
+
+
+            /* Sidebar open */
+
+            .offer-page .side-nav.mobile-open {
+
+                transform: translateX(0);
+            }
+
+
+            /* Overlay visible when sidebar open */
+
+            body.mobile-nav-open .sidebar-overlay {
+
+                display: block;
+            }
+
+
+            /* Header */
+
+            .offer-page .top-bar {
+
+                height: 70px;
+
+                padding: 0 18px 0 75px;
+            }
+
+
+            .offer-page .top-bar-left h2 {
+
+                font-size: 16px;
+            }
+
+
+            /* Content */
+
+            .offer-content {
+
+                padding: 40px 15px 60px;
+            }
+
+
+            /* Form */
+
+            .offer-form-card {
+
+                padding: 22px 18px;
+
+                border-radius: 20px;
+            }
+
+
+            /* Footer */
+
+            .offer-form-footer {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .form-security {
+
+                justify-content: center;
+            }
+
+
+            .publish-btn {
+
+                width: 100%;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 500px) {
+
+            .offer-intro h1 {
+
+                font-size: 32px;
+            }
+
+
+            .offer-intro p {
+
+                font-size: 13px;
+            }
+
+
+            .offer-form-card {
+
+                padding: 20px 15px;
+            }
+
+
+            .form-card-header {
+
+                align-items: flex-start;
+            }
+
+
+            .form-card-icon {
+
+                width: 42px;
+
+                height: 42px;
+            }
+
+
+            .offer-field input {
+
+                height: 52px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body class="offer-page">
+
+
+    <!-- =====================================================
+         MOBILE / DESKTOP MENU BUTTON
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+         -----------------------------------------------------
+         Mobile par sidebar open hone ke baad background
+         par click karke sidebar close kiya ja sakta hai.
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         LEFT SIDEBAR
+    ====================================================== -->
+
+    <nav
+        class="side-nav"
+        id="sideNav"
+        aria-label="Main navigation"
+    >
+
+        <div class="side-logo">
+
+            <i class="fa-solid fa-car-side logo-icon"></i>
+
+            <strong>
+                Ride<span>Mitra</span>
+            </strong>
+
+        </div>
+
+
+        <div class="side-nav-links">
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Home</span>
+
+            </a>
+
+
+            <a href="find-ride.html">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>Find Ride</span>
+
+            </a>
+
+
+            <a
+                href="offer-ride.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-circle-plus"></i>
+
+                <span>Offer Ride</span>
+
+            </a>
+
+
+            <a href="dashboard.html">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="main-layout">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="top-bar">
+
+            <div class="top-bar-left">
+
+                <h2>Offer a Ride</h2>
+
+            </div>
+
+
+            <div
+                class="top-bar-right"
+                id="userArea"
+            >
+
+                <a
+                    href="login.html"
+                    class="btn secondary"
+                >
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             OFFER CONTENT
+        ================================================== -->
+
+        <main class="offer-content">
+
+
+            <!-- =================================================
+                 INTRODUCTION
+            ================================================== -->
+
+            <section class="offer-intro">
+
+                <div class="offer-badge">
+
+                    <i class="fa-solid fa-route"></i>
+
+                    SHARE YOUR JOURNEY
+
+                </div>
+
+
+                <h1>
+
+                    Offer a Ride,
+
+                    <span>Share the Journey.</span>
+
+                </h1>
+
+
+                <p>
+
+                    Going somewhere?
+                    Publish your ride and let verified travellers
+                    join you on the way.
+
+                </p>
+
+            </section>
+
+
+            <!-- =================================================
+                 FORM CARD
+            ================================================== -->
+
+            <section class="offer-form-card">
+
+
+                <!-- Card Header -->
+
+                <div class="form-card-header">
+
+                    <div class="form-card-title">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-car-side"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2>Ride Details</h2>
+
+                            <p>
+                                Enter your journey information
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     RIDE FORM
+                ================================================== -->
+
+                <form id="rideForm">
+
+
+                    <div class="offer-form-grid">
+
+
+                        <!-- Driver -->
+
+                        <div class="offer-field">
+
+                            <label for="driverName">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                Driver Name
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="text"
+                                    id="driverName"
+                                    placeholder="Enter your name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Vehicle -->
+
+                        <div class="offer-field">
+
+                            <label for="vehicle">
+
+                                <i class="fa-solid fa-car"></i>
+
+                                Vehicle Name
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="text"
+                                    id="vehicle"
+                                    placeholder="Example: Maruti Swift"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- From -->
+
+                        <div class="offer-field">
+
+                            <label for="rideFrom">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                Starting Location
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="text"
+                                    id="rideFrom"
+                                    placeholder="Example: Lucknow"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- To -->
+
+                        <div class="offer-field">
+
+                            <label for="rideTo">
+
+                                <i class="fa-solid fa-location-crosshairs"></i>
+
+                                Destination
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="text"
+                                    id="rideTo"
+                                    placeholder="Example: Mumbai"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Date -->
+
+                        <div class="offer-field">
+
+                            <label for="rideDate">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                Travel Date
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="date"
+                                    id="rideDate"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Time -->
+
+                        <div class="offer-field">
+
+                            <label for="rideTime">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                                Departure Time
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="time"
+                                    id="rideTime"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Seats -->
+
+                        <div class="offer-field">
+
+                            <label for="rideSeats">
+
+                                <i class="fa-solid fa-chair"></i>
+
+                                Available Seats
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="number"
+                                    id="rideSeats"
+                                    min="1"
+                                    max="8"
+                                    placeholder="Example: 3"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Price -->
+
+                        <div class="offer-field">
+
+                            <label for="ridePrice">
+
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                                Price per Seat
+
+                            </label>
+
+                            <div class="offer-input">
+
+                                <input
+                                    type="number"
+                                    id="ridePrice"
+                                    min="0"
+                                    placeholder="Example: 1500"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FORM FOOTER
+                    ================================================== -->
+
+                    <div class="offer-form-footer">
+
+
+                        <div class="form-security">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Your ride details are securely stored.
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="publish-btn"
+                        >
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Publish Ride
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+         SIDEBAR JAVASCRIPT
+         -----------------------------------------------------
+         Important:
+         .hidden class use nahi kar rahe.
+         Isse global script ke saath conflict nahi hoga.
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           GET REQUIRED ELEMENTS
+        ====================================================== */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const sideNav =
+            document.getElementById("sideNav");
+
+        const sidebarOverlay =
+            document.getElementById("sidebarOverlay");
+
+
+        /* =====================================================
+           SIDEBAR OPEN
+        ====================================================== */
+
+        function openSidebar() {
+
+            if (!sideNav) return;
+
+            if (window.innerWidth <= 800) {
+
+                sideNav.classList.add("mobile-open");
+
+                document.body.classList.add(
+                    "mobile-nav-open"
+                );
+
+            } else {
+
+                document.body.classList.remove(
+                    "sidebar-closed"
+                );
+            }
+
+
+            updateMenuIcon(true);
+        }
+
+
+        /* =====================================================
+           SIDEBAR CLOSE
+        ====================================================== */
+
+        function closeSidebar() {
+
+            if (!sideNav) return;
+
+            if (window.innerWidth <= 800) {
+
+                sideNav.classList.remove(
+                    "mobile-open"
+                );
+
+                document.body.classList.remove(
+                    "mobile-nav-open"
+                );
+
+            } else {
+
+                document.body.classList.add(
+                    "sidebar-closed"
+                );
+            }
+
+
+            updateMenuIcon(false);
+        }
+
+
+        /* =====================================================
+           SIDEBAR TOGGLE
+        ====================================================== */
+
+        function toggleSidebar() {
+
+            if (window.innerWidth <= 800) {
+
+                const isOpen =
+                    sideNav.classList.contains(
+                        "mobile-open"
+                    );
+
+                if (isOpen) {
+
+                    closeSidebar();
+
+                } else {
+
+                    openSidebar();
+
+                }
+
+            } else {
+
+                const isClosed =
+                    document.body.classList.contains(
+                        "sidebar-closed"
+                    );
+
+                if (isClosed) {
+
+                    openSidebar();
+
+                } else {
+
+                    closeSidebar();
+
+                }
+            }
+        }
+
+
+        /* =====================================================
+           UPDATE MENU ICON
+        ====================================================== */
+
+        function updateMenuIcon(isOpen) {
+
+            if (!menuToggle) return;
+
+            const icon =
+                menuToggle.querySelector("i");
+
+            if (!icon) return;
+
+
+            icon.classList.toggle(
+                "fa-bars",
+                !isOpen
+            );
+
+            icon.classList.toggle(
+                "fa-xmark",
+                isOpen
+            );
+
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        }
+
+
+        /* =====================================================
+           MENU BUTTON CLICK
+        ====================================================== */
+
+        if (menuToggle) {
+
+            menuToggle.addEventListener(
+                "click",
+                toggleSidebar
+            );
+        }
+
+
+        /* =====================================================
+           OVERLAY CLICK
+           -----------------------------------------------------
+           Sidebar ke bahar click = close
+        ====================================================== */
+
+        if (sidebarOverlay) {
+
+            sidebarOverlay.addEventListener(
+                "click",
+                closeSidebar
+            );
+        }
+
+
+        /* =====================================================
+           NAVIGATION LINK CLICK
+           -----------------------------------------------------
+           Mobile par page change se pehle sidebar close.
+        ====================================================== */
+
+        if (sideNav) {
+
+            const links =
+                sideNav.querySelectorAll("a");
+
+            links.forEach(function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        if (
+                            window.innerWidth <= 800
+                        ) {
+
+                            closeSidebar();
+                        }
+
+                    }
+                );
+
+            });
+        }
+
+
+        /* =====================================================
+           ESCAPE KEY
+        ====================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeSidebar();
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           WINDOW RESIZE
+           -----------------------------------------------------
+           Desktop/mobile switch hone par sidebar state reset.
+        ====================================================== */
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (window.innerWidth > 800) {
+
+                    document.body.classList.remove(
+                        "mobile-nav-open"
+                    );
+
+                    sideNav.classList.remove(
+                        "mobile-open"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+    <!-- =====================================================
+         GLOBAL JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
