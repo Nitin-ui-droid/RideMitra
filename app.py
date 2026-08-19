@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import mysql.connector
@@ -44,11 +44,7 @@ def get_db_connection():
 
 @app.route("/")
 def home():
-
-    return jsonify({
-        "success": True,
-        "message": "RideMitra Backend + MySQL Connected! 🚗"
-    })
+    return send_from_directory(".", "index.html")
 
 
 # ==========================================
