@@ -8,7 +8,7 @@ import mysql.connector
 # RIDEMITRA FLASK APPLICATION
 # ==========================================
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=".", static_url_path="")
 
 app.secret_key = "ridemitra-development-secret-key"
 
@@ -45,6 +45,10 @@ def get_db_connection():
 @app.route("/")
 def home():
     return send_from_directory(".", "index.html")
+
+@app.route("/<path:filename>")
+def serve_frontend(filename):
+    return send_from_directory(".", filename)
 
 
 # ==========================================
