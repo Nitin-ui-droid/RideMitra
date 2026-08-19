@@ -18,10 +18,8 @@ const RIDEMITRA_CONFIG = {
    ENDPOINTS: {
 
       LOGIN: "/api/login",
-
-
+      REGISTER: "/api/register",
       RIDES: "/api/rides",
-
       BOOKINGS: "/api/bookings"
 
    }
