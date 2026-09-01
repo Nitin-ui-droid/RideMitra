@@ -1,1383 +1,1187 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Create Account - RideMitra</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+<title>Create Account - RideMitra</title>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
 
-    <style>
-        /* =========================================================
-           RIDEMITRA SIGNUP PAGE
-           COMPLETE STANDALONE PREMIUM DESIGN
-           ========================================================= */
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+    /* ============================================
+       RIDEMITRA SIGNUP
+       COMPLETE PREMIUM REPLACEMENT DESIGN
+    ============================================ */
 
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-        }
+    :root {
+        --primary: #ff5b22;
+        --primary-dark: #e64510;
+        --primary-soft: #fff0ea;
+        --ink: #172033;
+        --ink-light: #637085;
+        --line: #e6eaf0;
+        --surface: #ffffff;
+        --page: #f6f7fb;
+        --success: #16a34a;
+        --danger: #dc2626;
+        --shadow: 0 24px 70px rgba(23, 32, 51, 0.10);
+    }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            overflow-x: hidden;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        button,
-        input {
-            font-family: inherit;
-        }
+    html {
+        scroll-behavior: smooth;
+    }
 
-        /* =========================================================
-           PAGE
-           ========================================================= */
+    body {
+        min-width: 320px;
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: "DM Sans", sans-serif;
+        background: var(--page);
+        color: var(--ink);
+    }
 
+    button,
+    input {
+        font: inherit;
+    }
+
+    button {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============================================
+       MAIN LAYOUT
+    ============================================ */
+
+    .signup-page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(420px, 46%) minmax(0, 54%);
+        background:
+            radial-gradient(circle at 95% 5%, rgba(255, 91, 34, 0.08), transparent 24%),
+            #f7f8fb;
+    }
+
+    /* ============================================
+       LEFT EXPERIENCE PANEL
+    ============================================ */
+
+    .signup-brand-panel {
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        padding: 42px clamp(32px, 5vw, 78px);
+        display: flex;
+        flex-direction: column;
+
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+            linear-gradient(145deg, #111827 0%, #162033 50%, #202b40 100%);
+        background-size: 42px 42px, 42px 42px, auto;
+        color: #fff;
+    }
+
+    .signup-brand-panel::before {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        right: -250px;
+        top: -190px;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(255, 91, 34, 0.30) 0%,
+            rgba(255, 91, 34, 0.08) 42%,
+            transparent 70%
+        );
+        filter: blur(8px);
+        pointer-events: none;
+    }
+
+    .signup-brand-panel::after {
+        content: "";
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        left: -230px;
+        bottom: -180px;
+        border-radius: 50%;
+        border: 70px solid rgba(255,255,255,0.025);
+        pointer-events: none;
+    }
+
+    /* ============================================
+       BRAND
+    ============================================ */
+
+    .brand {
+        position: relative;
+        z-index: 2;
+        width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .brand-icon {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #ff7545, #f04a14);
+        font-size: 19px;
+        box-shadow: 0 14px 30px rgba(255, 91, 34, 0.28);
+    }
+
+    .brand-name {
+        font-family: "Outfit", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .brand-name span {
+        color: #ff7445;
+    }
+
+    /* ============================================
+       HERO CONTENT
+    ============================================ */
+
+    .brand-content {
+        position: relative;
+        z-index: 2;
+        max-width: 590px;
+        margin: auto 0;
+        padding: 60px 0;
+    }
+
+    .brand-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.055);
+        color: #d8deea;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .brand-badge i {
+        color: #ff7445;
+    }
+
+    .brand-content h1 {
+        max-width: 570px;
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(44px, 5vw, 70px);
+        font-weight: 800;
+        line-height: 0.98;
+        letter-spacing: -3px;
+    }
+
+    .brand-content h1 span {
+        color: #ff6b39;
+    }
+
+    .brand-content > p {
+        max-width: 500px;
+        margin-top: 24px;
+        color: #aab5c5;
+        font-size: 14px;
+        line-height: 1.85;
+    }
+
+    /* ============================================
+       BENEFITS
+    ============================================ */
+
+    .benefits {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 540px;
+        margin-top: 38px;
+    }
+
+    .benefit {
+        position: relative;
+        overflow: hidden;
+        min-height: 112px;
+        padding: 17px;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.045);
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .benefit:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,0.075);
+    }
+
+    .benefit-icon {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        background: rgba(255,91,34,0.14);
+        color: #ff7445;
+        font-size: 14px;
+    }
+
+    .benefit strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .benefit span {
+        display: block;
+        color: #8995a8;
+        font-size: 9px;
+        line-height: 1.55;
+    }
+
+    /* ============================================
+       BRAND FOOTER
+    ============================================ */
+
+    .brand-footer {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding-top: 20px;
+        color: #778398;
+        font-size: 10px;
+    }
+
+    .brand-footer span {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .brand-footer i {
+        color: #22c55e;
+    }
+
+    /* ============================================
+       RIGHT FORM AREA
+    ============================================ */
+
+    .signup-form-area {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px;
+    }
+
+    .signup-form-area::before {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(255,91,34,0.075),
+            transparent 68%
+        );
+        pointer-events: none;
+    }
+
+    /* ============================================
+       SIGNUP CARD
+    ============================================ */
+
+    .signup-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 590px;
+        padding: 46px;
+        border: 1px solid rgba(23,32,51,0.08);
+        border-radius: 30px;
+        background: rgba(255,255,255,0.96);
+        box-shadow: var(--shadow);
+    }
+
+    .signup-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 42px;
+        right: 42px;
+        height: 3px;
+        border-radius: 0 0 10px 10px;
+        background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    /* ============================================
+       FORM HEADER
+    ============================================ */
+
+    .form-header {
+        margin-bottom: 30px;
+    }
+
+    .form-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 12px;
+        margin-bottom: 15px;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+    }
+
+    .form-header h2 {
+        font-family: "Outfit", sans-serif;
+        margin-bottom: 8px;
+        color: var(--ink);
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -1.7px;
+    }
+
+    .form-header p {
+        color: var(--ink-light);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    /* ============================================
+       FORM GRID
+    ============================================ */
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .form-group {
+        min-width: 0;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 8px;
+        color: #3c4658;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .form-group label i {
+        color: var(--primary);
+        font-size: 10px;
+    }
+
+    /* ============================================
+       INPUTS
+    ============================================ */
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper > i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a2abba;
+        font-size: 13px;
+        pointer-events: none;
+        transition: color 0.2s ease;
+    }
+
+    .form-group input {
+        width: 100%;
+        height: 54px;
+        padding: 0 15px 0 45px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        outline: none;
+        background: #fafbfc;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 600;
+        transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .form-group input::placeholder {
+        color: #a8b0bd;
+        font-weight: 500;
+    }
+
+    .form-group input:hover {
+        background: #fff;
+        border-color: #cbd3de;
+    }
+
+    .form-group input:focus {
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255,91,34,0.09);
+    }
+
+    .input-wrapper:focus-within > i {
+        color: var(--primary);
+    }
+
+    #signupPassword {
+        padding-right: 50px;
+    }
+
+    /* ============================================
+       PASSWORD
+    ============================================ */
+
+    .password-toggle {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 35px;
+        height: 35px;
+        display: grid;
+        place-items: center;
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        color: #94a0b1;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .password-toggle:hover {
+        background: var(--primary-soft);
+        color: var(--primary);
+    }
+
+    .password-hint {
+        margin-top: 7px;
+        color: #9aa4b3;
+        font-size: 8px;
+    }
+
+    /* ============================================
+       SUBMIT BUTTON
+    ============================================ */
+
+    .create-account-btn {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 56px;
+        margin-top: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: none;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #ff6a35, #ef4610);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 15px 30px rgba(255,91,34,0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .create-account-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 38px rgba(255,91,34,0.32);
+    }
+
+    .create-account-btn:active {
+        transform: translateY(0);
+    }
+
+    .create-account-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.72;
+        transform: none;
+    }
+
+    /* ============================================
+       MESSAGE
+    ============================================ */
+
+    #signupMessage {
+        min-height: 20px;
+        margin-top: 12px;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    /* ============================================
+       SECURITY
+    ============================================ */
+
+    .security-box {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin-top: 20px;
+        padding: 14px;
+        border: 1px solid #e9edf2;
+        border-radius: 16px;
+        background: #fafbfc;
+        color: #6d7889;
+        font-size: 9px;
+        line-height: 1.6;
+    }
+
+    .security-box i {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: #ecfdf3;
+        color: #16a34a;
+        font-size: 13px;
+    }
+
+    /* ============================================
+       LOGIN LINK
+    ============================================ */
+
+    .login-existing {
+        margin-top: 22px;
+        text-align: center;
+        color: #8b95a5;
+        font-size: 10px;
+    }
+
+    .login-existing a {
+        margin-left: 4px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 800;
+    }
+
+    .login-existing a:hover {
+        text-decoration: underline;
+    }
+
+    /* ============================================
+       LARGE LAPTOP
+    ============================================ */
+
+    @media (max-width: 1150px) {
         .signup-page {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            background:
-                radial-gradient(circle at 10% 20%,
-                    rgba(255, 90, 31, 0.10),
-                    transparent 30%),
-                radial-gradient(circle at 90% 80%,
-                    rgba(30, 41, 59, 0.08),
-                    transparent 30%),
-                #f5f7fb;
+            grid-template-columns: minmax(370px, 43%) minmax(0, 57%);
         }
-
-        /* =========================================================
-           LEFT PREMIUM PANEL
-           ========================================================= */
 
         .signup-brand-panel {
-            width: 45%;
-            min-height: 100vh;
-
-            position: relative;
-            overflow: hidden;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            padding: 55px 60px;
-
-            background:
-                radial-gradient(circle at 80% 20%,
-                    rgba(255, 90, 31, 0.22),
-                    transparent 30%),
-                radial-gradient(circle at 15% 85%,
-                    rgba(255, 255, 255, 0.07),
-                    transparent 30%),
-                linear-gradient(145deg,
-                    #0b1220 0%,
-                    #111827 48%,
-                    #182334 100%);
-
-            color: #ffffff;
+            padding: 38px 40px;
         }
 
-        .signup-brand-panel::before {
-            content: "";
-            position: absolute;
-
-            width: 450px;
-            height: 450px;
-
-            border-radius: 50%;
-
-            right: -220px;
-            top: -160px;
-
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow:
-                0 0 0 70px rgba(255, 255, 255, 0.015),
-                0 0 0 140px rgba(255, 255, 255, 0.01);
-
-            pointer-events: none;
+        .signup-form-area {
+            padding: 35px;
         }
 
-        .signup-brand-panel::after {
-            content: "";
-
-            position: absolute;
-
-            width: 300px;
-            height: 300px;
-
-            border-radius: 50%;
-
-            left: -170px;
-            bottom: -170px;
-
-            background: rgba(255, 90, 31, 0.08);
-
-            filter: blur(5px);
-
-            pointer-events: none;
+        .signup-card {
+            padding: 40px 34px;
         }
 
-        /* =========================================================
-           BRAND
-           ========================================================= */
+        .brand-content h1 {
+            font-size: 54px;
+        }
+    }
 
-        .brand {
-            position: relative;
-            z-index: 2;
+    /* ============================================
+       TABLET
+    ============================================ */
 
-            display: flex;
-            align-items: center;
-            gap: 13px;
+    @media (max-width: 900px) {
+        .signup-page {
+            grid-template-columns: 1fr;
+        }
 
-            text-decoration: none;
-            color: #ffffff;
+        .signup-brand-panel {
+            min-height: auto;
+            padding: 32px 40px;
+        }
+
+        .brand-content {
+            margin: 0;
+            padding: 70px 0 35px;
+        }
+
+        .brand-content h1 {
+            font-size: 52px;
+        }
+
+        .benefits {
+            max-width: 650px;
+        }
+
+        .signup-form-area {
+            min-height: auto;
+            padding: 50px 25px 60px;
+        }
+
+        .signup-card {
+            max-width: 640px;
+        }
+    }
+
+    /* ============================================
+       MOBILE
+    ============================================ */
+
+    @media (max-width: 640px) {
+        .signup-brand-panel {
+            padding: 24px 20px 28px;
         }
 
         .brand-icon {
-            width: 52px;
-            height: 52px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 15px;
-
-            background: #ff5a1f;
-
-            color: #ffffff;
-
-            font-size: 21px;
-
-            box-shadow:
-                0 12px 30px rgba(255, 90, 31, 0.30);
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
         }
 
         .brand-name {
             font-size: 22px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
         }
-
-        .brand-name span {
-            color: #ff5a1f;
-        }
-
-        /* =========================================================
-           HERO TEXT
-           ========================================================= */
 
         .brand-content {
-            position: relative;
-            z-index: 2;
-
-            max-width: 560px;
-
-            margin-top: -20px;
-        }
-
-        .brand-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-
-            padding: 8px 13px;
-
-            margin-bottom: 22px;
-
-            border-radius: 50px;
-
-            background: rgba(255, 255, 255, 0.07);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.10);
-
-            color: #e5e7eb;
-
-            font-size: 10px;
-            font-weight: 700;
-
-            letter-spacing: 0.5px;
-        }
-
-        .brand-badge i {
-            color: #ff5a1f;
+            padding: 52px 0 25px;
         }
 
         .brand-content h1 {
-            font-size: clamp(38px, 4vw, 62px);
-
-            line-height: 1.05;
-
-            letter-spacing: -2.8px;
-
-            font-weight: 800;
-
-            margin-bottom: 22px;
+            font-size: 42px;
+            letter-spacing: -2px;
         }
 
-        .brand-content h1 span {
-            color: #ff5a1f;
+        .brand-content > p {
+            font-size: 12px;
         }
-
-        .brand-content>p {
-            max-width: 490px;
-
-            color: #aeb8c7;
-
-            font-size: 14px;
-
-            line-height: 1.8;
-        }
-
-        /* =========================================================
-           BENEFITS
-           ========================================================= */
 
         .benefits {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 14px;
-
-            margin-top: 34px;
-
-            max-width: 500px;
+            grid-template-columns: 1fr;
+            margin-top: 28px;
         }
 
         .benefit {
-            display: flex;
+            min-height: auto;
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            column-gap: 12px;
             align-items: center;
-            gap: 12px;
-
-            padding: 14px;
-
-            border-radius: 14px;
-
-            background: rgba(255, 255, 255, 0.045);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.07);
         }
 
         .benefit-icon {
-            width: 38px;
-            height: 38px;
-
-            flex: 0 0 38px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 11px;
-
-            background: rgba(255, 90, 31, 0.13);
-
-            color: #ff6a35;
-
-            font-size: 14px;
+            grid-row: span 2;
+            margin-bottom: 0;
         }
-
-        .benefit strong {
-            display: block;
-
-            color: #ffffff;
-
-            font-size: 11px;
-
-            margin-bottom: 3px;
-        }
-
-        .benefit span {
-            color: #8995a7;
-
-            font-size: 9px;
-
-            line-height: 1.4;
-        }
-
-        /* =========================================================
-           BRAND FOOTER
-           ========================================================= */
 
         .brand-footer {
-            position: relative;
-            z-index: 2;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
-
-            color: #778398;
-
-            font-size: 9px;
+            display: none;
         }
-
-        .brand-footer span {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .brand-footer i {
-            color: #22c55e;
-        }
-
-        /* =========================================================
-           RIGHT FORM AREA
-           ========================================================= */
 
         .signup-form-area {
-            width: 55%;
-            min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 45px 55px;
+            padding: 25px 13px 45px;
         }
 
         .signup-card {
-            width: min(100%, 570px);
-
-            padding: 42px 46px;
-
-            background: rgba(255, 255, 255, 0.96);
-
-            border:
-                1px solid rgba(15, 23, 42, 0.07);
-
-            border-radius: 28px;
-
-            box-shadow:
-                0 30px 90px rgba(15, 23, 42, 0.12),
-                0 8px 25px rgba(15, 23, 42, 0.05);
-
-            position: relative;
+            padding: 32px 20px;
+            border-radius: 24px;
         }
 
-        .signup-card::before {
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: 0;
-            right: 0;
-
-            height: 4px;
-
-            border-radius:
-                28px 28px 0 0;
-
-            background:
-                linear-gradient(90deg,
-                    #ff5a1f,
-                    #ff7b4a);
-        }
-
-        /* =========================================================
-           FORM HEADER
-           ========================================================= */
-
-        .form-header {
-            margin-bottom: 27px;
-        }
-
-        .form-badge {
-            display: inline-flex;
-
-            align-items: center;
-            gap: 7px;
-
-            padding: 7px 11px;
-
-            margin-bottom: 12px;
-
-            border-radius: 50px;
-
-            background: #fff2ed;
-
-            color: #f4511e;
-
-            font-size: 9px;
-
-            font-weight: 800;
-
-            letter-spacing: 0.5px;
+        .signup-card::after {
+            left: 30px;
+            right: 30px;
         }
 
         .form-header h2 {
-            font-size: 29px;
-
-            line-height: 1.2;
-
-            letter-spacing: -1.2px;
-
-            font-weight: 800;
-
-            color: #111827;
-
-            margin-bottom: 7px;
+            font-size: 30px;
         }
-
-        .form-header p {
-            color: #718096;
-
-            font-size: 11px;
-
-            line-height: 1.6;
-        }
-
-        /* =========================================================
-           FORM
-           ========================================================= */
 
         .form-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 17px;
-        }
-
-        .form-group {
-            min-width: 0;
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
         .form-group.full {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            display: flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-            margin-bottom: 7px;
-
-            color: #374151;
-
-            font-size: 10px;
-
-            font-weight: 800;
-        }
-
-        .form-group label i {
-            color: #ff5a1f;
-
-            font-size: 10px;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper>i {
-            position: absolute;
-
-            left: 15px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            color: #9ca3af;
-
-            font-size: 12px;
-
-            pointer-events: none;
-
-            transition: color .2s ease;
+            grid-column: auto;
         }
 
         .form-group input {
-            width: 100%;
             height: 52px;
+        }
+    }
 
-            padding:
-                0 15px 0 42px;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius: 12px;
-
-            background: #f8fafc;
-
-            color: #111827;
-
-            outline: none;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            transition:
-                border-color .2s ease,
-                box-shadow .2s ease,
-                background .2s ease;
+    @media (max-width: 380px) {
+        .signup-brand-panel {
+            padding-left: 16px;
+            padding-right: 16px;
         }
 
-        .form-group input::placeholder {
-            color: #9ca3af;
-
-            font-weight: 500;
+        .brand-content h1 {
+            font-size: 36px;
         }
 
-        .form-group input:hover {
-            border-color: #cbd5e1;
-
-            background: #ffffff;
+        .signup-card {
+            padding: 28px 16px;
         }
 
-        .form-group input:focus {
-            border-color: #ff5a1f;
-
-            background: #ffffff;
-
-            box-shadow:
-                0 0 0 4px rgba(255, 90, 31, 0.08);
+        .form-header h2 {
+            font-size: 27px;
         }
+    }
+</style>
 
-        .input-wrapper:focus-within>i {
-            color: #ff5a1f;
-        }
 
-        /* =========================================================
-           PASSWORD
-           ========================================================= */
-
-        .password-toggle {
-            position: absolute;
-
-            right: 13px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            border: none;
-
-            background: transparent;
-
-            color: #94a3b8;
-
-            cursor: pointer;
-
-            width: 32px;
-            height: 32px;
-
-            border-radius: 8px;
-        }
-
-        .password-toggle:hover {
-            background: #f1f5f9;
-
-            color: #ff5a1f;
-        }
-
-        #signupPassword {
-            padding-right: 45px;
-        }
-
-        /* =========================================================
-           PASSWORD HINT
-           ========================================================= */
-
-        .password-hint {
-            margin-top: 6px;
-
-            color: #94a3b8;
-
-            font-size: 8px;
-
-            line-height: 1.5;
-        }
-
-        /* =========================================================
-           SUBMIT BUTTON
-           ========================================================= */
-
-        .create-account-btn {
-            width: 100%;
-
-            height: 54px;
-
-            margin-top: 23px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 9px;
-
-            border: none;
-
-            border-radius: 13px;
-
-            background:
-                linear-gradient(135deg,
-                    #ff5a1f,
-                    #f0440d);
-
-            color: #ffffff;
-
-            font-size: 11px;
-
-            font-weight: 800;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 13px 28px rgba(255, 90, 31, 0.24);
-
-            transition:
-                transform .2s ease,
-                box-shadow .2s ease,
-                opacity .2s ease;
-        }
-
-        .create-account-btn:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 17px 34px rgba(255, 90, 31, 0.30);
-        }
-
-        .create-account-btn:active {
-            transform: translateY(0);
-        }
-
-        .create-account-btn:disabled {
-            cursor: not-allowed;
-
-            opacity: 0.7;
-
-            transform: none;
-
-            box-shadow:
-                0 8px 18px rgba(255, 90, 31, 0.14);
-        }
-
-        /* =========================================================
-           MESSAGE
-           ========================================================= */
-
-        #signupMessage {
-            min-height: 18px;
-
-            margin-top: 11px;
-
-            text-align: center;
-
-            font-size: 10px;
-
-            font-weight: 700;
-
-            line-height: 1.5;
-        }
-
-        /* =========================================================
-           SECURITY
-           ========================================================= */
-
-        .security-box {
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            margin-top: 20px;
-
-            padding: 12px 14px;
-
-            border-radius: 12px;
-
-            background: #f8fafc;
-
-            border:
-                1px solid #edf2f7;
-
-            color: #64748b;
-
-            font-size: 9px;
-
-            line-height: 1.5;
-        }
-
-        .security-box i {
-            color: #16a34a;
-
-            font-size: 14px;
-
-            flex: 0 0 auto;
-        }
-
-        /* =========================================================
-           LOGIN LINK
-           ========================================================= */
-
-        .login-existing {
-            margin-top: 20px;
-
-            text-align: center;
-
-            color: #94a3b8;
-
-            font-size: 10px;
-        }
-
-        .login-existing a {
-            color: #ff5a1f;
-
-            text-decoration: none;
-
-            font-weight: 800;
-        }
-
-        .login-existing a:hover {
-            text-decoration: underline;
-        }
-
-        /* =========================================================
-           MOBILE
-           ========================================================= */
-
-        @media (max-width: 1000px) {
-
-            .signup-brand-panel {
-                width: 40%;
-
-                padding:
-                    40px 35px;
-            }
-
-            .signup-form-area {
-                width: 60%;
-
-                padding:
-                    35px 25px;
-            }
-
-            .signup-card {
-                padding:
-                    35px 30px;
-            }
-
-            .brand-content h1 {
-                font-size: 42px;
-            }
-
-            .benefits {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 760px) {
-
-            .signup-page {
-                display: block;
-            }
-
-            .signup-brand-panel {
-                width: 100%;
-
-                min-height: auto;
-
-                padding:
-                    30px 25px 35px;
-            }
-
-            .brand-content {
-                margin-top: 55px;
-            }
-
-            .brand-content h1 {
-                font-size: 38px;
-            }
-
-            .brand-content>p {
-                font-size: 12px;
-            }
-
-            .benefits {
-                display: grid;
-
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-
-                margin-top: 25px;
-            }
-
-            .brand-footer {
-                display: none;
-            }
-
-            .signup-form-area {
-                width: 100%;
-
-                min-height: auto;
-
-                padding:
-                    25px 15px 40px;
-            }
-
-            .signup-card {
-                width: 100%;
-
-                padding:
-                    32px 24px;
-
-                border-radius: 22px;
-            }
-        }
-
-        @media (max-width: 480px) {
-
-            .signup-brand-panel {
-                padding:
-                    25px 18px 30px;
-            }
-
-            .brand-content {
-                margin-top: 45px;
-            }
-
-            .brand-content h1 {
-                font-size: 34px;
-
-                letter-spacing: -1.8px;
-            }
-
-            .benefits {
-                grid-template-columns: 1fr;
-            }
-
-            .signup-form-area {
-                padding:
-                    18px 10px 30px;
-            }
-
-            .signup-card {
-                padding:
-                    28px 18px;
-            }
-
-            .form-header h2 {
-                font-size: 26px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-
-                gap: 15px;
-            }
-
-            .form-group.full {
-                grid-column: auto;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-    <main class="signup-page">
 
-        <!-- =====================================================
-             LEFT BRAND PANEL
-             ===================================================== -->
+<main class="signup-page">
 
-        <section class="signup-brand-panel">
+    <section class="signup-brand-panel">
 
-            <a href="index.html" class="brand">
-                <div class="brand-icon">
-                    <i class="fa-solid fa-car-side"></i>
+        <a href="index.html" class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-car-side"></i>
+            </div>
+
+            <div class="brand-name">
+                Ride<span>Mitra</span>
+            </div>
+        </a>
+
+        <div class="brand-content">
+
+            <div class="brand-badge">
+                <i class="fa-solid fa-sparkles"></i>
+                JOIN THE COMMUNITY
+            </div>
+
+            <h1>
+                Better journeys.
+                <br>
+                <span>Better together.</span>
+            </h1>
+
+            <p>
+                Create your RideMitra account and become part of a smarter
+                community built for safer, simpler and more affordable travel.
+            </p>
+
+            <div class="benefits">
+
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <strong>Verified Community</strong>
+                        <span>Connect with trusted fellow travellers.</span>
+                    </div>
                 </div>
 
-                <div class="brand-name">
-                    Ride<span>Mitra</span>
-                </div>
-            </a>
-
-
-            <div class="brand-content">
-
-                <div class="brand-badge">
-                    <i class="fa-solid fa-sparkles"></i>
-                    YOUR JOURNEY STARTS HERE
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div>
+                        <strong>Save on Travel</strong>
+                        <span>Share journeys and reduce travel costs.</span>
+                    </div>
                 </div>
 
-                <h1>
-                    Ride together.<br>
-                    <span>Go further.</span>
-                </h1>
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+                    <div>
+                        <strong>Smart Matching</strong>
+                        <span>Discover people travelling your route.</span>
+                    </div>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <strong>Travel Together</strong>
+                        <span>Make every journey more connected.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="brand-footer">
+            <span>
+                <i class="fa-solid fa-circle-check"></i>
+                Secure account registration
+            </span>
+
+            <span>© 2026 RideMitra</span>
+        </div>
+
+    </section>
+
+
+    <section class="signup-form-area">
+
+        <div class="signup-card">
+
+            <div class="form-header">
+
+                <span class="form-badge">
+                    <i class="fa-solid fa-user-plus"></i>
+                    CREATE YOUR ACCOUNT
+                </span>
+
+                <h2>Let's get you moving.</h2>
 
                 <p>
-                    Join RideMitra and discover verified riders travelling
-                    on your route. Share journeys, reduce travel costs,
-                    and connect with people going the same way.
+                    A few details and you'll be ready to start your RideMitra journey.
                 </p>
 
+            </div>
 
-                <div class="benefits">
 
-                    <div class="benefit">
+            <form id="signupForm" novalidate>
 
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="signupName">
+                            <i class="fa-solid fa-user"></i>
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="signupName"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required>
                         </div>
-
-                        <div>
-                            <strong>Verified Community</strong>
-                            <span>Travel with trusted members</span>
-                        </div>
-
                     </div>
 
 
-                    <div class="benefit">
+                    <div class="form-group full">
+                        <label for="signupEmail">
+                            <i class="fa-solid fa-envelope"></i>
+                            Email Address
+                        </label>
 
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-wallet"></i>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="signupEmail"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                required>
                         </div>
-
-                        <div>
-                            <strong>Save on Travel</strong>
-                            <span>Share costs with your co-riders</span>
-                        </div>
-
                     </div>
 
 
-                    <div class="benefit">
+                    <div class="form-group">
+                        <label for="signupPhone">
+                            <i class="fa-solid fa-phone"></i>
+                            Phone Number
+                        </label>
 
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-route"></i>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="signupPhone"
+                                name="phone"
+                                placeholder="10 digit number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                required>
                         </div>
-
-                        <div>
-                            <strong>Easy Connections</strong>
-                            <span>Find rides on your route</span>
-                        </div>
-
                     </div>
 
 
-                    <div class="benefit">
+                    <div class="form-group">
+                        <label for="signupPassword">
+                            <i class="fa-solid fa-lock"></i>
+                            Password
+                        </label>
 
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-users"></i>
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="signupPassword"
+                                name="password"
+                                placeholder="Create password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password">
+
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+
                         </div>
 
-                        <div>
-                            <strong>Travel Together</strong>
-                            <span>Meet fellow travellers</span>
+                        <div class="password-hint">
+                            Use at least 6 characters for your password.
                         </div>
-
                     </div>
 
                 </div>
 
-            </div>
 
+                <button
+                    type="submit"
+                    class="create-account-btn"
+                    id="createAccountButton">
 
-            <div class="brand-footer">
+                    <i class="fa-solid fa-arrow-right"></i>
 
-                <span>
-                    <i class="fa-solid fa-circle-check"></i>
-                    Secure registration
-                </span>
-
-                <span>
-                    © 2026 RideMitra
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             RIGHT SIGNUP FORM
-             ===================================================== -->
-
-        <section class="signup-form-area">
-
-            <div class="signup-card">
-
-                <div class="form-header">
-
-                    <span class="form-badge">
-                        <i class="fa-solid fa-user-plus"></i>
-                        CREATE ACCOUNT
+                    <span id="createButtonText">
+                        Create My Account
                     </span>
 
-                    <h2>Join RideMitra</h2>
+                </button>
 
-                    <p>
-                        Create your account and start sharing rides.
-                    </p>
 
-                </div>
+                <p id="signupMessage"></p>
 
+            </form>
 
-                <form id="signupForm" novalidate>
 
-                    <div class="form-grid">
+            <div class="security-box">
+                <i class="fa-solid fa-shield-halved"></i>
 
-
-                        <!-- FULL NAME -->
-
-                        <div class="form-group full">
-
-                            <label for="signupName">
-                                <i class="fa-solid fa-user"></i>
-                                Full Name
-                            </label>
-
-                            <div class="input-wrapper">
-
-                                <i class="fa-solid fa-user"></i>
-
-                                <input type="text" id="signupName" name="name" placeholder="Enter your full name"
-                                    autocomplete="name" required>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- EMAIL -->
-
-                        <div class="form-group full">
-
-                            <label for="signupEmail">
-                                <i class="fa-solid fa-envelope"></i>
-                                Email Address
-                            </label>
-
-                            <div class="input-wrapper">
-
-                                <i class="fa-solid fa-envelope"></i>
-
-                                <input type="email" id="signupEmail" name="email" placeholder="Enter your email address"
-                                    autocomplete="email" required>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- PHONE -->
-
-                        <div class="form-group">
-
-                            <label for="signupPhone">
-                                <i class="fa-solid fa-phone"></i>
-                                Phone Number
-                            </label>
-
-                            <div class="input-wrapper">
-
-                                <i class="fa-solid fa-phone"></i>
-
-                                <input type="tel" id="signupPhone" name="phone" placeholder="10 digit number"
-                                    maxlength="10" inputmode="numeric" autocomplete="tel" required>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- PASSWORD -->
-
-                        <div class="form-group">
-
-                            <label for="signupPassword">
-                                <i class="fa-solid fa-lock"></i>
-                                Password
-                            </label>
-
-                            <div class="input-wrapper">
-
-                                <i class="fa-solid fa-lock"></i>
-
-                                <input type="password" id="signupPassword" name="password" placeholder="Create password"
-                                    autocomplete="new-password" minlength="6" required>
-
-                                <button type="button" class="password-toggle" id="passwordToggle"
-                                    aria-label="Show password">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                            </div>
-
-                            <div class="password-hint">
-                                Minimum 6 characters
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- SUBMIT -->
-
-                    <button type="submit" class="create-account-btn" id="createAccountButton">
-
-                        <i class="fa-solid fa-rocket"></i>
-
-                        <span id="createButtonText">
-                            Create Account
-                        </span>
-
-                    </button>
-
-
-                    <!-- MESSAGE -->
-
-                    <p id="signupMessage"></p>
-
-
-                </form>
-
-
-                <!-- SECURITY -->
-
-                <div class="security-box">
-
-                    <i class="fa-solid fa-shield-halved"></i>
-
-                    <span>
-                        Your information is securely protected.
-                        We never share your personal details.
-                    </span>
-
-                </div>
-
-
-                <!-- LOGIN -->
-
-                <div class="login-existing">
-
-                    Already have an account?
-
-                    <a href="login.html">
-                        Login
-                    </a>
-
-                </div>
-
+                <span>
+                    Your personal information is securely protected and handled
+                    with privacy in mind.
+                </span>
             </div>
 
-        </section>
 
-    </main>
+            <div class="login-existing">
+                Already part of RideMitra?
+                <a href="login.html">Sign in</a>
+            </div>
 
+        </div>
 
-    <script>
-        /* =========================================================
-           RIDEMITRA SIGNUP JAVASCRIPT
-           ========================================================= */
+    </section>
 
-        const signupForm =
-            document.getElementById("signupForm");
-
-        const signupName =
-            document.getElementById("signupName");
-
-        const signupEmail =
-            document.getElementById("signupEmail");
-
-        const signupPhone =
-            document.getElementById("signupPhone");
-
-        const signupPassword =
-            document.getElementById("signupPassword");
-
-        const signupMessage =
-            document.getElementById("signupMessage");
-
-        const createAccountButton =
-            document.getElementById("createAccountButton");
-
-        const createButtonText =
-            document.getElementById("createButtonText");
-
-        const passwordToggle =
-            document.getElementById("passwordToggle");
+</main>
 
 
-        /* =========================================================
-           SHOW / HIDE PASSWORD
-           ========================================================= */
+<script src="config.js"></script>
 
-        if (passwordToggle) {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-            passwordToggle.addEventListener(
-                "click",
-                function () {
+        const signupForm = document.getElementById("signupForm");
+        const signupName = document.getElementById("signupName");
+        const signupEmail = document.getElementById("signupEmail");
+        const signupPhone = document.getElementById("signupPhone");
+        const signupPassword = document.getElementById("signupPassword");
+        const signupMessage = document.getElementById("signupMessage");
+        const createAccountButton = document.getElementById("createAccountButton");
+        const createButtonText = document.getElementById("createButtonText");
+        const passwordToggle = document.getElementById("passwordToggle");
 
-                    const icon =
-                        passwordToggle.querySelector("i");
 
-                    if (signupPassword.type === "password") {
+        if (passwordToggle && signupPassword) {
 
-                        signupPassword.type = "text";
+            passwordToggle.addEventListener("click", function () {
 
-                        icon.className =
-                            "fa-solid fa-eye-slash";
+                const icon = passwordToggle.querySelector("i");
 
-                        passwordToggle.setAttribute(
-                            "aria-label",
-                            "Hide password"
-                        );
+                if (signupPassword.type === "password") {
 
-                    } else {
+                    signupPassword.type = "text";
+                    icon.className = "fa-solid fa-eye-slash";
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
 
-                        signupPassword.type = "password";
+                } else {
 
-                        icon.className =
-                            "fa-solid fa-eye";
-
-                        passwordToggle.setAttribute(
-                            "aria-label",
-                            "Show password"
-                        );
-                    }
+                    signupPassword.type = "password";
+                    icon.className = "fa-solid fa-eye";
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
                 }
-            );
+
+            });
+
         }
 
 
-        /* =========================================================
-           PHONE - ONLY NUMBERS
-           ========================================================= */
+        if (signupPhone) {
 
-        signupPhone.addEventListener(
-            "input",
-            function () {
+            signupPhone.addEventListener("input", function () {
 
-                this.value =
-                    this.value
-                        .replace(/\D/g, "")
-                        .slice(0, 10);
-            }
-        );
+                this.value = this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
 
+            });
 
-        /* =========================================================
-           MESSAGE HELPER
-           ========================================================= */
+        }
+
 
         function showMessage(text, type) {
 
             signupMessage.textContent = text;
 
             if (type === "success") {
-
-                signupMessage.style.color =
-                    "#16a34a";
-
+                signupMessage.style.color = "#16a34a";
             } else if (type === "error") {
-
-                signupMessage.style.color =
-                    "#dc2626";
-
+                signupMessage.style.color = "#dc2626";
             } else {
-
-                signupMessage.style.color =
-                    "#2563eb";
+                signupMessage.style.color = "#2563eb";
             }
+
         }
 
 
-        /* =========================================================
-           SAVE LOCAL USER
-           ========================================================= */
+        function clearMessage() {
+            signupMessage.textContent = "";
+        }
 
-        function saveLocalUser(
-            name,
-            email,
-            phone,
-            password
-        ) {
 
-            const users =
-                JSON.parse(
-                    localStorage.getItem(
-                        "rideMitraUsers"
-                    ) || "[]"
+        [signupName, signupEmail, signupPhone, signupPassword]
+            .forEach(function (input) {
+
+                if (input) {
+                    input.addEventListener("input", clearMessage);
+                }
+
+            });
+
+
+        function saveLocalUser(name, email, phone, password) {
+
+            let users = [];
+
+            try {
+                users = JSON.parse(
+                    localStorage.getItem("rideMitraUsers") || "[]"
                 );
+            } catch (error) {
+                users = [];
+            }
 
 
-            const existingUser =
-                users.find(
-                    user =>
-                        user.email.toLowerCase() ===
-                        email.toLowerCase()
-                );
+            const existingUser = users.find(function (user) {
+
+                return user.email &&
+                    user.email.toLowerCase() ===
+                    email.toLowerCase();
+
+            });
 
 
             if (existingUser) {
 
                 return {
                     success: false,
-                    message:
-                        "An account with this email already exists."
+                    message: "An account with this email already exists."
                 };
+
             }
 
 
             const newUser = {
-
-                id:
-                    Date.now().toString(),
-
+                id: Date.now().toString(),
                 name: name,
-
                 email: email,
-
                 phone: phone,
-
                 password: password,
-
-                createdAt:
-                    new Date().toISOString()
+                createdAt: new Date().toISOString()
             };
 
 
             users.push(newUser);
-
 
             localStorage.setItem(
                 "rideMitraUsers",
@@ -1385,278 +1189,226 @@
             );
 
 
-            /*
-             * Keep compatibility with the existing
-             * RideMitra login/dashboard system.
-             */
-
-            localStorage.setItem(
-                "rideMitraUser",
-                JSON.stringify(newUser)
-            );
-
-
             return {
-                success: true
+                success: true,
+                user: newUser
             };
+
         }
 
 
-        /* =========================================================
-           SIGNUP
-           ========================================================= */
+        if (signupForm) {
 
-        signupForm.addEventListener(
-            "submit",
-            async function (event) {
+            signupForm.addEventListener(
+                "submit",
+                async function (event) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-
-                const name =
-                    signupName.value.trim();
-
-                const email =
-                    signupEmail.value.trim();
-
-                const phone =
-                    signupPhone.value.trim();
-
-                const password =
-                    signupPassword.value;
+                    clearMessage();
 
 
-                /* -----------------------------------------------
-                   VALIDATION
-                   ----------------------------------------------- */
-
-                if (name.length < 2) {
-
-                    showMessage(
-                        "Please enter your full name.",
-                        "error"
-                    );
-
-                    signupName.focus();
-
-                    return;
-                }
+                    const name = signupName.value.trim();
+                    const email = signupEmail.value.trim();
+                    const phone = signupPhone.value.trim();
+                    const password = signupPassword.value;
 
 
-                const emailPattern =
-                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (name.length < 2) {
 
-
-                if (!emailPattern.test(email)) {
-
-                    showMessage(
-                        "Please enter a valid email address.",
-                        "error"
-                    );
-
-                    signupEmail.focus();
-
-                    return;
-                }
-
-
-                if (!/^\d{10}$/.test(phone)) {
-
-                    showMessage(
-                        "Phone number must contain exactly 10 digits.",
-                        "error"
-                    );
-
-                    signupPhone.focus();
-
-                    return;
-                }
-
-
-                if (password.length < 6) {
-
-                    showMessage(
-                        "Password must contain at least 6 characters.",
-                        "error"
-                    );
-
-                    signupPassword.focus();
-
-                    return;
-                }
-
-
-                /* -----------------------------------------------
-                   BUTTON LOADING STATE
-                   ----------------------------------------------- */
-
-                createAccountButton.disabled = true;
-
-                createButtonText.textContent =
-                    "Creating Account...";
-
-                showMessage(
-                    "Please wait...",
-                    "info"
-                );
-
-
-                /* -----------------------------------------------
-                   TRY BACKEND FIRST
-                   ----------------------------------------------- */
-
-                let backendSuccess = false;
-
-
-                try {
-
-                    const controller =
-                        new AbortController();
-
-                    const timeout =
-                        setTimeout(
-                            () => controller.abort(),
-                            4000
+                        showMessage(
+                            "Please enter your full name.",
+                            "error"
                         );
 
+                        signupName.focus();
+                        return;
+                    }
 
-                    const response =
-                        await fetch(
-                            RIDEMITRA_CONFIG.API_BASE_URL +
-                            RIDEMITRA_CONFIG.ENDPOINTS.REGISTER,
-                            {
-                                method: "POST",
 
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
+                    const emailPattern =
+                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                                body:
-                                    JSON.stringify({
+
+                    if (!emailPattern.test(email)) {
+
+                        showMessage(
+                            "Please enter a valid email address.",
+                            "error"
+                        );
+
+                        signupEmail.focus();
+                        return;
+                    }
+
+
+                    if (!/^\d{10}$/.test(phone)) {
+
+                        showMessage(
+                            "Phone number must contain exactly 10 digits.",
+                            "error"
+                        );
+
+                        signupPhone.focus();
+                        return;
+                    }
+
+
+                    if (password.length < 6) {
+
+                        showMessage(
+                            "Password must contain at least 6 characters.",
+                            "error"
+                        );
+
+                        signupPassword.focus();
+                        return;
+                    }
+
+
+                    createAccountButton.disabled = true;
+                    createButtonText.textContent =
+                        "Creating your account...";
+
+                    showMessage(
+                        "Setting up your RideMitra account...",
+                        "info"
+                    );
+
+
+                    try {
+
+                        const apiUrl =
+                            typeof RIDEMITRA_CONFIG !== "undefined" &&
+                            RIDEMITRA_CONFIG.API_BASE_URL
+                                ? RIDEMITRA_CONFIG.API_BASE_URL
+                                : null;
+
+
+                        const registerEndpoint =
+                            typeof RIDEMITRA_CONFIG !== "undefined" &&
+                            RIDEMITRA_CONFIG.ENDPOINTS &&
+                            RIDEMITRA_CONFIG.ENDPOINTS.REGISTER
+                                ? RIDEMITRA_CONFIG.ENDPOINTS.REGISTER
+                                : "/api/register";
+
+
+                        if (apiUrl) {
+
+                            const controller =
+                                new AbortController();
+
+                            const timeout =
+                                setTimeout(function () {
+                                    controller.abort();
+                                }, 5000);
+
+
+                            const response = await fetch(
+                                apiUrl + registerEndpoint,
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+                                    body: JSON.stringify({
                                         name: name,
                                         email: email,
                                         phone: phone,
                                         password: password
                                     }),
+                                    signal: controller.signal
+                                }
+                            );
 
-                                signal:
-                                    controller.signal
+
+                            clearTimeout(timeout);
+
+
+                            let data = {};
+
+                            try {
+                                data = await response.json();
+                            } catch (error) {
+                                data = {};
                             }
+
+
+                            if (response.ok) {
+
+                                const user = data.user || {
+                                    name: name,
+                                    email: email,
+                                    phone: phone
+                                };
+
+
+                                localStorage.setItem(
+                                    "rideMitraUser",
+                                    JSON.stringify(user)
+                                );
+
+                                localStorage.setItem(
+                                    "rideMitraRegisteredEmail",
+                                    email
+                                );
+
+
+                                showMessage(
+                                    "Account created successfully! Redirecting...",
+                                    "success"
+                                );
+
+                                createButtonText.textContent =
+                                    "Account Created";
+
+                                setTimeout(function () {
+                                    window.location.href =
+                                        "login.html";
+                                }, 1000);
+
+                                return;
+                            }
+
+
+                            if (
+                                response.status === 400 ||
+                                response.status === 409
+                            ) {
+
+                                showMessage(
+                                    data.message ||
+                                    "This email is already registered.",
+                                    "error"
+                                );
+
+                                createAccountButton.disabled = false;
+
+                                createButtonText.textContent =
+                                    "Create My Account";
+
+                                return;
+                            }
+
+                        }
+
+                    } catch (error) {
+
+                        console.log(
+                            "Backend unavailable. Using local registration.",
+                            error
                         );
 
-
-                    clearTimeout(timeout);
-
-
-                    let data = {};
-
-                    try {
-                        data =
-                            await response.json();
-                    } catch (e) {
-                        data = {};
                     }
 
 
-                    if (response.ok) {
-
-                        backendSuccess = true;
-
-                        /*
-                         * Save the user locally too,
-                         * so existing RideMitra login
-                         * can recognize the account.
-                         */
-
-                        localStorage.setItem(
-                            "rideMitraUser",
-                            JSON.stringify({
-                                name: name,
-                                email: email,
-                                phone: phone
-                            })
-                        );
-
-
-                        localStorage.setItem(
-                            "rideMitraRegisteredEmail",
-                            email
-                        );
-
-
-                        showMessage(
-                            "Account created successfully! Redirecting...",
-                            "success"
-                        );
-
-
-                        createButtonText.textContent =
-                            "Account Created ✓";
-
-
-                        setTimeout(
-                            function () {
-                                window.location.href =
-                                    "login.html";
-                            },
-                            1000
-                        );
-
-
-                        return;
-                    }
-
-
-                    /*
-                     * If backend specifically says
-                     * account already exists,
-                     * don't use fallback.
-                     */
-
-                    if (
-                        response.status === 400 ||
-                        response.status === 409
-                    ) {
-
-                        showMessage(
-                            data.message ||
-                            "This email is already registered.",
-                            "error"
-                        );
-
-                        createAccountButton.disabled =
-                            false;
-
-                        createButtonText.textContent =
-                            "Create Account";
-
-                        return;
-                    }
-
-
-                } catch (error) {
-
-                    console.log(
-                        "Backend unavailable. Using local registration.",
-                        error
+                    const result = saveLocalUser(
+                        name,
+                        email,
+                        phone,
+                        password
                     );
-                }
-
-
-                /* -----------------------------------------------
-                   LOCAL FALLBACK
-                   ----------------------------------------------- */
-
-                if (!backendSuccess) {
-
-                    const result =
-                        saveLocalUser(
-                            name,
-                            email,
-                            phone,
-                            password
-                        );
 
 
                     if (!result.success) {
@@ -1666,15 +1418,19 @@
                             "error"
                         );
 
-                        createAccountButton.disabled =
-                            false;
+                        createAccountButton.disabled = false;
 
                         createButtonText.textContent =
-                            "Create Account";
+                            "Create My Account";
 
                         return;
                     }
 
+
+                    localStorage.setItem(
+                        "rideMitraUser",
+                        JSON.stringify(result.user)
+                    );
 
                     localStorage.setItem(
                         "rideMitraRegisteredEmail",
@@ -1687,35 +1443,25 @@
                         "success"
                     );
 
-
                     createButtonText.textContent =
-                        "Account Created ✓";
+                        "Account Created";
 
 
-                    setTimeout(
-                        function () {
+                    setTimeout(function () {
+                        window.location.href = "login.html";
+                    }, 1000);
 
-                            window.location.href =
-                                "login.html";
-
-                        },
-                        1000
-                    );
                 }
+            );
 
-            }
-        );
+        }
 
-    </script>
+    });
+</script>
 
-    </script>
+<script src="script.js"></script>
 
-    <!-- Global Configuration -->
-    <script src="config.js"></script>
-
-    <!-- Global JavaScript -->
-    <script src="script.js"></script>
 
 </body>
-
 </html>
+ 

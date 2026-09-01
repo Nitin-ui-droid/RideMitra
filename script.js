@@ -1,612 +1,1478 @@
-// ==========================================
-// RIDEMITRA - COMPLETE SYSTEM SCRIPT
-// ==========================================
+/* =========================================================
+   RIDEMITRA — COMPLETE GLOBAL APPLICATION SCRIPT
+   Version: 2.1.0
+========================================================= */
 
-// ==========================================
-// RIDEMITRA - AUTHENTICATION SYSTEM
-// ==========================================
+"use strict";
+
+/* =========================================================
+   STORAGE SHORTCUTS
+========================================================= */
+
+const RM_STORAGE = RIDEMITRA_CONFIG.STORAGE;
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function escapeHTML(value = "") {
+    const div = document.createElement("div");
+    div.textContent = String(value);
+    return div.innerHTML;
+}
+
+function generateId(prefix = "rm") {
+    return `${prefix}_${Date.now()}_${Math.random()
+        .toString(36)
+        .slice(2, 9)}`;
+}
+
+function formatCurrency(amount) {
+    const value = Number(amount) || 0;
+
+    return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+    }).format(value);
+}
+
+function formatDate(dateValue) {
+    if (!dateValue) return "Not specified";
+
+    const date = new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) {
+        return dateValue;
+    }
+
+    return new Intl.DateTimeFormat("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    }).format(date);
+}
+
+function showToast(message, type = "info") {
+    let toast = document.getElementById("rmToast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "rmToast";
+
+        toast.style.cssText = `
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 99999;
+            max-width: 360px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 15px 40px rgba(0,0,0,.18);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all .25s ease;
+        `;
+
+        document.body.appendChild(toast);
+    }
+
+    const colors = {
+        success: "#16a34a",
+        error: "#dc2626",
+        warning: "#d97706",
+        info: "#2563eb"
+    };
+
+    toast.style.background = colors[type] || colors.info;
+    toast.textContent = message;
+
+    requestAnimationFrame(() => {
+        toast.style.transform = "translateY(0)";
+        toast.style.opacity = "1";
+    });
+
+    clearTimeout(window.rmToastTimer);
+
+    window.rmToastTimer = setTimeout(() => {
+        toast.style.transform = "translateY(20px)";
+        toast.style.opacity = "0";
+    }, 3500);
+}
+
+
+/* =========================================================
+   USER SESSION
+========================================================= */
 
 function getCurrentUser() {
-
-    const userData =
-        localStorage.getItem(RIDEMITRA_CONFIG.STORAGE.USER) ||
-        localStorage.getItem(RIDEMITRA_CONFIG.STORAGE.LEGACY_USER);
-
-    if (!userData) {
-        return null;
-    }
-
-    try {
-        return JSON.parse(userData);
-    } catch (error) {
-        console.error("User data error:", error);
-        return null;
-    }
+    return getStoredJSON(
+        RM_STORAGE.CURRENT_USER,
+        null
+    );
 }
 
+function saveCurrentUser(user) {
+    if (!user) return false;
 
-// ==========================================
-// SAVE USER
-// ==========================================
-
-function saveLoggedInUser(user) {
-
-    localStorage.setItem(
-        RIDEMITRA_CONFIG.STORAGE.USER,
-        JSON.stringify(user)
+    setStoredJSON(
+        RM_STORAGE.CURRENT_USER,
+        user
     );
 
-    // Keep old system compatible
-    localStorage.setItem(
-        RIDEMITRA_CONFIG.STORAGE.LEGACY_USER,
-        JSON.stringify(user)
-    );
-
-    localStorage.setItem(
-        RIDEMITRA_CONFIG.STORAGE.LOGGED_IN,
+    setStorageItem(
+        RM_STORAGE.LOGGED_IN,
         "true"
     );
+
+    return true;
+}
+
+function isLoggedIn() {
+    const user = getCurrentUser();
+
+    const status = getStorageItem(
+        RM_STORAGE.LOGGED_IN
+    );
+
+    return !!user && status === "true";
+}
+
+function logoutUser(redirect = true) {
+    removeStorageItem(
+        RM_STORAGE.CURRENT_USER
+    );
+
+    removeStorageItem(
+        RM_STORAGE.LOGGED_IN
+    );
+
+    removeStorageItem(
+        RM_STORAGE.REMEMBER_ME
+    );
+
+    if (redirect) {
+        window.location.href = "login.html";
+    }
 }
 
 
-// ==========================================
-// LOGIN
-// ==========================================
+/* =========================================================
+   USER DATABASE — LOCAL FALLBACK
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+function getUsers() {
+    return getStoredJSON(
+        RM_STORAGE.USERS,
+        []
+    );
+}
 
-    const loginForm =
-        document.getElementById("loginForm");
+function saveUsers(users) {
+    return setStoredJSON(
+        RM_STORAGE.USERS,
+        users
+    );
+}
 
-    if (!loginForm) {
-        return;
+function registerLocalUser({
+    name,
+    email,
+    phone,
+    password
+}) {
+    const users = getUsers();
+
+    const normalizedEmail =
+        email.trim().toLowerCase();
+
+    const exists = users.some(user =>
+        user.email &&
+        user.email.toLowerCase() === normalizedEmail
+    );
+
+    if (exists) {
+        return {
+            success: false,
+            message: "An account with this email already exists."
+        };
     }
 
+    const user = {
+        id: generateId("user"),
+        name: name.trim(),
+        email: normalizedEmail,
+        phone: phone.trim(),
+        password,
+        avatar: "",
+        createdAt: new Date().toISOString()
+    };
 
-    loginForm.addEventListener("submit", async function (event) {
+    users.push(user);
+    saveUsers(users);
 
-        event.preventDefault();
+    return {
+        success: true,
+        user
+    };
+}
 
+function loginLocalUser(email, password) {
+    const users = getUsers();
 
-        const emailInput =
-            document.getElementById("loginEmail");
+    const normalizedEmail =
+        email.trim().toLowerCase();
 
-        const passwordInput =
-            document.getElementById("loginPassword");
+    const user = users.find(item =>
+        item.email &&
+        item.email.toLowerCase() === normalizedEmail &&
+        item.password === password
+    );
 
+    if (!user) {
+        return {
+            success: false,
+            message: "Invalid email or password."
+        };
+    }
 
-        const email =
-            emailInput.value.trim().toLowerCase();
+    const safeUser = {
+        ...user
+    };
 
-        const password =
-            passwordInput.value;
+    delete safeUser.password;
 
+    saveCurrentUser(safeUser);
 
-        let message =
-            document.getElementById("loginMessage");
-
-
-        // Create message element automatically
-        if (!message) {
-
-            message =
-                document.createElement("p");
-
-            message.id = "loginMessage";
-
-            message.style.marginTop = "15px";
-            message.style.textAlign = "center";
-
-            loginForm.appendChild(message);
-        }
-
-
-        if (!email || !password) {
-
-            message.style.color = "#dc3545";
-            message.textContent =
-                "Please enter email and password.";
-
-            return;
-        }
-
-
-        message.style.color = "#64748b";
-        message.textContent =
-            "Checking your account...";
-
-
-        const submitButton =
-            loginForm.querySelector(
-                'button[type="submit"]'
-            );
+    return {
+        success: true,
+        user: safeUser
+    };
+}
 
 
+/* =========================================================
+   AUTH PAGE REDIRECTION
+========================================================= */
+
+function protectPage() {
+    const pageRequiresAuth =
+        document.body.dataset.auth === "required";
+
+    if (
+        pageRequiresAuth &&
+        !isLoggedIn()
+    ) {
+        window.location.href = "login.html";
+    }
+}
+
+function redirectAuthenticatedUser() {
+    const authPage =
+        document.body.dataset.auth === "guest";
+
+    if (
+        authPage &&
+        isLoggedIn()
+    ) {
+        window.location.href = "dashboard.html";
+    }
+}
+
+
+/* =========================================================
+   SIGNUP SYSTEM
+========================================================= */
+
+function initializeSignup() {
+    const form =
+        document.getElementById("signupForm");
+
+    if (!form) return;
+
+    const nameInput =
+        document.getElementById("signupName");
+
+    const emailInput =
+        document.getElementById("signupEmail");
+
+    const phoneInput =
+        document.getElementById("signupPhone");
+
+    const passwordInput =
+        document.getElementById("signupPassword");
+
+    const submitButton =
+        document.getElementById(
+            "createAccountButton"
+        );
+
+    const buttonText =
+        document.getElementById(
+            "createButtonText"
+        );
+
+    const message =
+        document.getElementById(
+            "signupMessage"
+        );
+
+    const passwordToggle =
+        document.getElementById(
+            "passwordToggle"
+        );
+
+    function showMessage(text, type) {
+        if (!message) return;
+
+        const colors = {
+            success: "#16a34a",
+            error: "#dc2626",
+            info: "#2563eb"
+        };
+
+        message.textContent = text;
+        message.style.color =
+            colors[type] || colors.info;
+    }
+
+    function resetButton() {
         if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.style.opacity = "0.7";
+            submitButton.disabled = false;
         }
 
+        if (buttonText) {
+            buttonText.textContent =
+                "Create Account";
+        }
+    }
 
-        try {
+    if (phoneInput) {
+        phoneInput.addEventListener(
+            "input",
+            function () {
+                this.value = this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+            }
+        );
+    }
 
-            const response = await fetch(
-                apiUrl(
-                    RIDEMITRA_CONFIG.API.LOGIN
-                ),
-                {
-                    method: "POST",
+    if (
+        passwordToggle &&
+        passwordInput
+    ) {
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+                const icon =
+                    passwordToggle.querySelector("i");
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                const isPassword =
+                    passwordInput.type === "password";
 
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
+                passwordInput.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+                if (icon) {
+                    icon.className =
+                        isPassword
+                            ? "fa-solid fa-eye-slash"
+                            : "fa-solid fa-eye";
                 }
+            }
+        );
+    }
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+            event.preventDefault();
+
+            const name =
+                nameInput?.value.trim() || "";
+
+            const email =
+                emailInput?.value.trim() || "";
+
+            const phone =
+                phoneInput?.value.trim() || "";
+
+            const password =
+                passwordInput?.value || "";
+
+            /* VALIDATION */
+
+            if (name.length < 2) {
+                showMessage(
+                    "Please enter your full name.",
+                    "error"
+                );
+
+                nameInput?.focus();
+                return;
+            }
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                showMessage(
+                    "Please enter a valid email address.",
+                    "error"
+                );
+
+                emailInput?.focus();
+                return;
+            }
+
+            if (!/^\d{10}$/.test(phone)) {
+                showMessage(
+                    "Enter a valid 10-digit phone number.",
+                    "error"
+                );
+
+                phoneInput?.focus();
+                return;
+            }
+
+            if (
+                password.length <
+                RIDEMITRA_CONFIG.SETTINGS
+                    .MIN_PASSWORD_LENGTH
+            ) {
+                showMessage(
+                    `Password must contain at least ${RIDEMITRA_CONFIG.SETTINGS.MIN_PASSWORD_LENGTH} characters.`,
+                    "error"
+                );
+
+                passwordInput?.focus();
+                return;
+            }
+
+            /* LOADING */
+
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            if (buttonText) {
+                buttonText.textContent =
+                    "Creating Account...";
+            }
+
+            showMessage(
+                "Creating your RideMitra account...",
+                "info"
             );
 
+            try {
+                const result =
+                    registerLocalUser({
+                        name,
+                        email,
+                        phone,
+                        password
+                    });
 
-            const data =
-                await response.json();
+                if (!result.success) {
+                    showMessage(
+                        result.message,
+                        "error"
+                    );
+
+                    resetButton();
+                    return;
+                }
+
+                showMessage(
+                    "Account created successfully! Redirecting to login...",
+                    "success"
+                );
+
+                if (buttonText) {
+                    buttonText.textContent =
+                        "Account Created ✓";
+                }
+
+                setTimeout(() => {
+                    window.location.href =
+                        "login.html";
+                }, 1000);
+
+            } catch (error) {
+                console.error(
+                    "Signup Error:",
+                    error
+                );
+
+                showMessage(
+                    "Something went wrong. Please try again.",
+                    "error"
+                );
+
+                resetButton();
+            }
+        }
+    );
+}
 
 
-            if (!response.ok || !data.success) {
+/* =========================================================
+   LOGIN SYSTEM
+========================================================= */
 
-                message.style.color = "#dc3545";
+function initializeLogin() {
+    const form =
+        document.getElementById("loginForm");
 
-                message.textContent =
-                    data.message ||
-                    "Invalid email or password.";
+    if (!form) return;
+
+    const emailInput =
+        document.getElementById("loginEmail");
+
+    const passwordInput =
+        document.getElementById("loginPassword");
+
+    const message =
+        document.getElementById("loginMessage");
+
+    const submitButton =
+        form.querySelector(
+            'button[type="submit"]'
+        );
+
+    function showMessage(text, type) {
+        if (!message) return;
+
+        const colors = {
+            success: "#16a34a",
+            error: "#dc2626",
+            info: "#2563eb"
+        };
+
+        message.textContent = text;
+        message.style.color =
+            colors[type] || colors.info;
+    }
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+            event.preventDefault();
+
+            const email =
+                emailInput?.value.trim() || "";
+
+            const password =
+                passwordInput?.value || "";
+
+            if (!email || !password) {
+                showMessage(
+                    "Please enter email and password.",
+                    "error"
+                );
 
                 return;
             }
 
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
 
-            // Save user
-            saveLoggedInUser(data.user);
-
-
-            message.style.color = "#198754";
-
-            message.textContent =
-                "✓ Login successful. Opening Dashboard...";
-
-
-            setTimeout(function () {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }, 700);
-
-
-        } catch (error) {
-
-            console.error(
-                "Login error:",
-                error
+            showMessage(
+                "Checking your account...",
+                "info"
             );
 
-            message.style.color =
-                "#dc3545";
+            setTimeout(() => {
+                const result =
+                    loginLocalUser(
+                        email,
+                        password
+                    );
 
-            message.textContent =
-                "Unable to connect to RideMitra server. Please start app.py.";
+                if (!result.success) {
+                    showMessage(
+                        result.message,
+                        "error"
+                    );
 
-        } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                    }
 
-            if (submitButton) {
+                    return;
+                }
 
-                submitButton.disabled = false;
-                submitButton.style.opacity = "1";
-            }
+                showMessage(
+                    "Login successful! Opening dashboard...",
+                    "success"
+                );
+
+                setTimeout(() => {
+                    window.location.href =
+                        "dashboard.html";
+                }, 700);
+
+            }, 350);
         }
-
-    });
-
-});
-
-// Current Logged-in User Data Fetch (Helper Function)
-function getCurrentUser() {
-    const userData = localStorage.getItem("rm_current_user") || localStorage.getItem("rideMitraUser");
-    return userData ? JSON.parse(userData) : null;
+    );
 }
 
-// ---------- SIDEBAR & NAVIGATION TOGGLE ----------
-// =========================================================
-// RIDEMITRA - GLOBAL SIDEBAR TOGGLE
-// =========================================================
 
-document.addEventListener("DOMContentLoaded", function () {
+/* =========================================================
+   USER INTERFACE
+========================================================= */
 
-    const menuToggle = document.getElementById("menuToggle");
-    const sideNav = document.getElementById("sideNav");
-    const mainLayout = document.querySelector(".main-layout");
+function initializeUserInterface() {
+    const currentUser =
+        getCurrentUser();
 
-    if (!menuToggle || !sideNav) {
+    if (!currentUser) return;
+
+    document
+        .querySelectorAll("[data-user-name]")
+        .forEach(element => {
+            element.textContent =
+                currentUser.name || "User";
+        });
+
+    document
+        .querySelectorAll("[data-user-email]")
+        .forEach(element => {
+            element.textContent =
+                currentUser.email || "";
+        });
+
+    document
+        .querySelectorAll("[data-user-initial]")
+        .forEach(element => {
+            const initial =
+                (currentUser.name || "U")
+                    .charAt(0)
+                    .toUpperCase();
+
+            element.textContent =
+                initial;
+        });
+
+    document
+        .querySelectorAll("[data-logout]")
+        .forEach(button => {
+            button.addEventListener(
+                "click",
+                function () {
+                    logoutUser(true);
+                }
+            );
+        });
+}
+
+
+/* =========================================================
+   SIDEBAR SYSTEM
+========================================================= */
+
+function initializeSidebar() {
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const sideNav =
+        document.getElementById("sideNav");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    const mainLayout =
+        document.querySelector(".main-layout");
+
+    if (!menuToggle || !sideNav) return;
+
+    function isMobile() {
+        return window.innerWidth <= 992;
+    }
+
+    function openSidebar() {
+        if (isMobile()) {
+            sideNav.classList.add("active");
+            overlay?.classList.add("active");
+
+            document.body.style.overflow =
+                "hidden";
+        } else {
+            sideNav.classList.remove("closed");
+
+            mainLayout?.classList.remove(
+                "full-width"
+            );
+        }
+
+        updateIcon();
+    }
+
+    function closeSidebar() {
+        if (isMobile()) {
+            sideNav.classList.remove("active");
+            overlay?.classList.remove("active");
+
+            document.body.style.overflow = "";
+        } else {
+            sideNav.classList.add("closed");
+
+            mainLayout?.classList.add(
+                "full-width"
+            );
+        }
+
+        updateIcon();
+    }
+
+    function updateIcon() {
+        const icon =
+            menuToggle.querySelector("i");
+
+        if (!icon) return;
+
+        const opened = isMobile()
+            ? sideNav.classList.contains("active")
+            : !sideNav.classList.contains("closed");
+
+        icon.className = opened
+            ? "fa-solid fa-xmark"
+            : "fa-solid fa-bars";
+    }
+
+    menuToggle.addEventListener(
+        "click",
+        function () {
+            const opened = isMobile()
+                ? sideNav.classList.contains("active")
+                : !sideNav.classList.contains("closed");
+
+            if (opened) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        }
+    );
+
+    overlay?.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+            if (
+                event.key === "Escape" &&
+                isMobile()
+            ) {
+                closeSidebar();
+            }
+        }
+    );
+
+    window.addEventListener(
+        "resize",
+        function () {
+            document.body.style.overflow = "";
+
+            if (!isMobile()) {
+                sideNav.classList.remove("active");
+                overlay?.classList.remove("active");
+            }
+
+            updateIcon();
+        }
+    );
+
+    updateIcon();
+}
+
+
+/* =========================================================
+   RIDE STORAGE
+========================================================= */
+
+function getRides() {
+    return getStoredJSON(
+        RM_STORAGE.RIDES,
+        []
+    );
+}
+
+function saveRides(rides) {
+    return setStoredJSON(
+        RM_STORAGE.RIDES,
+        rides
+    );
+}
+
+
+/* =========================================================
+   PUBLISH RIDE
+========================================================= */
+
+function initializePublishRide() {
+    const form =
+        document.getElementById("rideForm");
+
+    if (!form) return;
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+            event.preventDefault();
+
+            const currentUser =
+                getCurrentUser();
+
+            if (!currentUser) {
+                showToast(
+                    "Please login first.",
+                    "warning"
+                );
+
+                setTimeout(() => {
+                    window.location.href =
+                        "login.html";
+                }, 700);
+
+                return;
+            }
+
+            const from =
+                document
+                    .getElementById("rideFrom")
+                    ?.value.trim();
+
+            const to =
+                document
+                    .getElementById("rideTo")
+                    ?.value.trim();
+
+            const date =
+                document
+                    .getElementById("rideDate")
+                    ?.value;
+
+            const time =
+                document
+                    .getElementById("rideTime")
+                    ?.value;
+
+            const seats = Number(
+                document
+                    .getElementById("rideSeats")
+                    ?.value
+            );
+
+            const price = Number(
+                document
+                    .getElementById("ridePrice")
+                    ?.value
+            );
+
+            const vehicle =
+                document
+                    .getElementById("vehicle")
+                    ?.value.trim();
+
+            if (
+                !from ||
+                !to ||
+                !date ||
+                !time ||
+                !seats ||
+                seats <= 0 ||
+                !vehicle
+            ) {
+                showToast(
+                    "Please fill all ride details correctly.",
+                    "error"
+                );
+
+                return;
+            }
+
+            if (
+                from.toLowerCase() ===
+                to.toLowerCase()
+            ) {
+                showToast(
+                    "Pickup and destination cannot be the same.",
+                    "error"
+                );
+
+                return;
+            }
+
+            const ride = {
+                id: generateId("ride"),
+                driverId: currentUser.id,
+                driverName: currentUser.name,
+                driverEmail: currentUser.email,
+                from,
+                to,
+                date,
+                time,
+                seats,
+                availableSeats: seats,
+                price,
+                vehicle,
+                status: "active",
+                createdAt: new Date().toISOString()
+            };
+
+            const rides = getRides();
+
+            rides.unshift(ride);
+
+            saveRides(rides);
+
+            showToast(
+                "Ride published successfully!",
+                "success"
+            );
+
+            setTimeout(() => {
+                window.location.href =
+                    "find-ride.html";
+            }, 900);
+        }
+    );
+}
+
+
+/* =========================================================
+   DISPLAY RIDES
+========================================================= */
+
+function initializeRideList() {
+    const container =
+        document.getElementById(
+            "publishedRide"
+        );
+
+    if (!container) return;
+
+    renderRides();
+}
+
+function renderRides(filteredRides = null) {
+    const container =
+        document.getElementById(
+            "publishedRide"
+        );
+
+    if (!container) return;
+
+    const rides =
+        filteredRides || getRides();
+
+    if (!rides.length) {
+        container.innerHTML = `
+            <div class="no-rides">
+                <div class="no-rides-icon">
+                    <i class="fa-solid fa-car"></i>
+                </div>
+
+                <h3>No rides available yet</h3>
+
+                <p>
+                    Be the first to publish a ride
+                    and connect with fellow travellers.
+                </p>
+
+                <a
+                    href="publish-ride.html"
+                    class="btn primary"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Publish a Ride
+                </a>
+            </div>
+        `;
+
         return;
     }
 
+    container.innerHTML = "";
 
-    function updateMenuIcon() {
+    rides.forEach(ride => {
+        const card =
+            document.createElement("article");
 
-        const icon = menuToggle.querySelector("i");
+        card.className = "ride-card";
 
-        if (!icon) {
-            return;
-        }
+        card.dataset.rideId = ride.id;
 
-        const isMobile =
-            window.innerWidth <= 992;
+        const seats =
+            Number(ride.availableSeats);
 
-        if (isMobile) {
+        card.innerHTML = `
+            <div class="ride-card-main">
 
-            const isOpen =
-                sideNav.classList.contains("active");
+                <div class="ride-route">
 
-            icon.className = isOpen
-                ? "fa-solid fa-xmark"
-                : "fa-solid fa-bars";
+                    <div class="route-place">
+                        <span class="route-dot start"></span>
 
-        } else {
+                        <div>
+                            <small>FROM</small>
+                            <strong>
+                                ${escapeHTML(ride.from)}
+                            </strong>
+                        </div>
+                    </div>
 
-            const isClosed =
-                sideNav.classList.contains("closed");
+                    <div class="route-line">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
 
-            icon.className = isClosed
-                ? "fa-solid fa-bars"
-                : "fa-solid fa-xmark";
-        }
-    }
+                    <div class="route-place">
+                        <span class="route-dot end"></span>
 
+                        <div>
+                            <small>TO</small>
+                            <strong>
+                                ${escapeHTML(ride.to)}
+                            </strong>
+                        </div>
+                    </div>
 
-    menuToggle.addEventListener("click", function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        const isMobile =
-            window.innerWidth <= 992;
-
-
-        if (isMobile) {
-
-            sideNav.classList.toggle("active");
-
-        } else {
-
-            sideNav.classList.toggle("closed");
-
-            if (mainLayout) {
-                mainLayout.classList.toggle("full-width");
-            }
-        }
-
-        updateMenuIcon();
-    });
-
-
-    /* Close mobile sidebar when clicking a navigation link */
-
-    sideNav.querySelectorAll("a").forEach(function (link) {
-
-        link.addEventListener("click", function () {
-
-            if (window.innerWidth <= 992) {
-
-                sideNav.classList.remove("active");
-
-                updateMenuIcon();
-            }
-
-        });
-
-    });
-
-
-    /* Keep state correct when resizing browser */
-
-    window.addEventListener("resize", function () {
-
-        if (window.innerWidth > 992) {
-
-            sideNav.classList.remove("active");
-
-        } else {
-
-            sideNav.classList.remove("closed");
-
-            if (mainLayout) {
-                mainLayout.classList.remove("full-width");
-            }
-        }
-
-        updateMenuIcon();
-    });
-
-
-    updateMenuIcon();
-
-});
-// Dynamic User Header Setup
-const userArea = document.getElementById("userArea");
-const currentUser = getCurrentUser();
-
-if (userArea) {
-    if (currentUser) {
-        userArea.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-weight: 600;">👋 ${currentUser.name || "User"}</span>
-                    <button type="button" id="logoutBtn" class="btn secondary">Logout</button>
                 </div>
-            `;
-        const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", function () {
-                localStorage.removeItem("rm_current_user");
-                localStorage.removeItem("rideMitraUser");
-                localStorage.removeItem("rideMitraLoggedIn");
-                window.location.href = "login.html";
-            });
-        }
-    }
-}
 
-// ---------- PUBLISH RIDE ----------
-const rideForm = document.getElementById("rideForm");
+                <div class="ride-meta">
 
-if (rideForm) {
-    rideForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+                    <span>
+                        <i class="fa-regular fa-calendar"></i>
+                        ${formatDate(ride.date)}
+                    </span>
 
-        const currentUser = getCurrentUser();
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        ${escapeHTML(ride.time)}
+                    </span>
 
-        if (!currentUser) {
-            alert("⚠️ Please login first to publish a ride!");
-            window.location.href = "login.html";
-            return;
-        }
+                    <span>
+                        <i class="fa-solid fa-car"></i>
+                        ${escapeHTML(ride.vehicle)}
+                    </span>
 
-        const driverName = document.getElementById("driverName") ? document.getElementById("driverName").value.trim() : currentUser.name;
-        const from = document.getElementById("rideFrom").value.trim();
-        const to = document.getElementById("rideTo").value.trim();
-        const date = document.getElementById("rideDate").value;
-        const time = document.getElementById("rideTime").value;
-        const seats = Number(document.getElementById("rideSeats").value);
-        const price = Number(document.getElementById("ridePrice").value);
-        const vehicle = document.getElementById("vehicle").value.trim();
-
-        const ride = {
-            driver_id: currentUser.user_id || currentUser.id || 1,
-            from: from,
-            to: to,
-            date: date,
-            time: time,
-            seats: seats,
-            price: price,
-            vehicle: vehicle
-        };
-
-        try {
-            const response = await fetch("http://127.0.0.1:5000/api/rides", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(ride)
-            });
-
-            const result = await response.json();
-
-            if (response.ok && result.success) {
-                alert("🎉 Ride published successfully!");
-                window.location.href = "find-ride.html";
-            } else {
-                alert("❌ Ride publish failed: " + (result.message || "Something went wrong"));
-            }
-
-        } catch (error) {
-            console.error("Publish Ride Error:", error);
-            alert("❌ Backend server se connection nahi ho paya.");
-        }
-    });
-}
-
-// ---------- DISPLAY RIDES ----------
-const publishedRideContainer = document.getElementById("publishedRide");
-
-if (publishedRideContainer) {
-    displayRides();
-}
-
-async function displayRides() {
-    publishedRideContainer.innerHTML = `
-        <div class="no-rides">
-            <p>🔄 Loading rides...</p>
-        </div>
-    `;
-
-    try {
-        const response = await fetch("http://127.0.0.1:5000/api/rides");
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch rides");
-        }
-
-        const rides = await response.json();
-        publishedRideContainer.innerHTML = "";
-
-        if (!rides || rides.length === 0) {
-            publishedRideContainer.innerHTML = `
-                <div class="no-rides">
-                    <h3>🚗 No rides available</h3>
-                    <p>No one has published a ride yet. Try offering a ride!</p>
                 </div>
-            `;
-            return;
-        }
 
-        rides.forEach(function (ride) {
-            const rideCard = document.createElement("div");
-            rideCard.className = "ride-card";
+            </div>
 
-            rideCard.setAttribute("data-from", ride.from_location || ride.from || "");
-            rideCard.setAttribute("data-to", ride.destination || ride.to || "");
-            rideCard.setAttribute("data-date", ride.travel_date || ride.date || "");
+            <div class="ride-card-side">
 
-            const availableSeats = ride.available_seats !== undefined ? ride.available_seats : ride.seats;
+                <div class="ride-driver">
 
-            rideCard.innerHTML = `
-                <div class="ride-info">
-                    <h3>🚗 ${ride.from_location || ride.from} → ${ride.destination || ride.to}</h3>
-                    <p><strong>Driver:</strong> ${ride.driver_name || "Driver"}</p>
-                    <p><strong>Date:</strong> ${ride.travel_date || ride.date}</p>
-                    <p><strong>Departure:</strong> ${ride.departure_time || ride.time}</p>
-                    <p><strong>Available Seats:</strong> ${availableSeats}</p>
-                    <p><strong>Vehicle:</strong> ${ride.vehicle}</p>
+                    <div class="driver-avatar">
+                        ${escapeHTML(
+                            ride.driverName
+                                ?.charAt(0)
+                                .toUpperCase() || "D"
+                        )}
+                    </div>
+
+                    <div>
+                        <small>DRIVER</small>
+
+                        <strong>
+                            ${escapeHTML(
+                                ride.driverName ||
+                                "Driver"
+                            )}
+                        </strong>
+                    </div>
+
                 </div>
 
                 <div class="ride-price">
-                    <h3>₹${ride.price_per_seat || ride.price}</h3>
-                    <p>per seat</p>
-                    <button class="btn primary view-ride-btn" type="button" ${availableSeats <= 0 ? "disabled" : ""}>
-                        ${availableSeats <= 0 ? "Fully Booked" : "View Ride"}
-                    </button>
+                    <strong>
+                        ${formatCurrency(ride.price)}
+                    </strong>
+
+                    <span>per seat</span>
                 </div>
-            `;
 
-            publishedRideContainer.appendChild(rideCard);
+                <div class="ride-seats">
+                    <i class="fa-solid fa-chair"></i>
+                    ${seats} seat${seats !== 1 ? "s" : ""}
+                </div>
 
-            const viewButton = rideCard.querySelector(".view-ride-btn");
-
-            viewButton.addEventListener("click", async function () {
-                const currentUser = getCurrentUser();
-
-                if (!currentUser) {
-                    alert("⚠️ Please login first to book a ride!");
-                    window.location.href = "login.html";
-                    return;
-                }
-
-                const confirmJoin = confirm(
-                    `🚗 ${ride.from_location || ride.from} → ${ride.destination || ride.to}\n\n` +
-                    `👤 Driver: ${ride.driver_name || "Driver"}\n` +
-                    `📅 Date: ${ride.travel_date || ride.date}\n` +
-                    `🕘 Departure: ${ride.departure_time || ride.time}\n` +
-                    `💺 Available Seats: ${availableSeats}\n` +
-                    `🚘 Vehicle: ${ride.vehicle}\n` +
-                    `💰 Price: ₹${ride.price_per_seat || ride.price} per seat\n\n` +
-                    `Do you want to join this ride?`
-                );
-
-                if (!confirmJoin) return;
-
-                if (availableSeats <= 0) {
-                    alert("❌ Sorry, no seats are available.");
-                    return;
-                }
-
-                try {
-                    const response = await fetch("http://127.0.0.1:5000/api/bookings", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            ride_id: ride.ride_id || ride.id,
-                            passenger_id: currentUser.user_id || currentUser.id,
-                            seats_booked: 1
-                        })
-                    });
-
-                    const result = await response.json();
-
-                    if (!response.ok || !result.success) {
-                        alert("❌ " + (result.message || "Unable to join ride."));
-                        return;
+                <button
+                    type="button"
+                    class="book-ride-btn"
+                    ${seats <= 0 ? "disabled" : ""}
+                >
+                    ${
+                        seats <= 0
+                            ? "Fully Booked"
+                            : "Book Ride"
                     }
+                </button>
 
-                    alert("🎉 Ride joined successfully!");
-                    displayRides();
-
-                } catch (error) {
-                    console.error("Join ride error:", error);
-                    alert("❌ Backend server se connection nahi ho paya.");
-                }
-            });
-        });
-
-    } catch (error) {
-        console.error("Error loading rides:", error);
-        publishedRideContainer.innerHTML = `
-            <div class="no-rides">
-                <h3>❌ Unable to load rides</h3>
-                <p>Please make sure the backend server is running.</p>
             </div>
         `;
-    }
-}
 
-// ---------- SEARCH RIDE ----------
-const searchButton = document.getElementById("searchButton");
+        const bookButton =
+            card.querySelector(
+                ".book-ride-btn"
+            );
 
-if (searchButton) {
-    searchButton.addEventListener("click", searchRides);
-}
+        bookButton?.addEventListener(
+            "click",
+            () => bookRide(ride.id)
+        );
 
-function searchRides() {
-    const fromInput = document.getElementById("fromLocation");
-    const toInput = document.getElementById("toLocation");
-    const dateInput = document.getElementById("travelDate");
-
-    const from = fromInput ? fromInput.value.trim().toLowerCase() : "";
-    const to = toInput ? toInput.value.trim().toLowerCase() : "";
-    const date = dateInput ? dateInput.value : "";
-
-    const rides = document.querySelectorAll("#publishedRide .ride-card");
-    let found = false;
-
-    rides.forEach(function (ride) {
-        const rideFrom = (ride.getAttribute("data-from") || "").trim().toLowerCase();
-        const rideTo = (ride.getAttribute("data-to") || "").trim().toLowerCase();
-        const rawDate = ride.getAttribute("data-date") || "";
-
-        let rideDate = rawDate;
-        if (rawDate.includes("T")) {
-            rideDate = rawDate.split("T")[0];
-        }
-
-        const fromMatches = !from || rideFrom.includes(from);
-        const toMatches = !to || rideTo.includes(to);
-        const dateMatches = !date || rideDate === date;
-
-        if (fromMatches && toMatches && dateMatches) {
-            ride.style.display = "flex";
-            found = true;
-        } else {
-            ride.style.display = "none";
-        }
+        container.appendChild(card);
     });
-
-    if (!found && rides.length > 0) {
-        alert("❌ No matching rides found.");
-    }
 }
 
-// ---------- SEASONAL THEME ----------
-function applySeasonalTheme() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
 
-    document.body.classList.remove("theme-independence", "theme-normal");
+/* =========================================================
+   BOOK RIDE
+========================================================= */
 
-    if (month === 8 && day >= 10 && day <= 20) {
-        document.body.classList.add("theme-independence");
+function bookRide(rideId) {
+    const user =
+        getCurrentUser();
+
+    if (!user) {
+        showToast(
+            "Please login to book a ride.",
+            "warning"
+        );
+
+        setTimeout(() => {
+            window.location.href =
+                "login.html";
+        }, 700);
+
         return;
     }
 
-    document.body.classList.add("theme-normal");
+    const rides =
+        getRides();
+
+    const ride =
+        rides.find(item =>
+            item.id === rideId
+        );
+
+    if (!ride) {
+        showToast(
+            "Ride no longer exists.",
+            "error"
+        );
+
+        return;
+    }
+
+    if (
+        ride.driverId === user.id
+    ) {
+        showToast(
+            "You cannot book your own ride.",
+            "warning"
+        );
+
+        return;
+    }
+
+    if (
+        Number(ride.availableSeats) <= 0
+    ) {
+        showToast(
+            "Sorry, this ride is fully booked.",
+            "error"
+        );
+
+        return;
+    }
+
+    const bookings =
+        getStoredJSON(
+            RM_STORAGE.BOOKINGS,
+            []
+        );
+
+    const alreadyBooked =
+        bookings.some(
+            booking =>
+                booking.rideId === rideId &&
+                booking.passengerId === user.id
+        );
+
+    if (alreadyBooked) {
+        showToast(
+            "You have already booked this ride.",
+            "warning"
+        );
+
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `Book ride from ${ride.from} to ${ride.to} for ${formatCurrency(ride.price)}?`
+        );
+
+    if (!confirmed) return;
+
+    const booking = {
+        id: generateId("booking"),
+        rideId,
+        passengerId: user.id,
+        passengerName: user.name,
+        driverId: ride.driverId,
+        status: "confirmed",
+        seats: 1,
+        bookedAt: new Date().toISOString()
+    };
+
+    bookings.push(booking);
+
+    setStoredJSON(
+        RM_STORAGE.BOOKINGS,
+        bookings
+    );
+
+    ride.availableSeats =
+        Number(ride.availableSeats) - 1;
+
+    saveRides(rides);
+
+    showToast(
+        "Ride booked successfully!",
+        "success"
+    );
+
+    renderRides();
 }
 
-applySeasonalTheme();  
+
+/* =========================================================
+   SEARCH RIDES
+========================================================= */
+
+function initializeRideSearch() {
+    const searchButton =
+        document.getElementById(
+            "searchButton"
+        );
+
+    if (!searchButton) return;
+
+    searchButton.addEventListener(
+        "click",
+        function () {
+            const from =
+                document
+                    .getElementById("fromLocation")
+                    ?.value
+                    .trim()
+                    .toLowerCase() || "";
+
+            const to =
+                document
+                    .getElementById("toLocation")
+                    ?.value
+                    .trim()
+                    .toLowerCase() || "";
+
+            const date =
+                document
+                    .getElementById("travelDate")
+                    ?.value || "";
+
+            const rides =
+                getRides();
+
+            const filtered =
+                rides.filter(ride => {
+                    const fromMatch =
+                        !from ||
+                        ride.from
+                            .toLowerCase()
+                            .includes(from);
+
+                    const toMatch =
+                        !to ||
+                        ride.to
+                            .toLowerCase()
+                            .includes(to);
+
+                    const dateMatch =
+                        !date ||
+                        ride.date === date;
+
+                    return (
+                        fromMatch &&
+                        toMatch &&
+                        dateMatch
+                    );
+                });
+
+            renderRides(filtered);
+
+            if (!filtered.length) {
+                showToast(
+                    "No matching rides found.",
+                    "info"
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   DASHBOARD STATISTICS
+========================================================= */
+
+function initializeDashboardStats() {
+    const user =
+        getCurrentUser();
+
+    if (!user) return;
+
+    const rides =
+        getRides();
+
+    const bookings =
+        getStoredJSON(
+            RM_STORAGE.BOOKINGS,
+            []
+        );
+
+    const myPublished =
+        rides.filter(
+            ride =>
+                ride.driverId === user.id
+        );
+
+    const myBookings =
+        bookings.filter(
+            booking =>
+                booking.passengerId === user.id
+        );
+
+    document
+        .querySelectorAll(
+            "[data-stat='published-rides']"
+        )
+        .forEach(element => {
+            element.textContent =
+                myPublished.length;
+        });
+
+    document
+        .querySelectorAll(
+            "[data-stat='booked-rides']"
+        )
+        .forEach(element => {
+            element.textContent =
+                myBookings.length;
+        });
+
+    const totalEarnings =
+        myPublished.reduce(
+            (total, ride) => {
+                const bookedSeats =
+                    Number(ride.seats) -
+                    Number(
+                        ride.availableSeats
+                    );
+
+                return (
+                    total +
+                    bookedSeats *
+                    Number(ride.price)
+                );
+            },
+            0
+        );
+
+    document
+        .querySelectorAll(
+            "[data-stat='earnings']"
+        )
+        .forEach(element => {
+            element.textContent =
+                formatCurrency(
+                    totalEarnings
+                );
+        });
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+function initializeActiveNavigation() {
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop() || "index.html";
+
+    document
+        .querySelectorAll("a[href]")
+        .forEach(link => {
+            const href =
+                link.getAttribute("href");
+
+            if (href === currentPage) {
+                link.classList.add(
+                    "active"
+                );
+            }
+        });
+}
+
+
+/* =========================================================
+   GLOBAL INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        protectPage();
+        redirectAuthenticatedUser();
+
+        initializeSignup();
+        initializeLogin();
+
+        initializeUserInterface();
+
+        initializeSidebar();
+
+        initializePublishRide();
+
+        initializeRideList();
+
+        initializeRideSearch();
+
+        initializeDashboardStats();
+
+        initializeActiveNavigation();
+
+        console.log(
+            "%cRideMitra Application Initialized",
+            "color:#ff5a1f;font-weight:bold;"
+        );
+    }
+);  

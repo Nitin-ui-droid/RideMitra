@@ -2,231 +2,1104 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - RideMitra</title>
+    <title>Welcome Back - RideMitra</title>
 
     <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
+    <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* =========================================================
+           RIDEMITRA LOGIN PAGE
+           PREMIUM RESPONSIVE DESIGN
+        ========================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff5a1f;
+            --primary-dark: #e8460d;
+            --primary-light: #fff1eb;
+
+            --dark: #0b1220;
+            --dark-secondary: #111827;
+
+            --text: #111827;
+            --muted: #718096;
+
+            --border: #e7ebf0;
+            --background: #f5f7fb;
+
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           MAIN LAYOUT
+        ========================================================== */
+
+        .login-page {
+            width: 100%;
+            min-height: 100vh;
+
+            display: grid;
+            grid-template-columns: minmax(380px, 45%) minmax(0, 55%);
+
+            background:
+                radial-gradient(circle at 85% 20%,
+                    rgba(255, 90, 31, 0.06),
+                    transparent 28%),
+                #f5f7fb;
+        }
+
+        /* =========================================================
+           LEFT BRAND PANEL
+        ========================================================== */
+
+        .login-brand-panel {
+            min-height: 100vh;
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            padding: 48px 58px;
+
+            background:
+                radial-gradient(circle at 85% 15%,
+                    rgba(255, 90, 31, 0.22),
+                    transparent 30%),
+                radial-gradient(circle at 10% 85%,
+                    rgba(255, 255, 255, 0.06),
+                    transparent 25%),
+                linear-gradient(145deg,
+                    #0b1220 0%,
+                    #111827 52%,
+                    #182334 100%);
+
+            color: #ffffff;
+        }
+
+        .login-brand-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            right: -210px;
+            top: -180px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow:
+                0 0 0 70px rgba(255, 255, 255, 0.015),
+                0 0 0 140px rgba(255, 255, 255, 0.01);
+
+            pointer-events: none;
+        }
+
+        .login-brand-panel::after {
+            content: "";
+
+            position: absolute;
+
+            width: 330px;
+            height: 330px;
+
+            border-radius: 50%;
+
+            left: -180px;
+            bottom: -190px;
+
+            background: rgba(255, 90, 31, 0.09);
+
+            filter: blur(8px);
+
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           BRAND
+        ========================================================== */
+
+        .brand {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 13px;
+
+            width: fit-content;
+
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .brand-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: var(--primary);
+
+            color: #ffffff;
+            font-size: 20px;
+
+            box-shadow:
+                0 12px 30px rgba(255, 90, 31, 0.30);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        /* =========================================================
+           BRAND CONTENT
+        ========================================================== */
+
+        .brand-content {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 540px;
+
+            margin: auto 0;
+            padding: 50px 0;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 14px;
+            margin-bottom: 22px;
+
+            border-radius: 50px;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            color: #d8dee8;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+        }
+
+        .brand-badge i {
+            color: var(--primary);
+        }
+
+        .brand-content h1 {
+            font-size: clamp(42px, 4.2vw, 62px);
+            line-height: 1.06;
+
+            letter-spacing: -2.6px;
+            font-weight: 800;
+
+            margin-bottom: 20px;
+        }
+
+        .brand-content h1 span {
+            color: var(--primary);
+        }
+
+        .brand-content>p {
+            max-width: 500px;
+
+            color: #aeb8c7;
+
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* =========================================================
+           TRUST FEATURES
+        ========================================================== */
+
+        .trust-list {
+            display: grid;
+            gap: 13px;
+
+            margin-top: 34px;
+            max-width: 500px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.045);
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .trust-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+
+            flex: 0 0 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: rgba(255, 90, 31, 0.13);
+
+            color: #ff6a35;
+            font-size: 14px;
+        }
+
+        .trust-item strong {
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .trust-item span {
+            display: block;
+
+            color: #8995a7;
+
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        .brand-footer {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            color: #778398;
+            font-size: 9px;
+        }
+
+        .brand-footer span {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .brand-footer i {
+            color: #22c55e;
+        }
+
+        /* =========================================================
+           RIGHT FORM AREA
+        ========================================================== */
+
+        .login-form-area {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 50px;
+
+            position: relative;
+        }
+
+        .login-form-area::before {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(255, 90, 31, 0.08),
+                    transparent 68%);
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           LOGIN CARD
+        ========================================================== */
+
+        .login-card {
+            width: 100%;
+            max-width: 500px;
+
+            position: relative;
+            z-index: 1;
+
+            padding: 42px;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            border: 1px solid rgba(15, 23, 42, 0.08);
+
+            border-radius: 26px;
+
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, 0.10),
+                0 10px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 4px;
+
+            border-radius: 26px 26px 0 0;
+
+            background:
+                linear-gradient(90deg,
+                    var(--primary),
+                    #ff7b4a);
+        }
+
+        /* =========================================================
+           FORM HEADER
+        ========================================================== */
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 11px;
+            margin-bottom: 13px;
+
+            border-radius: 50px;
+
+            background: var(--primary-light);
+            color: #f4511e;
+
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+        }
+
+        .form-header h2 {
+            font-size: 32px;
+            line-height: 1.2;
+
+            letter-spacing: -1.4px;
+            font-weight: 800;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           FORM
+        ========================================================== */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 8px;
+
+            color: #374151;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            font-size: 10px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper>.input-icon {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #9ca3af;
+            font-size: 12px;
+
+            pointer-events: none;
+
+            transition: color 0.2s ease;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 52px;
+
+            padding: 0 15px 0 43px;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            background: #f8fafc;
+
+            color: #111827;
+
+            outline: none;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #a0a7b2;
+            font-weight: 500;
+        }
+
+        .form-group input:hover {
+            border-color: #cbd5e1;
+            background: #ffffff;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px rgba(255, 90, 31, 0.08);
+        }
+
+        .input-wrapper:focus-within .input-icon {
+            color: var(--primary);
+        }
+
+        /* PASSWORD TOGGLE */
+
+        .password-toggle {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: #94a3b8;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        #loginPassword {
+            padding-right: 48px;
+        }
+
+        /* =========================================================
+           FORM OPTIONS
+        ========================================================== */
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin: 3px 0 23px;
+        }
+
+        .remember-option {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #64748b;
+
+            font-size: 10px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            user-select: none;
+        }
+
+        .remember-option input {
+            width: 15px;
+            height: 15px;
+
+            accent-color: var(--primary);
+
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: var(--primary);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition: opacity 0.2s ease;
+        }
+
+        .forgot-link:hover {
+            opacity: 0.75;
+        }
+
+        /* =========================================================
+           LOGIN BUTTON
+        ========================================================== */
+
+        .login-btn {
+            width: 100%;
+            height: 53px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 9px;
+
+            border: none;
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    #ff5a1f,
+                    #f0440d);
+
+            color: #ffffff;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 13px 28px rgba(255, 90, 31, 0.24);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 18px 35px rgba(255, 90, 31, 0.30);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        /* =========================================================
+           MESSAGE
+        ========================================================== */
+
+        #loginMessage {
+            min-height: 20px;
+
+            margin-top: 12px;
+
+            text-align: center;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           SECURITY
+        ========================================================== */
+
+        .security-box {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+            padding: 12px 14px;
+
+            border-radius: 13px;
+
+            background: #f8fafc;
+
+            border: 1px solid #edf2f7;
+
+            color: #64748b;
+
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .security-box i {
+            color: #16a34a;
+            font-size: 15px;
+
+            flex: 0 0 auto;
+        }
+
+        /* =========================================================
+           SIGNUP
+        ========================================================== */
+
+        .signup-existing {
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+        }
+
+        .signup-existing a {
+            color: var(--primary);
+
+            text-decoration: none;
+
+            font-weight: 800;
+        }
+
+        .signup-existing a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 1100px) {
+
+            .login-page {
+                grid-template-columns:
+                    minmax(330px, 42%)
+                    minmax(0, 58%);
+            }
+
+            .login-brand-panel {
+                padding: 40px 35px;
+            }
+
+            .login-form-area {
+                padding: 35px 30px;
+            }
+
+            .login-card {
+                padding: 38px 34px;
+            }
+
+            .brand-content h1 {
+                font-size: 45px;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .login-page {
+                grid-template-columns: 1fr;
+            }
+
+            .login-brand-panel {
+                min-height: auto;
+
+                padding: 32px 35px 38px;
+            }
+
+            .brand-content {
+                margin: 0;
+                padding: 60px 0 25px;
+            }
+
+            .brand-content h1 {
+                font-size: 42px;
+            }
+
+            .trust-list {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                max-width: 700px;
+            }
+
+            .login-form-area {
+                min-height: auto;
+
+                padding: 45px 25px 55px;
+            }
+
+            .login-card {
+                max-width: 560px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .login-brand-panel {
+                padding: 25px 20px 30px;
+            }
+
+            .brand-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .brand-content {
+                padding: 48px 0 15px;
+            }
+
+            .brand-content h1 {
+                font-size: 35px;
+                letter-spacing: -1.8px;
+            }
+
+            .brand-content>p {
+                font-size: 12px;
+            }
+
+            .trust-list {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .trust-item {
+                padding: 12px;
+            }
+
+            .brand-footer {
+                display: none;
+            }
+
+            .login-form-area {
+                padding: 25px 12px 40px;
+            }
+
+            .login-card {
+                padding: 32px 20px;
+
+                border-radius: 22px;
+            }
+
+            .login-card::before {
+                border-radius: 22px 22px 0 0;
+            }
+
+            .form-header h2 {
+                font-size: 28px;
+            }
+
+            .form-options {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .login-brand-panel {
+                padding: 22px 16px 28px;
+            }
+
+            .brand-content h1 {
+                font-size: 31px;
+            }
+
+            .login-card {
+                padding: 28px 16px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 
 </head>
 
+<body>
 
-<body class="login-page">
+    <main class="login-page">
 
+        <!-- LEFT BRAND PANEL -->
+        <section class="login-brand-panel">
 
-    <!-- =====================================================
-         TOP HEADER
-         ===================================================== -->
+            <a href="index.html" class="brand">
 
-    <header class="login-header">
-
-        <a href="index.html" class="login-brand">
-
-            <span class="login-brand-mark">
-                RM
-            </span>
-
-            <span>
-                Ride<span>Mitra</span>
-            </span>
-
-        </a>
-
-
-        <div class="login-header-right">
-
-            <span>
-                Don't have an account?
-            </span>
-
-            <a href="signup.html" class="login-create-link">
-
-                Create Account
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </a>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- =====================================================
-         MAIN LOGIN AREA
-         ===================================================== -->
-
-    <main class="login-main">
-
-        <div class="login-glow login-glow-one"></div>
-
-        <div class="login-glow login-glow-two"></div>
-
-
-        <!-- =================================================
-             LOGIN CARD
-             ================================================= -->
-
-        <section class="login-card">
-
-
-            <!-- LEFT INTRO -->
-
-            <div class="login-intro">
-
-                <div class="login-intro-icon">
+                <div class="brand-icon">
                     <i class="fa-solid fa-car-side"></i>
                 </div>
 
-                <span class="login-small-label">
-                    WELCOME TO RIDEMITRA
-                </span>
+                <div class="brand-name">
+                    Ride<span>Mitra</span>
+                </div>
+
+            </a>
+
+
+            <div class="brand-content">
+
+                <div class="brand-badge">
+                    <i class="fa-solid fa-road"></i>
+                    WELCOME BACK
+                </div>
 
                 <h1>
-                    Welcome Back
-                    <span>👋</span>
+                    Your next journey<br>
+                    <span>starts here.</span>
                 </h1>
 
                 <p>
-                    Login to continue your RideMitra
-                    journey and connect with verified
-                    travellers.
+                    Sign in to continue your RideMitra journey.
+                    Find trusted co-travellers, manage your rides,
+                    and travel smarter together.
                 </p>
 
 
-                <div class="login-trust-list">
+                <div class="trust-list">
 
+                    <div class="trust-item">
 
-                    <div class="login-trust-item">
-
-                        <span class="login-trust-icon">
+                        <div class="trust-icon">
                             <i class="fa-solid fa-shield-halved"></i>
-                        </span>
+                        </div>
 
                         <div>
-
-                            <strong>
-                                Safe & Verified
-                            </strong>
-
-                            <small>
-                                Trusted RideMitra community
-                            </small>
-
+                            <strong>Safe & Verified</strong>
+                            <span>Travel with a trusted community</span>
                         </div>
 
                     </div>
 
 
-                    <div class="login-trust-item">
+                    <div class="trust-item">
 
-                        <span class="login-trust-icon">
+                        <div class="trust-icon">
                             <i class="fa-solid fa-route"></i>
-                        </span>
+                        </div>
 
                         <div>
-
-                            <strong>
-                                Easy Travel
-                            </strong>
-
-                            <small>
-                                Find rides on your route
-                            </small>
-
+                            <strong>Smart Ride Matching</strong>
+                            <span>Find people travelling your route</span>
                         </div>
 
                     </div>
 
 
-                    <div class="login-trust-item">
+                    <div class="trust-item">
 
-                        <span class="login-trust-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </span>
+                        <div class="trust-icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
 
                         <div>
-
-                            <strong>
-                                Travel Together
-                            </strong>
-
-                            <small>
-                                Connect with fellow travellers
-                            </small>
-
+                            <strong>Save Travel Costs</strong>
+                            <span>Share your journey and expenses</span>
                         </div>
 
                     </div>
-
 
                 </div>
 
             </div>
 
 
+            <div class="brand-footer">
 
-            <!-- =================================================
-                 RIGHT LOGIN FORM
-                 ================================================= -->
+                <span>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Secure RideMitra access
+                </span>
 
-            <div class="login-form-area">
+                <span>
+                    © 2026 RideMitra
+                </span>
+
+            </div>
+
+        </section>
 
 
-                <div class="login-form-heading">
+        <!-- RIGHT LOGIN AREA -->
+        <section class="login-form-area">
 
-                    <span>
-                        ACCOUNT LOGIN
+            <div class="login-card">
+
+                <div class="form-header">
+
+                    <span class="form-badge">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        LOGIN TO RIDEMITRA
                     </span>
 
-                    <h2>
-                        Sign in to your account
-                    </h2>
+                    <h2>Welcome back!</h2>
 
                     <p>
-                        Enter your details below to continue.
+                        Enter your details to access your account
+                        and continue your journey.
                     </p>
 
                 </div>
 
 
-
-                <!-- LOGIN FORM -->
-
                 <form id="loginForm" novalidate>
 
-
                     <!-- EMAIL -->
-
-                    <div class="login-input-group">
+                    <div class="form-group">
 
                         <label for="loginEmail">
+                            <i class="fa-solid fa-envelope"></i>
                             Email Address
                         </label>
 
-                        <div class="login-input-wrap">
+                        <div class="input-wrapper">
 
-                            <i class="fa-regular fa-envelope"></i>
+                            <i class="fa-solid fa-envelope input-icon"></i>
 
                             <input
                                 type="email"
                                 id="loginEmail"
                                 name="email"
-                                placeholder="Enter your email"
+                                placeholder="Enter your email address"
                                 autocomplete="email"
                                 required>
 
@@ -235,32 +1108,17 @@
                     </div>
 
 
-
                     <!-- PASSWORD -->
+                    <div class="form-group">
 
-                    <div class="login-input-group">
-
-                        <div class="login-label-row">
-
-                            <label for="loginPassword">
-                                Password
-                            </label>
-
-                            <a
-                                href="#"
-                                class="forgot-password"
-                                id="forgotPassword">
-
-                                Forgot password?
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="login-input-wrap">
-
+                        <label for="loginPassword">
                             <i class="fa-solid fa-lock"></i>
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock input-icon"></i>
 
                             <input
                                 type="password"
@@ -270,14 +1128,13 @@
                                 autocomplete="current-password"
                                 required>
 
-
                             <button
                                 type="button"
                                 class="password-toggle"
                                 id="passwordToggle"
                                 aria-label="Show password">
 
-                                <i class="fa-regular fa-eye"></i>
+                                <i class="fa-solid fa-eye"></i>
 
                             </button>
 
@@ -286,93 +1143,72 @@
                     </div>
 
 
+                    <!-- OPTIONS -->
+                    <div class="form-options">
 
-                    <!-- REMEMBER ME -->
+                        <label class="remember-option">
 
-                    <label class="remember-row">
+                            <input
+                                type="checkbox"
+                                id="rememberMe">
 
-                        <input
-                            type="checkbox"
-                            id="rememberMe">
+                            <span>Remember me</span>
 
-                        <span>
-                            Remember me
-                        </span>
+                        </label>
 
-                    </label>
+                        <a
+                            href="#"
+                            class="forgot-link"
+                            id="forgotPasswordLink">
 
+                            Forgot password?
 
+                        </a>
 
-                    <!-- LOGIN MESSAGE -->
-
-                    <div
-                        id="loginMessage"
-                        class="login-message"
-                        role="alert"
-                        aria-live="polite">
                     </div>
 
 
-
-                    <!-- LOGIN BUTTON -->
-
+                    <!-- SUBMIT -->
                     <button
                         type="submit"
-                        class="login-submit"
+                        class="login-btn"
                         id="loginButton">
 
-                        <span class="login-button-text">
-                            Login
-                        </span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
 
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <span>Login to Account</span>
 
                     </button>
 
+                    <!-- MESSAGE -->
+                    <p id="loginMessage"></p>
 
                 </form>
 
 
-
                 <!-- SECURITY -->
+                <div class="security-box">
 
-                <div class="login-security">
+                    <i class="fa-solid fa-shield-halved"></i>
 
-                    <span class="login-security-icon">
-
-                        <i class="fa-solid fa-shield-halved"></i>
-
+                    <span>
+                        Your account and personal information are
+                        protected with secure authentication.
                     </span>
-
-                    <div>
-
-                        <strong>
-                            Secure Login
-                        </strong>
-
-                        <p>
-                            Your account information is protected
-                            with security verification.
-                        </p>
-
-                    </div>
 
                 </div>
 
 
+                <!-- SIGNUP -->
+                <div class="signup-existing">
 
-                <!-- CREATE ACCOUNT -->
-
-                <div class="login-register-bottom">
-
-                    Don't have a RideMitra account?
+                    Don't have an account?
 
                     <a href="signup.html">
                         Create Account
                     </a>
 
                 </div>
-
 
             </div>
 
@@ -381,43 +1217,83 @@
     </main>
 
 
+    <!-- GLOBAL CONFIG -->
+    <script src="config.js"></script>
 
-    <!-- =====================================================
-         LOGIN PAGE JAVASCRIPT
-         ===================================================== -->
 
+    <!-- LOGIN SYSTEM -->
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    document.addEventListener("DOMContentLoaded", function () {
+            const loginForm =
+                document.getElementById("loginForm");
+
+            const emailInput =
+                document.getElementById("loginEmail");
+
+            const passwordInput =
+                document.getElementById("loginPassword");
+
+            const passwordToggle =
+                document.getElementById("passwordToggle");
+
+            const rememberMe =
+                document.getElementById("rememberMe");
+
+            const forgotPasswordLink =
+                document.getElementById("forgotPasswordLink");
+
+            const loginMessage =
+                document.getElementById("loginMessage");
+
+            const loginButton =
+                document.getElementById("loginButton");
 
 
-        /* =====================================================
-           PASSWORD SHOW / HIDE
-           ===================================================== */
+            /* =====================================================
+               SHOW MESSAGE
+            ===================================================== */
 
-        const passwordInput =
-            document.getElementById("loginPassword");
+            function showMessage(message, type = "error") {
 
-        const passwordToggle =
-            document.getElementById("passwordToggle");
+                if (!loginMessage) return;
+
+                loginMessage.textContent = message;
+
+                if (type === "success") {
+
+                    loginMessage.style.color = "#16a34a";
+
+                } else if (type === "info") {
+
+                    loginMessage.style.color = "#2563eb";
+
+                } else {
+
+                    loginMessage.style.color = "#dc2626";
+
+                }
+
+            }
 
 
-        if (passwordInput && passwordToggle) {
+            /* =====================================================
+               PASSWORD SHOW / HIDE
+            ===================================================== */
 
-            passwordToggle.addEventListener(
-                "click",
-                function () {
+            if (passwordToggle && passwordInput) {
+
+                passwordToggle.addEventListener("click", function () {
 
                     const icon =
                         passwordToggle.querySelector("i");
-
 
                     if (passwordInput.type === "password") {
 
                         passwordInput.type = "text";
 
                         icon.className =
-                            "fa-regular fa-eye-slash";
+                            "fa-solid fa-eye-slash";
 
                         passwordToggle.setAttribute(
                             "aria-label",
@@ -429,7 +1305,7 @@
                         passwordInput.type = "password";
 
                         icon.className =
-                            "fa-regular fa-eye";
+                            "fa-solid fa-eye";
 
                         passwordToggle.setAttribute(
                             "aria-label",
@@ -438,319 +1314,261 @@
 
                     }
 
-                }
-            );
-
-        }
-
-
-
-        /* =====================================================
-           FORGOT PASSWORD
-           ===================================================== */
-
-        const forgotPassword =
-            document.getElementById("forgotPassword");
-
-
-        if (forgotPassword) {
-
-            forgotPassword.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    alert(
-                        "Password reset feature will be available soon."
-                    );
-
-                }
-            );
-
-        }
-
-
-
-        /* =====================================================
-           LOGIN ELEMENTS
-           ===================================================== */
-
-        const loginForm =
-            document.getElementById("loginForm");
-
-        const emailInput =
-            document.getElementById("loginEmail");
-
-        const loginPassword =
-            document.getElementById("loginPassword");
-
-        const message =
-            document.getElementById("loginMessage");
-
-        const loginButton =
-            document.getElementById("loginButton");
-
-        const buttonText =
-            loginButton
-                ? loginButton.querySelector(
-                    ".login-button-text"
-                )
-                : null;
-
-
-
-        /* =====================================================
-           MESSAGE
-           ===================================================== */
-
-        function showMessage(text, type) {
-
-            if (!message) return;
-
-            message.textContent = text;
-
-            message.classList.add("show");
-
-
-            if (type === "success") {
-
-                message.style.color =
-                    "#16a34a";
-
-            } else if (type === "error") {
-
-                message.style.color =
-                    "#dc2626";
-
-            } else {
-
-                message.style.color =
-                    "#2563eb";
+                });
 
             }
 
-        }
 
+            /* =====================================================
+               REMEMBER ME
+            ===================================================== */
 
+            if (rememberMe) {
 
-        function clearMessage() {
+                const rememberKey =
+                    "rideMitraRememberMe";
 
-            if (!message) return;
+                const savedRemember =
+                    localStorage.getItem(rememberKey);
 
-            message.textContent = "";
+                if (savedRemember === "true") {
 
-            message.classList.remove("show");
+                    rememberMe.checked = true;
 
-        }
+                }
 
+                rememberMe.addEventListener(
+                    "change",
+                    function () {
 
-
-        /* =====================================================
-           CLEAR MESSAGE WHEN USER TYPES
-           ===================================================== */
-
-        if (emailInput) {
-
-            emailInput.addEventListener(
-                "input",
-                clearMessage
-            );
-
-        }
-
-
-        if (loginPassword) {
-
-            loginPassword.addEventListener(
-                "input",
-                clearMessage
-            );
-
-        }
-
-
-
-        /* =====================================================
-           LOGIN FORM
-           ===================================================== */
-
-        if (loginForm) {
-
-            loginForm.addEventListener(
-                "submit",
-                async function (event) {
-
-                    event.preventDefault();
-
-
-                    clearMessage();
-
-
-                    const email =
-                        emailInput.value.trim();
-
-                    const password =
-                        loginPassword.value;
-
-
-
-                    /* -----------------------------------------
-                       VALIDATION
-                       ----------------------------------------- */
-
-                    if (!email) {
-
-                        showMessage(
-                            "Please enter your email address.",
-                            "error"
+                        localStorage.setItem(
+                            rememberKey,
+                            this.checked ? "true" : "false"
                         );
 
-                        emailInput.focus();
-
-                        return;
-
                     }
+                );
+
+            }
 
 
-                    if (!password) {
+            /* =====================================================
+               FORGOT PASSWORD
+            ===================================================== */
+
+            if (forgotPasswordLink) {
+
+                forgotPasswordLink.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
 
                         showMessage(
-                            "Please enter your password.",
-                            "error"
+                            "Password recovery will be available soon. Please contact RideMitra support.",
+                            "info"
                         );
 
-                        loginPassword.focus();
-
-                        return;
-
                     }
+                );
+
+            }
 
 
+            /* =====================================================
+               GET REGISTERED USERS
+            ===================================================== */
 
-                    /* -----------------------------------------
-                       BUTTON LOADING
-                       ----------------------------------------- */
+            function getRegisteredUsers() {
 
-                    loginButton.disabled = true;
+                const storageKeys = [
+                    "rideMitraUsers",
+                    "rm_users",
+                    "users"
+                ];
 
-                    if (buttonText) {
+                let users = [];
 
-                        buttonText.textContent =
-                            "Signing in...";
+                storageKeys.forEach(function (key) {
 
-                    }
+                    const stored =
+                        localStorage.getItem(key);
 
-
-                    showMessage(
-                        "Checking your account...",
-                        "info"
-                    );
-
-
-
-                    /* -----------------------------------------
-                       BACKEND LOGIN
-                       ----------------------------------------- */
+                    if (!stored) return;
 
                     try {
 
-                        const apiUrl =
-                            (
-                                typeof RIDEMITRA_CONFIG !== "undefined" &&
-                                RIDEMITRA_CONFIG.API_BASE_URL
-                            )
-                            ? RIDEMITRA_CONFIG.API_BASE_URL
-                            : "http://127.0.0.1:5000";
+                        const parsed =
+                            JSON.parse(stored);
 
+                        if (Array.isArray(parsed)) {
 
-                        const loginEndpoint =
-                            (
-                                typeof RIDEMITRA_CONFIG !== "undefined" &&
-                                RIDEMITRA_CONFIG.ENDPOINTS &&
-                                RIDEMITRA_CONFIG.ENDPOINTS.LOGIN
-                            )
-                            ? RIDEMITRA_CONFIG.ENDPOINTS.LOGIN
-                            : "/api/login";
+                            users =
+                                users.concat(parsed);
 
+                        } else if (
+                            parsed &&
+                            typeof parsed === "object"
+                        ) {
 
-                        const response =
-                            await fetch(
-                                apiUrl + loginEndpoint,
-                                {
-                                    method: "POST",
-
-                                    headers: {
-                                        "Content-Type":
-                                            "application/json"
-                                    },
-
-                                    body: JSON.stringify({
-
-                                        email: email,
-
-                                        password: password
-
-                                    })
-                                }
-                            );
-
-
-                        let data = {};
-
-                        try {
-
-                            data =
-                                await response.json();
-
-                        } catch (jsonError) {
-
-                            data = {};
+                            users.push(parsed);
 
                         }
 
+                    } catch (error) {
+
+                        console.warn(
+                            "Invalid stored users:",
+                            key
+                        );
+
+                    }
+
+                });
+
+                return users;
+
+            }
 
 
-                        /* -----------------------------------------
-                           LOGIN FAILED
-                           ----------------------------------------- */
+            /* =====================================================
+               LOGIN SUBMIT
+            ===================================================== */
 
-                        if (
-                            !response.ok ||
-                            !data.success
-                        ) {
+            if (loginForm) {
+
+                loginForm.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const email =
+                            emailInput.value
+                                .trim()
+                                .toLowerCase();
+
+                        const password =
+                            passwordInput.value;
+
+
+                        /* VALIDATION */
+
+                        if (!email) {
 
                             showMessage(
-                                data.message ||
-                                "Invalid email or password.",
-                                "error"
+                                "Please enter your email address."
                             );
 
-
-                            loginButton.disabled =
-                                false;
-
-
-                            if (buttonText) {
-
-                                buttonText.textContent =
-                                    "Login";
-
-                            }
+                            emailInput.focus();
 
                             return;
 
                         }
 
 
+                        if (!email.includes("@")) {
 
-                        /* -----------------------------------------
-                           LOGIN SUCCESS
-                           ----------------------------------------- */
+                            showMessage(
+                                "Please enter a valid email address."
+                            );
+
+                            emailInput.focus();
+
+                            return;
+
+                        }
+
+
+                        if (!password) {
+
+                            showMessage(
+                                "Please enter your password."
+                            );
+
+                            passwordInput.focus();
+
+                            return;
+
+                        }
+
+
+                        /* LOADING */
+
+                        loginButton.disabled = true;
+
+                        loginButton.innerHTML = `
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            <span>Logging in...</span>
+                        `;
+
+
+                        const users =
+                            getRegisteredUsers();
+
+
+                        /* FIND USER */
 
                         const user =
-                            data.user;
+                            users.find(function (item) {
 
+                                if (!item) return false;
+
+                                const userEmail =
+                                    String(
+                                        item.email || ""
+                                    )
+                                        .trim()
+                                        .toLowerCase();
+
+                                return (
+                                    userEmail === email &&
+                                    item.password === password
+                                );
+
+                            });
+
+
+                        /* LOGIN FAILED */
+
+                        if (!user) {
+
+                            setTimeout(function () {
+
+                                showMessage(
+                                    "Invalid email or password. Please try again."
+                                );
+
+                                loginButton.disabled = false;
+
+                                loginButton.innerHTML = `
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    <span>Login to Account</span>
+                                `;
+
+                            }, 500);
+
+                            return;
+
+                        }
+
+
+                        /* =================================================
+                           CREATE SAFE USER SESSION
+                        ================================================= */
+
+                        const loggedInUser = {
+
+                            ...user
+
+                        };
+
+
+                        delete loggedInUser.password;
+
+
+                        /* REQUIRED BY DASHBOARD */
 
                         localStorage.setItem(
                             "rideMitraLoggedIn",
@@ -760,131 +1578,51 @@
 
                         localStorage.setItem(
                             "rideMitraUser",
-                            JSON.stringify(user)
+                            JSON.stringify(loggedInUser)
                         );
 
 
                         localStorage.setItem(
                             "rm_current_user",
-                            JSON.stringify(user)
+                            JSON.stringify(loggedInUser)
                         );
-
-
-                        localStorage.setItem(
-                            "rideMitraRegisteredEmail",
-                            user.email
-                        );
-
-
-
-                        /* REMEMBER ME */
-
-                        const rememberMe =
-                            document.getElementById(
-                                "rememberMe"
-                            );
-
-
-                        if (
-                            rememberMe &&
-                            rememberMe.checked
-                        ) {
-
-                            localStorage.setItem(
-                                "rideMitraRememberMe",
-                                "true"
-                            );
-
-                        } else {
-
-                            localStorage.removeItem(
-                                "rideMitraRememberMe"
-                            );
-
-                        }
-
 
 
                         /* SUCCESS */
 
                         showMessage(
-                            "Login successful! Redirecting...",
+                            "Login successful! Redirecting to dashboard...",
                             "success"
                         );
 
 
-                        if (buttonText) {
-
-                            buttonText.textContent =
-                                "Login Successful ✓";
-
-                        }
+                        loginButton.innerHTML = `
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Login Successful</span>
+                        `;
 
 
+                        /* REDIRECT */
 
-                        /* -----------------------------------------
-                           GO TO DASHBOARD
-                           ----------------------------------------- */
+                        setTimeout(function () {
 
-                        setTimeout(
-                            function () {
+                            window.location.href =
+                                "dashboard.html";
 
-                                window.location.href =
-                                    "dashboard.html";
-
-                            },
-                            800
-                        );
-
-
-
-                    } catch (error) {
-
-                        console.error(
-                            "RideMitra login error:",
-                            error
-                        );
-
-
-                        showMessage(
-                            "Unable to connect to RideMitra server. Please make sure app.py is running.",
-                            "error"
-                        );
-
-
-                        loginButton.disabled =
-                            false;
-
-
-                        if (buttonText) {
-
-                            buttonText.textContent =
-                                "Login";
-
-                        }
+                        }, 900);
 
                     }
+                );
 
-                }
-            );
+            }
 
-        }
-
-    });
-
+        });
     </script>
 
 
-
-    <!-- =====================================================
-         GLOBAL JAVASCRIPT
-         ===================================================== -->
-
-    <script src="config.js"></script>
-
+    <!-- GLOBAL SYSTEM SCRIPT -->
     <script src="script.js"></script>
-
 
 </body>
 
-</html>
+</html>  

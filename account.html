@@ -1,0 +1,3762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account - RideMitra</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #ff5a1f;
+            --primary-dark: #e94810;
+            --sidebar: #111827;
+            --text: #182235;
+            --muted: #718096;
+            --border: #e5eaf0;
+            --background: #f5f7fb;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            background: linear-gradient(135deg, #f7f9fc 0%, #eef2f7 100%);
+            color: var(--text);
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* SIDEBAR */
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 294px;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            padding: 28px 16px 18px;
+            background: linear-gradient(180deg, #101827 0%, #172131 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+            overflow-y: auto;
+            transition: transform .3s ease;
+        }
+
+        .side-logo {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 0 8px 30px;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ff7a45, #ff4d16);
+            color: white;
+            font-size: 21px;
+            box-shadow: 0 12px 28px rgba(255, 90, 31, .28);
+        }
+
+        .side-logo strong {
+            font-size: 25px;
+            letter-spacing: -1px;
+        }
+
+        .side-logo span {
+            color: var(--primary);
+        }
+
+        .side-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .side-nav-links a {
+            min-height: 58px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 16px;
+            border-radius: 16px;
+            color: #aeb9ca;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: .25s ease;
+        }
+
+        .side-nav-links a i {
+            width: 22px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .side-nav-links a:hover {
+            color: white;
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .side-nav-links a.active {
+            color: white;
+            background: linear-gradient(90deg,
+                    rgba(255, 90, 31, .18),
+                    rgba(255, 90, 31, .04));
+            border: 1px solid rgba(255, 90, 31, .28);
+        }
+
+        .side-nav-links a.active i {
+            color: var(--primary);
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 25px;
+        }
+
+        .community-card {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 15px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .035);
+            border: 1px solid rgba(255, 255, 255, .09);
+            color: #aeb9ca;
+            font-size: 11px;
+        }
+
+        .community-card i {
+            color: #22c55e;
+        }
+
+        /* MAIN */
+
+        .main-layout {
+            min-height: 100vh;
+            margin-left: 294px;
+        }
+
+        .top-bar {
+            min-height: 108px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 58px;
+            background: rgba(255, 255, 255, .55);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid #e3e8ef;
+        }
+
+        .top-bar-left h2 {
+            font-size: 26px;
+            letter-spacing: -1px;
+        }
+
+        .top-bar-left p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .user-mini {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 7px 12px 7px 8px;
+            border-radius: 15px;
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), #ff7a45);
+            font-weight: 800;
+        }
+
+        .user-mini-info strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .user-mini-info span {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        /* MOBILE */
+
+        .menu-toggle {
+            position: fixed;
+            top: 22px;
+            left: 22px;
+            width: 46px;
+            height: 46px;
+            z-index: 1100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 13px;
+            background: #111827;
+            color: white;
+            font-size: 18px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 900;
+            background: rgba(15, 23, 42, .55);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* CONTENT */
+
+        .account-content {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 42px 54px 70px;
+        }
+
+        /* PROFILE HERO */
+
+        .profile-hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 290px;
+            display: flex;
+            align-items: center;
+            padding: 42px 48px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 90% 10%,
+                    rgba(255, 90, 31, .18),
+                    transparent 25%),
+                linear-gradient(135deg, #121b2b, #202b3b);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, .13);
+        }
+
+        .profile-hero::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            right: -160px;
+            bottom: -230px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .07);
+            box-shadow:
+                0 0 0 60px rgba(255, 255, 255, .02),
+                0 0 0 120px rgba(255, 255, 255, .01);
+        }
+
+        .profile-hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            color: white;
+            background: linear-gradient(135deg, #ff7a45, #ff4d16);
+            border: 5px solid rgba(255, 255, 255, .08);
+            font-size: 37px;
+            font-weight: 800;
+        }
+
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 12px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            color: #ff9a78;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .profile-badge i {
+            color: #22c55e;
+        }
+
+        .profile-info h1 {
+            color: white;
+            font-size: 38px;
+            letter-spacing: -1.5px;
+        }
+
+        .profile-info p {
+            margin-top: 9px;
+            color: #aeb8c7;
+            font-size: 13px;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .profile-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #c1cad7;
+            font-size: 11px;
+        }
+
+        .profile-meta-item i {
+            color: var(--primary);
+        }
+
+        /* GRID */
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 24px;
+            margin-top: 42px;
+        }
+
+        .account-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* CARD */
+
+        .account-card {
+            padding: 28px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(15, 23, 42, .035);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .card-title-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            color: var(--primary);
+            background: #fff0ea;
+        }
+
+        .card-title h3 {
+            font-size: 16px;
+        }
+
+        .card-title p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* INFORMATION */
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-row:first-child {
+            padding-top: 0;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .info-label i {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            color: #64748b;
+            background: #f5f7fa;
+        }
+
+        .info-value {
+            color: #243044;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* SETTINGS */
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-row:first-child {
+            padding-top: 0;
+        }
+
+        .setting-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .setting-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: #64748b;
+            background: #f5f7fa;
+            font-size: 14px;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .setting-info span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        /* SWITCH */
+
+        .switch {
+            position: relative;
+            width: 46px;
+            height: 25px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #d7dde5;
+            transition: .25s ease;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            width: 19px;
+            height: 19px;
+            top: 3px;
+            left: 3px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+            transition: .25s ease;
+        }
+
+        .switch input:checked+.slider {
+            background: var(--primary);
+        }
+
+        .switch input:checked+.slider::before {
+            transform: translateX(21px);
+        }
+
+        .setting-select {
+            min-width: 125px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            color: #475569;
+            background: white;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* ACTIONS */
+
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 100%;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: #334155;
+            background: #fff;
+            transition: .2s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 90, 31, .35);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, .06);
+        }
+
+        .action-btn-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn-left i {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: var(--primary);
+            background: #fff0ea;
+        }
+
+        .action-btn strong {
+            font-size: 11px;
+        }
+
+        .action-btn>i {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* BUTTONS */
+
+        .edit-profile-btn,
+        .logout-btn,
+        .delete-btn,
+        .save-profile-btn,
+        .modal-btn {
+            min-height: 42px;
+            padding: 0 16px;
+            border-radius: 11px;
+            font-size: 11px;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .edit-profile-btn,
+        .logout-btn {
+            border: 1px solid var(--border);
+            color: #334155;
+            background: white;
+        }
+
+        .edit-profile-btn:hover,
+        .logout-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .save-profile-btn,
+        .modal-btn.primary {
+            border: none;
+            color: white;
+            background: var(--primary);
+        }
+
+        .delete-btn,
+        .modal-btn.danger {
+            border: none;
+            color: white;
+            background: var(--danger);
+        }
+
+        .modal-btn.secondary {
+            border: 1px solid var(--border);
+            background: white;
+            color: #475569;
+        }
+
+        /* EDIT FORM */
+
+        .edit-form {
+            display: none;
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid #edf0f4;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group label {
+            color: #64748b;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            min-height: 44px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* DANGER */
+
+        .danger-card {
+            border-color: rgba(220, 38, 38, .15);
+        }
+
+        .danger-card .card-title-icon {
+            color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .danger-description {
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .danger-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* MODAL */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, .65);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 28px;
+            border-radius: 22px;
+            background: white;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, .25);
+            animation: modalIn .25s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+        }
+
+        .modal-header p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border: none;
+            border-radius: 10px;
+            background: #f5f7fa;
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        /* SESSION */
+
+        .session-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .session-item i {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: #fff0ea;
+            color: var(--primary);
+        }
+
+        .session-item strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .session-item span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        /* FAQ */
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 16px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            border: none;
+            background: transparent;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 0 16px;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* TOAST */
+
+        .toast-container {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            min-width: 280px;
+            max-width: 380px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 17px;
+            border-radius: 14px;
+            background: #111827;
+            color: white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .2);
+            font-size: 11px;
+            animation: toastIn .3s ease;
+        }
+
+        .toast.success i {
+            color: #22c55e;
+        }
+
+        .toast.error i {
+            color: #ef4444;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+
+            .side-nav {
+                transform: translateX(-100%);
+                box-shadow: 20px 0 50px rgba(0, 0, 0, .2);
+            }
+
+            .side-nav.active {
+                transform: translateX(0);
+            }
+
+            .main-layout {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .top-bar {
+                min-height: 88px;
+                padding: 0 25px 0 85px;
+            }
+
+            .account-content {
+                padding: 30px 25px 55px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .top-bar-left h2 {
+                font-size: 20px;
+            }
+
+            .top-bar-left p,
+            .user-mini-info {
+                display: none;
+            }
+
+            .profile-hero {
+                padding: 30px 24px;
+            }
+
+            .profile-hero-content {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .profile-avatar {
+                width: 85px;
+                height: 85px;
+                border-radius: 24px;
+                font-size: 28px;
+            }
+
+            .profile-info h1 {
+                font-size: 30px;
+            }
+
+            .profile-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .account-content {
+                padding: 22px 14px 50px;
+            }
+
+            .account-card {
+                padding: 21px 18px;
+                border-radius: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .info-value {
+                padding-left: 41px;
+                text-align: left;
+            }
+
+            .setting-select {
+                min-width: 100px;
+            }
+
+            .setting-row {
+                gap: 10px;
+            }
+
+            .modal {
+                padding: 22px 18px;
+            }
+
+            .toast-container {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+            }
+
+            .toast {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MOBILE MENU -->
+
+    <button class="menu-toggle" id="menuToggle" type="button">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR -->
+
+    <nav class="side-nav" id="sideNav">
+
+        <div class="side-logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-car-side"></i>
+            </div>
+
+            <strong>Ride<span>Mitra</span></strong>
+        </div>
+
+        <div class="side-nav-links">
+
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span data-i18n="navHome">Home</span>
+            </a>
+
+            <a href="find-ride.html">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span data-i18n="navFind">Find Ride</span>
+            </a>
+
+            <a href="offer-ride.html">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span data-i18n="navOffer">Offer Ride</span>
+            </a>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span data-i18n="navDashboard">Dashboard</span>
+            </a>
+
+            <a href="account.html" class="active">
+                <i class="fa-solid fa-user"></i>
+                <span data-i18n="navAccount">Profile & Account</span>
+            </a>
+
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="community-card">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span data-i18n="community">Verified Ride Community</span>
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- MAIN -->
+
+    <div class="main-layout">
+
+        <header class="top-bar">
+
+            <div class="top-bar-left">
+                <h2 data-i18n="pageTitle">My Account</h2>
+                <p data-i18n="pageSubtitle">
+                    Manage your RideMitra profile and preferences
+                </p>
+            </div>
+
+            <div class="user-mini">
+                <div class="user-mini-avatar" id="topUserInitial">U</div>
+
+                <div class="user-mini-info">
+                    <strong id="topUserName">User</strong>
+                    <span data-i18n="member">RideMitra Member</span>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="account-content">
+
+            <!-- HERO -->
+
+            <section class="profile-hero">
+
+                <div class="profile-hero-content">
+
+                    <div class="profile-avatar" id="profileAvatar">
+                        U
+                    </div>
+
+                    <div class="profile-info">
+
+                        <div class="profile-badge">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span data-i18n="member">RideMitra Member</span>
+                        </div>
+
+                        <h1 id="profileName">Welcome, User</h1>
+
+                        <p id="profileEmail">user@example.com</p>
+
+                        <div class="profile-meta">
+
+                            <div class="profile-meta-item">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span id="memberSince">Member since today</span>
+                            </div>
+
+                            <div class="profile-meta-item">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span data-i18n="secured">Account secured</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="account-grid">
+
+                <!-- LEFT -->
+
+                <div class="account-column">
+
+                    <!-- PERSONAL INFO -->
+
+                    <section class="account-card">
+
+                        <div
+                            style="display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px;">
+
+                            <div class="card-title" style="margin-bottom:0;">
+
+                                <div class="card-title-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <div>
+                                    <h3 data-i18n="personalInfo">
+                                        Personal Information
+                                    </h3>
+
+                                    <p data-i18n="personalDesc">
+                                        Your registered account details
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <button class="edit-profile-btn" id="editProfileBtn">
+                                <i class="fa-solid fa-pen"></i>
+                                <span data-i18n="edit">Edit</span>
+                            </button>
+
+                        </div>
+
+                        <div class="info-list">
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span data-i18n="fullName">Full Name</span>
+                                </div>
+                                <div class="info-value" id="infoName">User</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <span data-i18n="email">Email Address</span>
+                                </div>
+                                <div class="info-value" id="infoEmail">user@example.com</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <span data-i18n="phone">Phone Number</span>
+                                </div>
+                                <div class="info-value" id="infoPhone">Not added</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <span data-i18n="memberSinceLabel">Member Since</span>
+                                </div>
+                                <div class="info-value" id="infoJoined">Recently joined</div>
+                            </div>
+
+                        </div>
+
+                        <div class="edit-form" id="editForm">
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label data-i18n="fullName">Full Name</label>
+                                    <input type="text" id="editName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label data-i18n="phone">Phone Number</label>
+                                    <input type="tel" id="editPhone">
+                                </div>
+
+                            </div>
+
+                            <button class="save-profile-btn" id="saveProfileBtn">
+                                <i class="fa-solid fa-check"></i>
+                                <span data-i18n="saveChanges">Save Changes</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                    <!-- APP SETTINGS -->
+
+                    <section class="account-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="preferences">App Preferences</h3>
+                                <p data-i18n="preferencesDesc">
+                                    Customize your RideMitra experience
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div class="setting-info">
+
+                                <div class="setting-icon">
+                                    <i class="fa-solid fa-language"></i>
+                                </div>
+
+                                <div>
+                                    <strong data-i18n="language">Language</strong>
+                                    <span data-i18n="languageDesc">
+                                        Only English language is supported.
+                                    </span>
+                                </div>
+
+                            </div>
+
+                
+
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div class="setting-info">
+
+                                <div class="setting-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+
+                                <div>
+                                    <strong data-i18n="emailNotifications">
+                                        Email Notifications
+                                    </strong>
+                                    <span data-i18n="emailNotificationsDesc">
+                                        Updates about your rides
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <label class="switch">
+                                <input type="checkbox" id="emailNotifications">
+                                <span class="slider"></span>
+                            </label>
+
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div class="setting-info">
+
+                                <div class="setting-icon">
+                                    <i class="fa-solid fa-bell"></i>
+                                </div>
+
+                                <div>
+                                    <strong data-i18n="bookingNotifications">
+                                        Booking Notifications
+                                    </strong>
+                                    <span data-i18n="bookingNotificationsDesc">
+                                        Receive booking activity alerts
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <label class="switch">
+                                <input type="checkbox" id="bookingNotifications">
+                                <span class="slider"></span>
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- SECURITY -->
+
+                    <section class="account-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="security">Security</h3>
+                                <p data-i18n="securityDesc">
+                                    Keep your account safe and secure
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="action-list">
+
+                            <button class="action-btn" id="changePasswordBtn">
+
+                                <div class="action-btn-left">
+                                    <i class="fa-solid fa-key"></i>
+                                    <strong data-i18n="changePassword">
+                                        Change Password
+                                    </strong>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                            <button class="action-btn" id="sessionsBtn">
+
+                                <div class="action-btn-left">
+                                    <i class="fa-solid fa-laptop"></i>
+                                    <strong data-i18n="sessions">
+                                        Login & Sessions
+                                    </strong>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <!-- RIGHT -->
+
+                <div class="account-column">
+
+                    <!-- STATUS -->
+
+                    <section class="account-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="accountStatus">Account Status</h3>
+                                <p data-i18n="accountStatusDesc">
+                                    Your RideMitra account overview
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="info-list">
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-circle-check" style="color:#16a34a;"></i>
+                                    <span data-i18n="status">Account Status</span>
+                                </div>
+
+                                <div class="info-value" style="color:#16a34a;" data-i18n="active">
+                                    Active
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <span data-i18n="accountType">Account Type</span>
+                                </div>
+
+                                <div class="info-value" data-i18n="standardMember">
+                                    Standard Member
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fa-solid fa-car"></i>
+                                    <span data-i18n="travelProfile">Travel Profile</span>
+                                </div>
+
+                                <div class="info-value" data-i18n="driverPassenger">
+                                    Driver & Passenger
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- PRIVACY -->
+
+                    <section class="account-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="privacy">Privacy</h3>
+                                <p data-i18n="privacyDesc">
+                                    Control your account visibility
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div class="setting-info">
+
+                                <div class="setting-icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </div>
+
+                                <div>
+                                    <strong data-i18n="publicProfile">
+                                        Public Profile
+                                    </strong>
+                                    <span data-i18n="publicProfileDesc">
+                                        Allow other travellers to view profile
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <label class="switch">
+                                <input type="checkbox" id="publicProfile">
+                                <span class="slider"></span>
+                            </label>
+
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div class="setting-info">
+
+                                <div class="setting-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+
+                                <div>
+                                    <strong data-i18n="locationPrivacy">
+                                        Location Privacy
+                                    </strong>
+                                    <span data-i18n="locationPrivacyDesc">
+                                        Share location only during active trips
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <label class="switch">
+                                <input type="checkbox" id="locationPrivacy">
+                                <span class="slider"></span>
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- HELP -->
+
+                    <section class="account-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-circle-question"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="helpSupport">Help & Support</h3>
+                                <p data-i18n="helpDesc">
+                                    Need help with your RideMitra account?
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="action-list">
+
+                            <button class="action-btn" id="supportBtn">
+
+                                <div class="action-btn-left">
+                                    <i class="fa-solid fa-headset"></i>
+                                    <strong data-i18n="contactSupport">
+                                        Contact Support
+                                    </strong>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                            <button class="action-btn" id="faqBtn">
+
+                                <div class="action-btn-left">
+                                    <i class="fa-solid fa-book-open"></i>
+                                    <strong data-i18n="faq">
+                                        Help Center & FAQ
+                                    </strong>
+                                </div>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                    <!-- DANGER -->
+
+                    <section class="account-card danger-card">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+
+                            <div>
+                                <h3 data-i18n="accountActions">Account Actions</h3>
+                                <p data-i18n="accountActionsDesc">
+                                    Manage your RideMitra account
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <p class="danger-description" data-i18n="dangerDesc">
+                            You can securely log out from your account.
+                            Account deletion permanently removes your
+                            locally stored RideMitra account information.
+                        </p>
+
+                        <div class="danger-buttons">
+
+                            <button class="logout-btn" id="logoutButton">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span data-i18n="logout">Logout</span>
+                            </button>
+
+                            <button class="delete-btn" id="deleteAccountBtn">
+                                <i class="fa-solid fa-trash"></i>
+                                <span data-i18n="deleteAccount">Delete Account</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- CHANGE PASSWORD MODAL -->
+
+    <div class="modal-overlay" id="passwordModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3 data-i18n="changePassword">Change Password</h3>
+                    <p data-i18n="changePasswordDesc">
+                        Update your account password securely.
+                    </p>
+                </div>
+
+                <button class="modal-close" data-close="passwordModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label data-i18n="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword">
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label data-i18n="newPassword">New Password</label>
+                <input type="password" id="newPassword">
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label data-i18n="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword">
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn secondary" data-close="passwordModal" data-i18n="cancel">
+                    Cancel
+                </button>
+
+                <button class="modal-btn primary" id="savePasswordBtn" data-i18n="updatePassword">
+                    Update Password
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SESSIONS MODAL -->
+
+    <div class="modal-overlay" id="sessionsModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3 data-i18n="sessions">Login & Sessions</h3>
+                    <p data-i18n="sessionsDesc">
+                        Manage devices signed into your account.
+                    </p>
+                </div>
+
+                <button class="modal-close" data-close="sessionsModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="sessionList">
+
+                <div class="session-item">
+                    <i class="fa-solid fa-laptop"></i>
+
+                    <div>
+                        <strong data-i18n="currentDevice">Current Device</strong>
+                        <span id="deviceInfo">This browser • Active now</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn danger" id="logoutAllBtn" data-i18n="logoutAll">
+                    Logout All Sessions
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SUPPORT MODAL -->
+
+    <div class="modal-overlay" id="supportModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <h3 data-i18n="contactSupport">Contact Support</h3>
+                    <p data-i18n="supportDesc">
+                        Tell us about your issue and our team will review it.
+                    </p>
+                </div>
+
+                <button class="modal-close" data-close="supportModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <div class="form-group">
+                <label data-i18n="subject">Subject</label>
+                <input type="text" id="supportSubject">
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label data-i18n="message">Message</label>
+                <textarea id="supportMessage"></textarea>
+            </div>
+
+            <div class="modal-actions">
+
+                <button class="modal-btn secondary" data-close="supportModal" data-i18n="cancel">
+                    Cancel
+                </button>
+
+                <button class="modal-btn primary" id="sendSupportBtn" data-i18n="sendRequest">
+                    Send Request
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FAQ MODAL -->
+
+    <div class="modal-overlay" id="faqModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <h3 data-i18n="faq">Help Center & FAQ</h3>
+                    <p data-i18n="faqDesc">
+                        Find answers to common questions.
+                    </p>
+                </div>
+
+                <button class="modal-close" data-close="faqModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <div id="faqContainer"></div>
+
+        </div>
+
+    </div>
+
+    <!-- DELETE MODAL -->
+
+    <div class="modal-overlay" id="deleteModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <h3 data-i18n="deleteAccount">Delete Account</h3>
+                    <p data-i18n="deleteWarning">
+                        This action cannot be undone.
+                    </p>
+                </div>
+
+                <button class="modal-close" data-close="deleteModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <p style="font-size:11px;color:#718096;line-height:1.7;" data-i18n="deleteConfirmText">
+                All locally stored account information, preferences and
+                sessions will be permanently removed.
+            </p>
+
+            <div class="modal-actions">
+
+                <button class="modal-btn secondary" data-close="deleteModal" data-i18n="cancel">
+                    Cancel
+                </button>
+
+                <button class="modal-btn danger" id="confirmDeleteBtn" data-i18n="deleteForever">
+                    Delete Forever
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- TOAST -->
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /* =================================================
+               TRANSLATIONS - ENGLISH DEFAULT
+            ================================================= */
+
+            const translations = {
+                English: {
+
+                    navHome: "Home",
+                    navFind: "Find Ride",
+                    navOffer: "Offer Ride",
+                    navDashboard: "Dashboard",
+                    navAccount: "Profile & Account",
+
+                    community: "Verified Ride Community",
+
+                    pageTitle: "My Account",
+                    pageSubtitle: "Manage your RideMitra profile and preferences",
+
+                    member: "RideMitra Member",
+                    secured: "Account secured",
+
+                    personalInfo: "Personal Information",
+                    personalDesc: "Your registered account details",
+                    edit: "Edit",
+
+                    fullName: "Full Name",
+                    email: "Email Address",
+                    phone: "Phone Number",
+                    memberSinceLabel: "Member Since",
+                    saveChanges: "Save Changes",
+
+                    preferences: "App Preferences",
+                    preferencesDesc: "Customize your RideMitra experience",
+
+                    emailNotifications: "Email Notifications",
+                    emailNotificationsDesc: "Updates about your rides",
+
+                    bookingNotifications: "Booking Notifications",
+                    bookingNotificationsDesc: "Receive booking activity alerts",
+
+                    security: "Security",
+                    securityDesc: "Keep your account safe and secure",
+
+                    changePassword: "Change Password",
+                    changePasswordDesc: "Update your account password securely.",
+
+                    sessions: "Login & Sessions",
+                    sessionsDesc: "Manage devices signed into your account.",
+
+                    accountStatus: "Account Status",
+                    accountStatusDesc: "Your RideMitra account overview",
+
+                    status: "Account Status",
+                    active: "Active",
+
+                    accountType: "Account Type",
+                    standardMember: "Standard Member",
+
+                    travelProfile: "Travel Profile",
+                    driverPassenger: "Driver & Passenger",
+
+                    privacy: "Privacy",
+                    privacyDesc: "Control your account visibility",
+
+                    publicProfile: "Public Profile",
+                    publicProfileDesc: "Allow other travellers to view profile",
+
+                    locationPrivacy: "Location Privacy",
+                    locationPrivacyDesc: "Share location only during active trips",
+
+                    helpSupport: "Help & Support",
+                    helpDesc: "Need help with your RideMitra account?",
+
+                    contactSupport: "Contact Support",
+                    faq: "Help Center & FAQ",
+                    faqDesc: "Find answers to common questions.",
+
+                    accountActions: "Account Actions",
+                    accountActionsDesc: "Manage your RideMitra account",
+
+                    dangerDesc:
+                        "You can securely log out from your account. Account deletion permanently removes your locally stored RideMitra account information.",
+
+                    logout: "Logout",
+                    deleteAccount: "Delete Account",
+
+                    currentPassword: "Current Password",
+                    newPassword: "New Password",
+                    confirmPassword: "Confirm New Password",
+
+                    cancel: "Cancel",
+                    updatePassword: "Update Password",
+
+                    currentDevice: "Current Device",
+                    logoutAll: "Logout All Sessions",
+
+                    supportDesc:
+                        "Tell us about your issue and our team will review it.",
+
+                    subject: "Subject",
+                    message: "Message",
+                    sendRequest: "Send Request",
+
+                    deleteWarning: "This action cannot be undone.",
+
+                    deleteConfirmText:
+                        "All locally stored account information, preferences and sessions will be permanently removed.",
+
+                    deleteForever: "Delete Forever",
+
+                    welcome: "Welcome",
+                    memberSince: "Member since",
+
+                    notAdded: "Not added",
+
+                    profileUpdated: "Profile updated successfully!",
+                    settingsSaved: "Settings saved successfully!",
+                    passwordUpdated: "Password updated successfully!",
+                    passwordMismatch: "Passwords do not match.",
+                    passwordRequired: "Please fill all password fields.",
+                    currentPasswordIncorrect: "Current password is incorrect.",
+                    passwordTooShort:
+                        "Password must contain at least 6 characters.",
+
+                    supportSent:
+                        "Your support request has been submitted.",
+
+                    loggedOut: "You have been logged out.",
+                    sessionEnded: "All sessions have been ended.",
+
+                    fillSupport:
+                        "Please enter subject and message.",
+
+                    nameRequired:
+                        "Please enter your name.",
+
+                    accountDeleted:
+                        "Account deleted successfully.",
+
+                    currentDeviceInfo:
+                        "This browser • Active now",
+
+                    desktopDevice:
+                        "Desktop Browser • Active now",
+
+                    mobileDevice:
+                        "Mobile Browser • Active now",
+
+                    faqItems: [
+                        {
+                            q: "How do I find a ride?",
+                            a: "Go to Find Ride, enter your pickup and destination details, then search available rides."
+                        },
+                        {
+                            q: "How do I offer a ride?",
+                            a: "Open Offer Ride, enter your route, date, available seats and pricing information."
+                        },
+                        {
+                            q: "How can I update my profile?",
+                            a: "Open My Account and use the Edit button under Personal Information."
+                        },
+                        {
+                            q: "How do notifications work?",
+                            a: "You can enable or disable email and booking notifications from App Preferences."
+                        }
+                    ]
+                }
+            };
+
+
+            /* =================================================
+               HELPERS
+            ================================================= */
+
+            const $ = function (id) {
+                return document.getElementById(id);
+            };
+
+
+            function safeJSONParse(value, fallback) {
+                try {
+                    return JSON.parse(value);
+                } catch (error) {
+                    return fallback;
+                }
+            }
+
+
+            /* =================================================
+               USER AUTHENTICATION
+            ================================================= */
+
+            const storedUser =
+                localStorage.getItem("rideMitraUser") ||
+                localStorage.getItem("rm_current_user");
+
+
+            const isLoggedIn =
+                localStorage.getItem("rideMitraLoggedIn");
+
+
+            if (!isLoggedIn || !storedUser) {
+                window.location.href = "login.html";
+                return;
+            }
+
+
+            let user =
+                safeJSONParse(storedUser, null);
+
+
+            if (!user || typeof user !== "object") {
+
+                localStorage.removeItem(
+                    "rideMitraLoggedIn"
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+
+            /* =================================================
+               SETTINGS
+            ================================================= */
+
+            const settingsKey =
+                "rideMitraSettings";
+
+
+            const defaultSettings = {
+                language: "English",
+                emailNotifications: true,
+                bookingNotifications: true,
+                publicProfile: false,
+                locationPrivacy: true
+            };
+
+
+            let settings =
+                safeJSONParse(
+                    localStorage.getItem(settingsKey),
+                    null
+                );
+
+
+            if (!settings || typeof settings !== "object") {
+                settings = { ...defaultSettings };
+            }
+
+
+            settings = {
+                ...defaultSettings,
+                ...settings
+            };
+
+
+            /*
+             Force English permanently.
+             Old Hindi localStorage preference
+             will no longer affect this page.
+            */
+
+            settings.language = "English";
+
+
+            localStorage.setItem(
+                settingsKey,
+                JSON.stringify(settings)
+            );
+
+
+            /* =================================================
+               DOM REFERENCES
+            ================================================= */
+
+            const emailNotifications =
+                $("emailNotifications");
+
+            const bookingNotifications =
+                $("bookingNotifications");
+
+            const publicProfile =
+                $("publicProfile");
+
+            const locationPrivacy =
+                $("locationPrivacy");
+
+            const sideNav =
+                $("sideNav");
+
+            const menuToggle =
+                $("menuToggle");
+
+            const sidebarOverlay =
+                $("sidebarOverlay");
+
+            const editProfileBtn =
+                $("editProfileBtn");
+
+            const editForm =
+                $("editForm");
+
+            const editName =
+                $("editName");
+
+            const editPhone =
+                $("editPhone");
+
+
+            /* =================================================
+               SAVE USER
+            ================================================= */
+
+            function saveUser() {
+
+                const userData =
+                    JSON.stringify(user);
+
+
+                localStorage.setItem(
+                    "rideMitraUser",
+                    userData
+                );
+
+
+                localStorage.setItem(
+                    "rm_current_user",
+                    userData
+                );
+            }
+
+
+            /* =================================================
+               SAVE SETTINGS
+            ================================================= */
+
+            function saveAllSettings(showMessage = false) {
+
+                settings.language = "English";
+
+
+                localStorage.setItem(
+                    settingsKey,
+                    JSON.stringify(settings)
+                );
+
+
+                if (showMessage) {
+
+                    showToast(
+                        translations.English.settingsSaved,
+                        "success"
+                    );
+                }
+            }
+
+
+            /* =================================================
+               MEMBER DATE
+            ================================================= */
+
+            function getMemberDate() {
+
+                let memberDate =
+                    user.createdAt ||
+                    user.joinedAt;
+
+
+                if (!memberDate) {
+
+                    memberDate =
+                        new Date().toISOString();
+
+                    user.createdAt =
+                        memberDate;
+
+                    saveUser();
+                }
+
+                return memberDate;
+            }
+
+
+            /* =================================================
+               FORMAT DATE
+            ================================================= */
+
+            function getFormattedMemberDate() {
+
+                const memberDate =
+                    getMemberDate();
+
+
+                const parsedDate =
+                    new Date(memberDate);
+
+
+                if (
+                    Number.isNaN(
+                        parsedDate.getTime()
+                    )
+                ) {
+                    return "";
+                }
+
+
+                return parsedDate.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+            }
+
+
+            /* =================================================
+               PROFILE
+            ================================================= */
+
+            function loadProfile() {
+
+                const userName =
+                    user.name ||
+                    user.fullName ||
+                    "User";
+
+
+                const userEmail =
+                    user.email ||
+                    "user@ridemitra.com";
+
+
+                const userPhone =
+                    user.phone ||
+                    "";
+
+
+                const initial =
+                    userName
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                const profileAvatar =
+                    $("profileAvatar");
+
+                const topUserInitial =
+                    $("topUserInitial");
+
+                const topUserName =
+                    $("topUserName");
+
+                const profileEmail =
+                    $("profileEmail");
+
+                const infoName =
+                    $("infoName");
+
+                const infoEmail =
+                    $("infoEmail");
+
+                const infoPhone =
+                    $("infoPhone");
+
+
+                if (profileAvatar) {
+                    profileAvatar.textContent =
+                        initial;
+                }
+
+
+                if (topUserInitial) {
+                    topUserInitial.textContent =
+                        initial;
+                }
+
+
+                if (topUserName) {
+                    topUserName.textContent =
+                        userName;
+                }
+
+
+                if (profileEmail) {
+                    profileEmail.textContent =
+                        userEmail;
+                }
+
+
+                if (infoName) {
+                    infoName.textContent =
+                        userName;
+                }
+
+
+                if (infoEmail) {
+                    infoEmail.textContent =
+                        userEmail;
+                }
+
+
+                if (infoPhone) {
+                    infoPhone.textContent =
+                        userPhone ||
+                        translations.English.notAdded;
+                }
+
+
+                updateDynamicTexts();
+            }
+
+
+            /* =================================================
+               DYNAMIC TEXTS
+            ================================================= */
+
+            function updateDynamicTexts() {
+
+                const lang =
+                    translations.English;
+
+
+                const userName =
+                    user.name ||
+                    user.fullName ||
+                    "User";
+
+
+                const profileName =
+                    $("profileName");
+
+                const memberSince =
+                    $("memberSince");
+
+                const infoJoined =
+                    $("infoJoined");
+
+                const infoPhone =
+                    $("infoPhone");
+
+
+                if (profileName) {
+
+                    profileName.textContent =
+                        `${lang.welcome}, ${userName}`;
+                }
+
+
+                const formattedDate =
+                    getFormattedMemberDate();
+
+
+                if (memberSince) {
+
+                    memberSince.textContent =
+                        `${lang.memberSince} ${formattedDate}`;
+                }
+
+
+                if (infoJoined) {
+                    infoJoined.textContent =
+                        formattedDate;
+                }
+
+
+                if (infoPhone) {
+
+                    infoPhone.textContent =
+                        user.phone ||
+                        lang.notAdded;
+                }
+            }
+
+
+            /* =================================================
+               APPLY ENGLISH TEXT
+            ================================================= */
+
+            function applyLanguage() {
+
+                const lang =
+                    translations.English;
+
+
+                document.documentElement.lang =
+                    "en";
+
+
+                document.querySelectorAll("[data-i18n]")
+                    .forEach(function (element) {
+
+                        const key =
+                            element.dataset.i18n;
+
+
+                        if (
+                            Object.prototype.hasOwnProperty.call(
+                                lang,
+                                key
+                            )
+                        ) {
+
+                            element.textContent =
+                                lang[key];
+                        }
+
+                    });
+
+
+                document.title =
+                    "My Account - RideMitra";
+
+
+                updateDynamicTexts();
+
+                renderFAQ();
+            }
+
+
+            /* =================================================
+               TOAST
+            ================================================= */
+
+            function showToast(
+                message,
+                type = "success"
+            ) {
+
+                const container =
+                    $("toastContainer");
+
+
+                if (!container) return;
+
+
+                const toast =
+                    document.createElement("div");
+
+
+                toast.className =
+                    `toast ${type}`;
+
+
+                const icon =
+                    type === "success"
+                        ? "fa-circle-check"
+                        : "fa-circle-exclamation";
+
+
+                const iconElement =
+                    document.createElement("i");
+
+
+                iconElement.className =
+                    `fa-solid ${icon}`;
+
+
+                const textElement =
+                    document.createElement("span");
+
+
+                textElement.textContent =
+                    message;
+
+
+                toast.appendChild(
+                    iconElement
+                );
+
+                toast.appendChild(
+                    textElement
+                );
+
+                container.appendChild(
+                    toast
+                );
+
+
+                setTimeout(function () {
+
+                    toast.style.opacity =
+                        "0";
+
+                    toast.style.transform =
+                        "translateY(10px)";
+
+
+                    setTimeout(function () {
+                        toast.remove();
+                    }, 250);
+
+                }, 3200);
+            }
+
+
+            /* =================================================
+               SIDEBAR
+            ================================================= */
+
+            function openSidebar() {
+
+                if (!sideNav) return;
+
+
+                sideNav.classList.add(
+                    "active"
+                );
+
+
+                if (sidebarOverlay) {
+
+                    sidebarOverlay.classList.add(
+                        "active"
+                    );
+                }
+
+
+                if (menuToggle) {
+
+                    menuToggle.innerHTML =
+                        '<i class="fa-solid fa-xmark"></i>';
+                }
+
+
+                document.body.style.overflow =
+                    "hidden";
+            }
+
+
+            function closeSidebar() {
+
+                if (sideNav) {
+
+                    sideNav.classList.remove(
+                        "active"
+                    );
+                }
+
+
+                if (sidebarOverlay) {
+
+                    sidebarOverlay.classList.remove(
+                        "active"
+                    );
+                }
+
+
+                if (menuToggle) {
+
+                    menuToggle.innerHTML =
+                        '<i class="fa-solid fa-bars"></i>';
+                }
+
+
+                document.body.style.overflow =
+                    "";
+            }
+
+
+            if (menuToggle) {
+
+                menuToggle.addEventListener(
+                    "click",
+                    function () {
+
+                        if (
+                            sideNav &&
+                            sideNav.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            closeSidebar();
+
+                        } else {
+
+                            openSidebar();
+                        }
+
+                    }
+                );
+            }
+
+
+            if (sidebarOverlay) {
+
+                sidebarOverlay.addEventListener(
+                    "click",
+                    closeSidebar
+                );
+            }
+
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (event.key === "Escape") {
+
+                        closeSidebar();
+
+
+                        document
+                            .querySelectorAll(
+                                ".modal-overlay.active"
+                            )
+                            .forEach(function (modal) {
+
+                                modal.classList.remove(
+                                    "active"
+                                );
+
+                            });
+
+
+                        document.body.style.overflow =
+                            "";
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               EDIT PROFILE
+            ================================================= */
+
+            if (
+                editProfileBtn &&
+                editForm &&
+                editName &&
+                editPhone
+            ) {
+
+                editProfileBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        editForm.classList.toggle(
+                            "active"
+                        );
+
+
+                        if (
+                            editForm.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            editName.value =
+                                user.name ||
+                                user.fullName ||
+                                "";
+
+
+                            editPhone.value =
+                                user.phone ||
+                                "";
+
+
+                            setTimeout(function () {
+                                editName.focus();
+                            }, 100);
+                        }
+
+                    }
+                );
+            }
+
+
+            const saveProfileBtn =
+                $("saveProfileBtn");
+
+
+            if (saveProfileBtn) {
+
+                saveProfileBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const lang =
+                            translations.English;
+
+
+                        const newName =
+                            editName
+                                ? editName.value.trim()
+                                : "";
+
+
+                        const newPhone =
+                            editPhone
+                                ? editPhone.value.trim()
+                                : "";
+
+
+                        if (!newName) {
+
+                            showToast(
+                                lang.nameRequired,
+                                "error"
+                            );
+
+
+                            if (editName) {
+                                editName.focus();
+                            }
+
+                            return;
+                        }
+
+
+                        user.name =
+                            newName;
+
+                        user.phone =
+                            newPhone;
+
+
+                        saveUser();
+
+                        loadProfile();
+
+
+                        if (editForm) {
+
+                            editForm.classList.remove(
+                                "active"
+                            );
+                        }
+
+
+                        showToast(
+                            lang.profileUpdated,
+                            "success"
+                        );
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               SETTINGS LOAD
+            ================================================= */
+
+            function loadSettingsIntoUI() {
+
+                if (emailNotifications) {
+
+                    emailNotifications.checked =
+                        Boolean(
+                            settings.emailNotifications
+                        );
+                }
+
+
+                if (bookingNotifications) {
+
+                    bookingNotifications.checked =
+                        Boolean(
+                            settings.bookingNotifications
+                        );
+                }
+
+
+                if (publicProfile) {
+
+                    publicProfile.checked =
+                        Boolean(
+                            settings.publicProfile
+                        );
+                }
+
+
+                if (locationPrivacy) {
+
+                    locationPrivacy.checked =
+                        Boolean(
+                            settings.locationPrivacy
+                        );
+                }
+            }
+
+
+            if (emailNotifications) {
+
+                emailNotifications.addEventListener(
+                    "change",
+                    function () {
+
+                        settings.emailNotifications =
+                            emailNotifications.checked;
+
+                        saveAllSettings(true);
+
+                    }
+                );
+            }
+
+
+            if (bookingNotifications) {
+
+                bookingNotifications.addEventListener(
+                    "change",
+                    function () {
+
+                        settings.bookingNotifications =
+                            bookingNotifications.checked;
+
+                        saveAllSettings(true);
+
+                    }
+                );
+            }
+
+
+            if (publicProfile) {
+
+                publicProfile.addEventListener(
+                    "change",
+                    function () {
+
+                        settings.publicProfile =
+                            publicProfile.checked;
+
+                        saveAllSettings(true);
+
+                    }
+                );
+            }
+
+
+            if (locationPrivacy) {
+
+                locationPrivacy.addEventListener(
+                    "change",
+                    function () {
+
+                        settings.locationPrivacy =
+                            locationPrivacy.checked;
+
+                        saveAllSettings(true);
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               MODALS
+            ================================================= */
+
+            function openModal(id) {
+
+                const modal =
+                    $(id);
+
+
+                if (!modal) return;
+
+
+                modal.classList.add(
+                    "active"
+                );
+
+
+                document.body.style.overflow =
+                    "hidden";
+            }
+
+
+            function closeModal(id) {
+
+                const modal =
+                    $(id);
+
+
+                if (!modal) return;
+
+
+                modal.classList.remove(
+                    "active"
+                );
+
+
+                const activeModal =
+                    document.querySelector(
+                        ".modal-overlay.active"
+                    );
+
+
+                if (!activeModal) {
+
+                    document.body.style.overflow =
+                        "";
+                }
+            }
+
+
+            document
+                .querySelectorAll("[data-close]")
+                .forEach(function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            closeModal(
+                                button.dataset.close
+                            );
+
+                        }
+                    );
+
+                });
+
+
+            document
+                .querySelectorAll(".modal-overlay")
+                .forEach(function (overlay) {
+
+                    overlay.addEventListener(
+                        "click",
+                        function (event) {
+
+                            if (
+                                event.target === overlay
+                            ) {
+
+                                overlay.classList.remove(
+                                    "active"
+                                );
+
+
+                                const activeModal =
+                                    document.querySelector(
+                                        ".modal-overlay.active"
+                                    );
+
+
+                                if (!activeModal) {
+
+                                    document.body.style.overflow =
+                                        "";
+                                }
+                            }
+
+                        }
+                    );
+
+                });
+
+
+            /* =================================================
+               CHANGE PASSWORD
+            ================================================= */
+
+            const changePasswordBtn =
+                $("changePasswordBtn");
+
+
+            if (changePasswordBtn) {
+
+                changePasswordBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const currentPassword =
+                            $("currentPassword");
+
+                        const newPassword =
+                            $("newPassword");
+
+                        const confirmPassword =
+                            $("confirmPassword");
+
+
+                        if (currentPassword) {
+                            currentPassword.value = "";
+                        }
+
+
+                        if (newPassword) {
+                            newPassword.value = "";
+                        }
+
+
+                        if (confirmPassword) {
+                            confirmPassword.value = "";
+                        }
+
+
+                        openModal(
+                            "passwordModal"
+                        );
+
+                    }
+                );
+            }
+
+
+            const savePasswordBtn =
+                $("savePasswordBtn");
+
+
+            if (savePasswordBtn) {
+
+                savePasswordBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const lang =
+                            translations.English;
+
+
+                        const currentInput =
+                            $("currentPassword");
+
+                        const newInput =
+                            $("newPassword");
+
+                        const confirmInput =
+                            $("confirmPassword");
+
+
+                        const current =
+                            currentInput
+                                ? currentInput.value
+                                : "";
+
+
+                        const newPassword =
+                            newInput
+                                ? newInput.value
+                                : "";
+
+
+                        const confirmPassword =
+                            confirmInput
+                                ? confirmInput.value
+                                : "";
+
+
+                        if (
+                            !current ||
+                            !newPassword ||
+                            !confirmPassword
+                        ) {
+
+                            showToast(
+                                lang.passwordRequired,
+                                "error"
+                            );
+
+                            return;
+                        }
+
+
+                        if (
+                            user.password &&
+                            current !== user.password
+                        ) {
+
+                            showToast(
+                                lang.currentPasswordIncorrect,
+                                "error"
+                            );
+
+
+                            if (currentInput) {
+                                currentInput.focus();
+                            }
+
+                            return;
+                        }
+
+
+                        if (
+                            newPassword !==
+                            confirmPassword
+                        ) {
+
+                            showToast(
+                                lang.passwordMismatch,
+                                "error"
+                            );
+
+                            return;
+                        }
+
+
+                        if (
+                            newPassword.length < 6
+                        ) {
+
+                            showToast(
+                                lang.passwordTooShort,
+                                "error"
+                            );
+
+                            return;
+                        }
+
+
+                        user.password =
+                            newPassword;
+
+
+                        saveUser();
+
+
+                        closeModal(
+                            "passwordModal"
+                        );
+
+
+                        showToast(
+                            lang.passwordUpdated,
+                            "success"
+                        );
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               SESSIONS
+            ================================================= */
+
+            const sessionsBtn =
+                $("sessionsBtn");
+
+
+            if (sessionsBtn) {
+
+                sessionsBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const lang =
+                            translations.English;
+
+
+                        const deviceInfo =
+                            $("deviceInfo");
+
+
+                        if (deviceInfo) {
+
+                            const isMobile =
+                                /Android|iPhone|iPad|iPod|Mobile/i
+                                    .test(
+                                        navigator.userAgent
+                                    );
+
+
+                            deviceInfo.textContent =
+                                isMobile
+                                    ? lang.mobileDevice
+                                    : lang.desktopDevice;
+                        }
+
+
+                        openModal(
+                            "sessionsModal"
+                        );
+
+                    }
+                );
+            }
+
+
+            const logoutAllBtn =
+                $("logoutAllBtn");
+
+
+            if (logoutAllBtn) {
+
+                logoutAllBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        localStorage.removeItem(
+                            "rideMitraLoggedIn"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraSession"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraAuthToken"
+                        );
+
+
+                        closeModal(
+                            "sessionsModal"
+                        );
+
+
+                        showToast(
+                            translations.English.sessionEnded,
+                            "success"
+                        );
+
+
+                        setTimeout(function () {
+
+                            window.location.href =
+                                "login.html";
+
+                        }, 900);
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               SUPPORT
+            ================================================= */
+
+            const supportBtn =
+                $("supportBtn");
+
+
+            if (supportBtn) {
+
+                supportBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const subject =
+                            $("supportSubject");
+
+                        const message =
+                            $("supportMessage");
+
+
+                        if (subject) {
+                            subject.value = "";
+                        }
+
+
+                        if (message) {
+                            message.value = "";
+                        }
+
+
+                        openModal(
+                            "supportModal"
+                        );
+
+                    }
+                );
+            }
+
+
+            const sendSupportBtn =
+                $("sendSupportBtn");
+
+
+            if (sendSupportBtn) {
+
+                sendSupportBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const lang =
+                            translations.English;
+
+
+                        const subjectInput =
+                            $("supportSubject");
+
+                        const messageInput =
+                            $("supportMessage");
+
+
+                        const subject =
+                            subjectInput
+                                ? subjectInput.value.trim()
+                                : "";
+
+
+                        const message =
+                            messageInput
+                                ? messageInput.value.trim()
+                                : "";
+
+
+                        if (
+                            !subject ||
+                            !message
+                        ) {
+
+                            showToast(
+                                lang.fillSupport,
+                                "error"
+                            );
+
+                            return;
+                        }
+
+
+                        const supportRequests =
+                            safeJSONParse(
+                                localStorage.getItem(
+                                    "rideMitraSupportRequests"
+                                ),
+                                []
+                            );
+
+
+                        supportRequests.push({
+
+                            id:
+                                Date.now().toString(),
+
+                            userName:
+                                user.name ||
+                                "User",
+
+                            userEmail:
+                                user.email ||
+                                "",
+
+                            subject:
+                                subject,
+
+                            message:
+                                message,
+
+                            date:
+                                new Date().toISOString(),
+
+                            status:
+                                "Open"
+
+                        });
+
+
+                        localStorage.setItem(
+                            "rideMitraSupportRequests",
+                            JSON.stringify(
+                                supportRequests
+                            )
+                        );
+
+
+                        closeModal(
+                            "supportModal"
+                        );
+
+
+                        showToast(
+                            lang.supportSent,
+                            "success"
+                        );
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               FAQ
+            ================================================= */
+
+            function renderFAQ() {
+
+                const container =
+                    $("faqContainer");
+
+
+                if (!container) return;
+
+
+                const items =
+                    translations.English.faqItems;
+
+
+                container.innerHTML =
+                    "";
+
+
+                items.forEach(function (item) {
+
+                    const faqItem =
+                        document.createElement("div");
+
+
+                    faqItem.className =
+                        "faq-item";
+
+
+                    const question =
+                        document.createElement("button");
+
+
+                    question.type =
+                        "button";
+
+
+                    question.className =
+                        "faq-question";
+
+
+                    const questionText =
+                        document.createElement("span");
+
+
+                    questionText.textContent =
+                        item.q;
+
+
+                    const icon =
+                        document.createElement("i");
+
+
+                    icon.className =
+                        "fa-solid fa-chevron-down";
+
+
+                    question.appendChild(
+                        questionText
+                    );
+
+                    question.appendChild(
+                        icon
+                    );
+
+
+                    const answer =
+                        document.createElement("div");
+
+
+                    answer.className =
+                        "faq-answer";
+
+
+                    answer.textContent =
+                        item.a;
+
+
+                    question.addEventListener(
+                        "click",
+                        function () {
+
+                            faqItem.classList.toggle(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    faqItem.appendChild(
+                        question
+                    );
+
+                    faqItem.appendChild(
+                        answer
+                    );
+
+                    container.appendChild(
+                        faqItem
+                    );
+
+                });
+            }
+
+
+            const faqBtn =
+                $("faqBtn");
+
+
+            if (faqBtn) {
+
+                faqBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        renderFAQ();
+
+                        openModal(
+                            "faqModal"
+                        );
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               LOGOUT
+            ================================================= */
+
+            const logoutButton =
+                $("logoutButton");
+
+
+            if (logoutButton) {
+
+                logoutButton.addEventListener(
+                    "click",
+                    function () {
+
+                        localStorage.removeItem(
+                            "rideMitraLoggedIn"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraSession"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraAuthToken"
+                        );
+
+
+                        showToast(
+                            translations.English.loggedOut,
+                            "success"
+                        );
+
+
+                        setTimeout(function () {
+
+                            window.location.href =
+                                "login.html";
+
+                        }, 700);
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               DELETE ACCOUNT
+            ================================================= */
+
+            const deleteAccountBtn =
+                $("deleteAccountBtn");
+
+
+            if (deleteAccountBtn) {
+
+                deleteAccountBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        openModal(
+                            "deleteModal"
+                        );
+
+                    }
+                );
+            }
+
+
+            const confirmDeleteBtn =
+                $("confirmDeleteBtn");
+
+
+            if (confirmDeleteBtn) {
+
+                confirmDeleteBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        localStorage.removeItem(
+                            "rideMitraLoggedIn"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraUser"
+                        );
+
+                        localStorage.removeItem(
+                            "rm_current_user"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraSettings"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraSupportRequests"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraSession"
+                        );
+
+                        localStorage.removeItem(
+                            "rideMitraAuthToken"
+                        );
+
+
+                        closeModal(
+                            "deleteModal"
+                        );
+
+
+                        showToast(
+                            translations.English.accountDeleted,
+                            "success"
+                        );
+
+
+                        setTimeout(function () {
+
+                            window.location.href =
+                                "signup.html";
+
+                        }, 900);
+
+                    }
+                );
+            }
+
+
+            /* =================================================
+               INITIAL LOAD
+            ================================================= */
+
+            loadSettingsIntoUI();
+
+            loadProfile();
+
+            applyLanguage();
+
+        });
+    </script>
+
+</body>
+
+</html>
