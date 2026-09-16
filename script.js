@@ -963,8 +963,7 @@ function initializePublishRide() {
 /* =========================================================
    DISPLAY RIDES
 ========================================================= */
-
-function initializeRideList() {
+async function initializeRideList() {
     const container =
         document.getElementById(
             "publishedRide"
@@ -972,10 +971,12 @@ function initializeRideList() {
 
     if (!container) return;
 
-    renderRides();
+    const rides = await getRides();
+
+    renderRides(rides);
 }
 
-function renderRides(filteredRides = null) {
+async function renderRides(filteredRides = null) {
     const container =
         document.getElementById(
             "publishedRide"
@@ -984,7 +985,7 @@ function renderRides(filteredRides = null) {
     if (!container) return;
 
     const rides =
-        filteredRides || getRides();
+        filteredRides || await getRides();
 
     if (!rides.length) {
         container.innerHTML = `
@@ -1284,7 +1285,7 @@ function initializeRideSearch() {
 
     searchButton.addEventListener(
         "click",
-        function () {
+        async function () {
             const from =
                 document
                     .getElementById("fromLocation")
@@ -1305,7 +1306,7 @@ function initializeRideSearch() {
                     ?.value || "";
 
             const rides =
-                getRides();
+                await getRides();
 
             const filtered =
                 rides.filter(ride => {
