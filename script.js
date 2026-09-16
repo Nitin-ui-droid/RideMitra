@@ -803,18 +803,25 @@ function initializeSidebar() {
    RIDE STORAGE
 ========================================================= */
 
-function getRides() {
-    return getStoredJSON(
-        RM_STORAGE.RIDES,
-        []
-    );
-}
+async function getRides() {
+    try {
+        const response = await rideMitraFetch(
+            RIDEMITRA_CONFIG.ENDPOINTS.RIDES
+        );
 
-function saveRides(rides) {
-    return setStoredJSON(
-        RM_STORAGE.RIDES,
-        rides
-    );
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            console.error("Get Rides Error:", data);
+            return [];
+        }
+
+        return data.rides || [];
+
+    } catch (error) {
+        console.error("Get Rides API Error:", error);
+        return [];
+    }
 }
 
 
