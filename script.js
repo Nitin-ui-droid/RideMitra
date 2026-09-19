@@ -142,7 +142,16 @@ function isLoggedIn() {
     return !!user && status === "true";
 }
 
-function logoutUser(redirect = true) {
+async function logoutUser(redirect = true) {
+    try {
+        await rideMitraFetch(
+            RIDEMITRA_CONFIG.ENDPOINTS.LOGOUT,
+            { method: "POST" }
+        );
+    } catch (error) {
+        console.error("Logout API Error:", error);
+    }
+
     removeStorageItem(
         RM_STORAGE.CURRENT_USER
     );
@@ -162,96 +171,93 @@ function logoutUser(redirect = true) {
 
 
 /* =========================================================
-   USER DATABASE — LOCAL FALLBACK
+   REAL BACKEND AUTH
+   (talks to Flask + MySQL via /api/register and /api/login —
+    NOT localStorage. This makes accounts work across browsers
+    and devices.)
 ========================================================= */
 
-function getUsers() {
-    return getStoredJSON(
-        RM_STORAGE.USERS,
-        []
-    );
-}
-
-function saveUsers(users) {
-    return setStoredJSON(
-        RM_STORAGE.USERS,
-        users
-    );
-}
-
-function registerLocalUser({
+async function registerRemoteUser({
     name,
     email,
     phone,
     password
 }) {
-    const users = getUsers();
+    try {
+        const response = await rideMitraFetch(
+            RIDEMITRA_CONFIG.ENDPOINTS.REGISTER,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    name,
+                    email,
+                    phone,
+                    password
+                })
+            }
+        );
 
-    const normalizedEmail =
-        email.trim().toLowerCase();
+        const data = await response.json();
 
-    const exists = users.some(user =>
-        user.email &&
-        user.email.toLowerCase() === normalizedEmail
-    );
+        if (!response.ok || !data.success) {
+            return {
+                success: false,
+                message: data.message || "Unable to create account."
+            };
+        }
 
-    if (exists) {
+        return {
+            success: true,
+            user: data.user
+        };
+
+    } catch (error) {
+        console.error("Register API Error:", error);
+
         return {
             success: false,
-            message: "An account with this email already exists."
+            message: "Network error. Please try again."
         };
     }
-
-    const user = {
-        id: generateId("user"),
-        name: name.trim(),
-        email: normalizedEmail,
-        phone: phone.trim(),
-        password,
-        avatar: "",
-        createdAt: new Date().toISOString()
-    };
-
-    users.push(user);
-    saveUsers(users);
-
-    return {
-        success: true,
-        user
-    };
 }
 
-function loginLocalUser(email, password) {
-    const users = getUsers();
+async function loginRemoteUser(email, password) {
+    try {
+        const response = await rideMitraFetch(
+            RIDEMITRA_CONFIG.ENDPOINTS.LOGIN,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
 
-    const normalizedEmail =
-        email.trim().toLowerCase();
+        const data = await response.json();
 
-    const user = users.find(item =>
-        item.email &&
-        item.email.toLowerCase() === normalizedEmail &&
-        item.password === password
-    );
+        if (!response.ok || !data.success) {
+            return {
+                success: false,
+                message: data.message || "Invalid email or password."
+            };
+        }
 
-    if (!user) {
+        saveCurrentUser(data.user);
+
+        return {
+            success: true,
+            user: data.user
+        };
+
+    } catch (error) {
+        console.error("Login API Error:", error);
+
         return {
             success: false,
-            message: "Invalid email or password."
+            message: "Network error. Please try again."
         };
     }
-
-    const safeUser = {
-        ...user
-    };
-
-    delete safeUser.password;
-
-    saveCurrentUser(safeUser);
-
-    return {
-        success: true,
-        user: safeUser
-    };
 }
 
 
@@ -392,7 +398,7 @@ function initializeSignup() {
 
     form.addEventListener(
         "submit",
-        function (event) {
+        async function (event) {
             event.preventDefault();
 
             const name =
@@ -474,7 +480,7 @@ function initializeSignup() {
 
             try {
                 const result =
-                    registerLocalUser({
+                    await registerRemoteUser({
                         name,
                         email,
                         phone,
@@ -564,7 +570,7 @@ function initializeLogin() {
 
     form.addEventListener(
         "submit",
-        function (event) {
+        async function (event) {
             event.preventDefault();
 
             const email =
@@ -591,9 +597,9 @@ function initializeLogin() {
                 "info"
             );
 
-            setTimeout(() => {
+            {
                 const result =
-                    loginLocalUser(
+                    await loginRemoteUser(
                         email,
                         password
                     );
@@ -621,7 +627,7 @@ function initializeLogin() {
                         "dashboard.html";
                 }, 700);
 
-            }, 350);
+            }
         }
     );
 }
@@ -816,12 +822,33 @@ async function getRides() {
             return [];
         }
 
-        return data.rides || [];
+        return (data.rides || []).map(normalizeRide);
 
     } catch (error) {
         console.error("Get Rides API Error:", error);
         return [];
     }
+}
+
+/* Backend sends ride_id / from_location / destination / travel_date /
+   departure_time / available_seats / price_per_seat / driver_name.
+   The rest of this file expects id / from / to / date / time /
+   availableSeats / price / driverName — map it here in one place. */
+function normalizeRide(ride) {
+    return {
+        id: ride.ride_id,
+        driverId: ride.driver_id,
+        driverName: ride.driver_name,
+        from: ride.from_location,
+        to: ride.destination,
+        date: ride.travel_date,
+        time: ride.departure_time,
+        seats: ride.available_seats,
+        availableSeats: ride.available_seats,
+        price: ride.price_per_seat,
+        vehicle: ride.vehicle,
+        status: ride.status
+    };
 }
 
 
@@ -837,7 +864,7 @@ function initializePublishRide() {
 
     form.addEventListener(
         "submit",
-        function (event) {
+        async function (event) {
             event.preventDefault();
 
             const currentUser =
@@ -923,38 +950,51 @@ function initializePublishRide() {
                 return;
             }
 
-            const ride = {
-                id: generateId("ride"),
-                driverId: currentUser.id,
-                driverName: currentUser.name,
-                driverEmail: currentUser.email,
-                from,
-                to,
-                date,
-                time,
-                seats,
-                availableSeats: seats,
-                price,
-                vehicle,
-                status: "active",
-                createdAt: new Date().toISOString()
-            };
+            try {
+                const response = await rideMitraFetch(
+                    RIDEMITRA_CONFIG.ENDPOINTS.RIDES,
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            from,
+                            to,
+                            date,
+                            time,
+                            seats,
+                            price,
+                            vehicle
+                        })
+                    }
+                );
 
-            const rides = getRides();
+                const data = await response.json();
 
-            rides.unshift(ride);
+                if (!response.ok || !data.success) {
+                    showToast(
+                        data.message || "Unable to publish ride.",
+                        "error"
+                    );
+                    return;
+                }
 
-            saveRides(rides);
+                showToast(
+                    "Ride published successfully!",
+                    "success"
+                );
 
-            showToast(
-                "Ride published successfully!",
-                "success"
-            );
+                setTimeout(() => {
+                    window.location.href =
+                        "find-ride.html";
+                }, 900);
 
-            setTimeout(() => {
-                window.location.href =
-                    "find-ride.html";
-            }, 900);
+            } catch (error) {
+                console.error("Publish Ride API Error:", error);
+
+                showToast(
+                    "Network error. Please try again.",
+                    "error"
+                );
+            }
         }
     );
 }
@@ -1153,7 +1193,7 @@ async function renderRides(filteredRides = null) {
    BOOK RIDE
 ========================================================= */
 
-function bookRide(rideId) {
+async function bookRide(rideId) {
     const user =
         getCurrentUser();
 
@@ -1172,7 +1212,7 @@ function bookRide(rideId) {
     }
 
     const rides =
-        getRides();
+        await getRides();
 
     const ride =
         rides.find(item =>
@@ -1189,7 +1229,7 @@ function bookRide(rideId) {
     }
 
     if (
-        ride.driverId === user.id
+        ride.driverId === user.user_id
     ) {
         showToast(
             "You cannot book your own ride.",
@@ -1210,28 +1250,6 @@ function bookRide(rideId) {
         return;
     }
 
-    const bookings =
-        getStoredJSON(
-            RM_STORAGE.BOOKINGS,
-            []
-        );
-
-    const alreadyBooked =
-        bookings.some(
-            booking =>
-                booking.rideId === rideId &&
-                booking.passengerId === user.id
-        );
-
-    if (alreadyBooked) {
-        showToast(
-            "You have already booked this ride.",
-            "warning"
-        );
-
-        return;
-    }
-
     const confirmed =
         window.confirm(
             `Book ride from ${ride.from} to ${ride.to} for ${formatCurrency(ride.price)}?`
@@ -1239,35 +1257,43 @@ function bookRide(rideId) {
 
     if (!confirmed) return;
 
-    const booking = {
-        id: generateId("booking"),
-        rideId,
-        passengerId: user.id,
-        passengerName: user.name,
-        driverId: ride.driverId,
-        status: "confirmed",
-        seats: 1,
-        bookedAt: new Date().toISOString()
-    };
+    try {
+        const response = await rideMitraFetch(
+            RIDEMITRA_CONFIG.ENDPOINTS.BOOKINGS,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    ride_id: rideId,
+                    seats_booked: 1
+                })
+            }
+        );
 
-    bookings.push(booking);
+        const data = await response.json();
 
-    setStoredJSON(
-        RM_STORAGE.BOOKINGS,
-        bookings
-    );
+        if (!response.ok || !data.success) {
+            showToast(
+                data.message || "Unable to book this ride.",
+                "error"
+            );
+            return;
+        }
 
-    ride.availableSeats =
-        Number(ride.availableSeats) - 1;
+        showToast(
+            "Ride booked successfully! The driver has been notified.",
+            "success"
+        );
 
-    saveRides(rides);
+        renderRides();
 
-    showToast(
-        "Ride booked successfully!",
-        "success"
-    );
+    } catch (error) {
+        console.error("Book Ride API Error:", error);
 
-    renderRides();
+        showToast(
+            "Network error. Please try again.",
+            "error"
+        );
+    }
 }
 
 
@@ -1350,31 +1376,26 @@ function initializeRideSearch() {
    DASHBOARD STATISTICS
 ========================================================= */
 
-function initializeDashboardStats() {
+async function initializeDashboardStats() {
     const user =
         getCurrentUser();
 
     if (!user) return;
 
     const rides =
-        getRides();
+        await getRides();
 
-    const bookings =
-        getStoredJSON(
-            RM_STORAGE.BOOKINGS,
-            []
-        );
+    /* NOTE: there is no /api/bookings (GET) endpoint yet to list
+       "rides I booked as a passenger" — add one on the backend
+       (SELECT ... FROM ride_bookings WHERE passenger_id = %s) to
+       make this stat accurate. For now it stays at 0 instead of
+       showing stale/fake localStorage data. */
+    const myBookings = [];
 
     const myPublished =
         rides.filter(
             ride =>
-                ride.driverId === user.id
-        );
-
-    const myBookings =
-        bookings.filter(
-            booking =>
-                booking.passengerId === user.id
+                ride.driverId === user.user_id
         );
 
     document
@@ -1452,6 +1473,64 @@ function initializeActiveNavigation() {
 
 
 /* =========================================================
+   BOOKING NOTIFICATIONS (for the driver)
+   Polls /api/notifications every 20s and toasts any new,
+   unread booking so the driver sees it without refreshing.
+   Needs the /api/notifications backend route (see the
+   app.py patch) to actually return data — until that route
+   exists this silently does nothing.
+========================================================= */
+
+function initializeNotificationPolling() {
+    const user = getCurrentUser();
+
+    if (!user) return;
+
+    async function checkNotifications() {
+        try {
+            const response = await rideMitraFetch(
+                "/api/notifications"
+            );
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+
+            if (!data.success) return;
+
+            const unread = (data.notifications || [])
+                .filter(n => !n.is_read);
+
+            unread.forEach(n => {
+                showToast(n.message, "info");
+            });
+
+            document
+                .querySelectorAll("[data-notification-count]")
+                .forEach(el => {
+                    el.textContent = data.unread_count || 0;
+                    el.style.display =
+                        data.unread_count ? "inline-block" : "none";
+                });
+
+            if (unread.length) {
+                await rideMitraFetch(
+                    "/api/notifications/read",
+                    { method: "POST" }
+                );
+            }
+
+        } catch (error) {
+            console.error("Notifications Poll Error:", error);
+        }
+    }
+
+    checkNotifications();
+    setInterval(checkNotifications, 20000);
+}
+
+
+/* =========================================================
    GLOBAL INITIALIZATION
 ========================================================= */
 
@@ -1478,9 +1557,11 @@ document.addEventListener(
 
         initializeActiveNavigation();
 
+        initializeNotificationPolling();
+
         console.log(
             "%cRideMitra Application Initialized",
             "color:#ff5a1f;font-weight:bold;"
         );
     }
-);  
+);
